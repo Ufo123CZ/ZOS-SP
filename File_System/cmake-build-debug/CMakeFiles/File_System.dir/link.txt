@@ -1,1 +1,1 @@
-/usr/bin/c++ -g CMakeFiles/File_System.dir/src/main.cpp.o CMakeFiles/File_System.dir/src/FileCheck/FileCheck.cpp.o -o File_System 
+/usr/bin/c++ -g CMakeFiles/File_System.dir/src/main.cpp.o CMakeFiles/File_System.dir/src/FileCheck/FileCheck.cpp.o CMakeFiles/File_System.dir/src/Utils/UtilF.cpp.o CMakeFiles/File_System.dir/src/Commands/Format.cpp.o -o File_System 

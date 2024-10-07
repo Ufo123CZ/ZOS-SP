@@ -1,6 +1,10 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/File_System.dir/src/Commands/Format.cpp.o"
+  "CMakeFiles/File_System.dir/src/Commands/Format.cpp.o.d"
   "CMakeFiles/File_System.dir/src/FileCheck/FileCheck.cpp.o"
   "CMakeFiles/File_System.dir/src/FileCheck/FileCheck.cpp.o.d"
+  "CMakeFiles/File_System.dir/src/Utils/UtilF.cpp.o"
+  "CMakeFiles/File_System.dir/src/Utils/UtilF.cpp.o.d"
   "CMakeFiles/File_System.dir/src/main.cpp.o"
   "CMakeFiles/File_System.dir/src/main.cpp.o.d"
   "File_System"

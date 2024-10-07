@@ -129,6 +129,30 @@ File_System/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/build
 .PHONY : File_System/fast
 
+src/Commands/Format.o: src/Commands/Format.cpp.o
+.PHONY : src/Commands/Format.o
+
+# target to build an object file
+src/Commands/Format.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/Format.cpp.o
+.PHONY : src/Commands/Format.cpp.o
+
+src/Commands/Format.i: src/Commands/Format.cpp.i
+.PHONY : src/Commands/Format.i
+
+# target to preprocess a source file
+src/Commands/Format.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/Format.cpp.i
+.PHONY : src/Commands/Format.cpp.i
+
+src/Commands/Format.s: src/Commands/Format.cpp.s
+.PHONY : src/Commands/Format.s
+
+# target to generate assembly for a file
+src/Commands/Format.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/Format.cpp.s
+.PHONY : src/Commands/Format.cpp.s
+
 src/FileCheck/FileCheck.o: src/FileCheck/FileCheck.cpp.o
 .PHONY : src/FileCheck/FileCheck.o
 
@@ -152,6 +176,30 @@ src/FileCheck/FileCheck.s: src/FileCheck/FileCheck.cpp.s
 src/FileCheck/FileCheck.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/FileCheck/FileCheck.cpp.s
 .PHONY : src/FileCheck/FileCheck.cpp.s
+
+src/Utils/UtilF.o: src/Utils/UtilF.cpp.o
+.PHONY : src/Utils/UtilF.o
+
+# target to build an object file
+src/Utils/UtilF.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Utils/UtilF.cpp.o
+.PHONY : src/Utils/UtilF.cpp.o
+
+src/Utils/UtilF.i: src/Utils/UtilF.cpp.i
+.PHONY : src/Utils/UtilF.i
+
+# target to preprocess a source file
+src/Utils/UtilF.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Utils/UtilF.cpp.i
+.PHONY : src/Utils/UtilF.cpp.i
+
+src/Utils/UtilF.s: src/Utils/UtilF.cpp.s
+.PHONY : src/Utils/UtilF.s
+
+# target to generate assembly for a file
+src/Utils/UtilF.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Utils/UtilF.cpp.s
+.PHONY : src/Utils/UtilF.cpp.s
 
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
@@ -186,9 +234,15 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... File_System"
+	@echo "... src/Commands/Format.o"
+	@echo "... src/Commands/Format.i"
+	@echo "... src/Commands/Format.s"
 	@echo "... src/FileCheck/FileCheck.o"
 	@echo "... src/FileCheck/FileCheck.i"
 	@echo "... src/FileCheck/FileCheck.s"
+	@echo "... src/Utils/UtilF.o"
+	@echo "... src/Utils/UtilF.i"
+	@echo "... src/Utils/UtilF.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
