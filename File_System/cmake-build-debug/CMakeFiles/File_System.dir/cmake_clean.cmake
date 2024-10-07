@@ -1,14 +1,16 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/File_System.dir/src/Commands/Format.cpp.o"
-  "CMakeFiles/File_System.dir/src/Commands/Format.cpp.o.d"
-  "CMakeFiles/File_System.dir/src/FileCheck/FileCheck.cpp.o"
-  "CMakeFiles/File_System.dir/src/FileCheck/FileCheck.cpp.o.d"
-  "CMakeFiles/File_System.dir/src/Utils/UtilF.cpp.o"
-  "CMakeFiles/File_System.dir/src/Utils/UtilF.cpp.o.d"
-  "CMakeFiles/File_System.dir/src/main.cpp.o"
-  "CMakeFiles/File_System.dir/src/main.cpp.o.d"
-  "File_System"
+  "CMakeFiles/File_System.dir/src/Commands/Format.cpp.obj"
+  "CMakeFiles/File_System.dir/src/Commands/Format.cpp.obj.d"
+  "CMakeFiles/File_System.dir/src/FileCheck/FileCheck.cpp.obj"
+  "CMakeFiles/File_System.dir/src/FileCheck/FileCheck.cpp.obj.d"
+  "CMakeFiles/File_System.dir/src/Utils/UtilF.cpp.obj"
+  "CMakeFiles/File_System.dir/src/Utils/UtilF.cpp.obj.d"
+  "CMakeFiles/File_System.dir/src/main.cpp.obj"
+  "CMakeFiles/File_System.dir/src/main.cpp.obj.d"
+  "File_System.exe"
+  "File_System.exe.manifest"
   "File_System.pdb"
+  "libFile_System.dll.a"
 )
 
 # Per-language clean rules from dependency scanning.
