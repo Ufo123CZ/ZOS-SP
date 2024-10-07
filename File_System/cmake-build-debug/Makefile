@@ -129,29 +129,53 @@ File_System/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/build
 .PHONY : File_System/fast
 
-main.o: main.cpp.o
-.PHONY : main.o
+src/FileCheck/FileCheck.o: src/FileCheck/FileCheck.cpp.o
+.PHONY : src/FileCheck/FileCheck.o
 
 # target to build an object file
-main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/main.cpp.o
-.PHONY : main.cpp.o
+src/FileCheck/FileCheck.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/FileCheck/FileCheck.cpp.o
+.PHONY : src/FileCheck/FileCheck.cpp.o
 
-main.i: main.cpp.i
-.PHONY : main.i
+src/FileCheck/FileCheck.i: src/FileCheck/FileCheck.cpp.i
+.PHONY : src/FileCheck/FileCheck.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/main.cpp.i
-.PHONY : main.cpp.i
+src/FileCheck/FileCheck.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/FileCheck/FileCheck.cpp.i
+.PHONY : src/FileCheck/FileCheck.cpp.i
 
-main.s: main.cpp.s
-.PHONY : main.s
+src/FileCheck/FileCheck.s: src/FileCheck/FileCheck.cpp.s
+.PHONY : src/FileCheck/FileCheck.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/main.cpp.s
-.PHONY : main.cpp.s
+src/FileCheck/FileCheck.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/FileCheck/FileCheck.cpp.s
+.PHONY : src/FileCheck/FileCheck.cpp.s
+
+src/main.o: src/main.cpp.o
+.PHONY : src/main.o
+
+# target to build an object file
+src/main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/main.cpp.o
+.PHONY : src/main.cpp.o
+
+src/main.i: src/main.cpp.i
+.PHONY : src/main.i
+
+# target to preprocess a source file
+src/main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/main.cpp.i
+.PHONY : src/main.cpp.i
+
+src/main.s: src/main.cpp.s
+.PHONY : src/main.s
+
+# target to generate assembly for a file
+src/main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/main.cpp.s
+.PHONY : src/main.cpp.s
 
 # Help Target
 help:
@@ -162,9 +186,12 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... File_System"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... src/FileCheck/FileCheck.o"
+	@echo "... src/FileCheck/FileCheck.i"
+	@echo "... src/FileCheck/FileCheck.s"
+	@echo "... src/main.o"
+	@echo "... src/main.i"
+	@echo "... src/main.s"
 .PHONY : help
 
 
