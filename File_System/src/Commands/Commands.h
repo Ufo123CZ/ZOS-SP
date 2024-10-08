@@ -3,9 +3,19 @@
 
 #include <string>
 
-class Format {
-public:
-    static std::string formatFile(FILE* file, const std::string &size);
-};
+namespace Format {
+    std::string formatFile(std::string& filename, std::string& size);
+}
 
+namespace MkDir {
+    std::string makeDirectory(std::string& filename, std::string& dirname);
+}
+
+namespace Cd {
+    std::string changeDirectory(std::string& filename, std::string& dirname);
+}
+
+namespace Help {
+    void writeHelpInConsole();
+}
 #endif //COMMANDS_H
