@@ -51,7 +51,7 @@ int main(int argc, char* argv[]) {
     {"mv", [argv](std::string& arg1, std::string& arg2){ }},
     {"rm", [argv](std::string& arg1, std::string&){ }},
     {"mkdir", [argv](std::string& arg1, std::string&){ std::cout << MkDir::makeDirectory(reinterpret_cast<std::string &>(argv[1]), arg1, currentCluster) << std::endl; }},
-    {"rmdir", [argv](std::string& arg1, std::string&){ }},
+    {"rmdir", [argv](std::string& arg1, std::string&){ std::cout << RmDir::removeDirectory(reinterpret_cast<std::string &>(argv[1]), arg1, currentCluster) << std::endl; }},
     {"ls", [argv](std::string& arg1, std::string&) {
         std::string listThis;
         if (arg1.empty()) { listThis = currentDirectory; } else { listThis = arg1; }
@@ -62,7 +62,10 @@ int main(int argc, char* argv[]) {
         std::pair<std::string, int32_t> result = Cd::changeDirectory(reinterpret_cast<std::string &>(argv[1]), currentDirectory, arg1, currentCluster);
         if (result.second != -1) { currentDirectory = result.first; currentCluster = result.second; }
     }},
-    {"pwd", [argv](std::string&, std::string&){ }},
+    {"pwd", [argv](std::string&, std::string&) {
+        if (currentDirectory.empty()) { std::cout << "You are in root" << std::endl; }
+        else { std::cout << "Current directory: " << currentDirectory << std::endl; }
+    }},
     {"info", [argv](std::string& arg1, std::string& arg2){ }},
     {"incp", [argv](std::string& arg1, std::string& arg2){ }},
     {"outcp", [argv](std::string& arg1, std::string& arg2){ }},
