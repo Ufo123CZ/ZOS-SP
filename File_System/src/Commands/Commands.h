@@ -8,11 +8,11 @@ namespace Format {
 }
 
 namespace MkDir {
-    std::string makeDirectory(std::string& filename, std::string& dirname);
+    std::string makeDirectory(std::string& filename, std::string& dirname, int32_t currentCluster);
 }
 
 namespace Cd {
-    std::string changeDirectory(std::string& filename, std::string& dirname);
+    std::pair<std::string, int32_t> changeDirectory(std::string& filename, std::string& currentDirectory, std::string& dirname, int32_t currentCluster);
 }
 
 namespace Help {

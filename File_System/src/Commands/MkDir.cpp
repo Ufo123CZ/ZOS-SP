@@ -8,7 +8,7 @@
 #include <iostream>
 
 namespace MkDir {
-    std::string makeDirectory(std::string& filename, std::string& dirname) {
+    std::string makeDirectory(std::string& filename, std::string& dirname, int32_t currentCluster) {
         std::fstream fs(filename, std::ios::in | std::ios::out | std::ios::binary);
         if (!fs) {
             return "Cannot open filesystem";
@@ -58,6 +58,7 @@ namespace MkDir {
         newDirItem.isFile = false;
         newDirItem.size = 0;
         newDirItem.start_cluster = freeCluster;
+        newDirItem.parent_cluster = currentCluster;
 
         // Append the new directory item to the list
         dirItems.push_back(newDirItem);

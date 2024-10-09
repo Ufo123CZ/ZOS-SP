@@ -34,6 +34,7 @@ public:
     bool isFile;
     int32_t size;
     int32_t start_cluster;
+    int32_t parent_cluster;
 };
 
 #endif //ITEMS_H

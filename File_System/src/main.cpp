@@ -8,10 +8,11 @@
 #include "Utils/Utils.h"
 #include "Commands/Commands.h"
 
-#define COMAND_PREFIX "~$ "
+#define COMAND_PREFIX1 "~"
+#define COMAND_PREFIX2 "$"
 
-std::string currentDirectory;
-
+int currentCluster = 0;
+std::string currentDirectory = "";
 
 int main(int argc, char* argv[]) {
     // Check if the number of arguments is correct
@@ -46,11 +47,14 @@ int main(int argc, char* argv[]) {
     {"cp", [argv](std::string& arg1, std::string& arg2){ }},
     {"mv", [argv](std::string& arg1, std::string& arg2){ }},
     {"rm", [argv](std::string& arg1, std::string&){ }},
-    {"mkdir", [argv](std::string& arg1, std::string&){ std::cout << MkDir::makeDirectory(reinterpret_cast<std::string &>(argv[1]), arg1) << std::endl; }},
+    {"mkdir", [argv](std::string& arg1, std::string&){ std::cout << MkDir::makeDirectory(reinterpret_cast<std::string &>(argv[1]), arg1, currentCluster) << std::endl; }},
     {"rmdir", [argv](std::string& arg1, std::string&){ }},
     {"ls", [argv](std::string& arg1, std::string&){ }},
     {"cat", [argv](std::string& arg1, std::string&){ }},
-    {"cd", [argv](std::string& arg1, std::string&){ currentDirectory = Cd::changeDirectory(reinterpret_cast<std::string &>(argv[1]), arg1); }},
+    {"cd", [argv](std::string& arg1, std::string&) {
+        std::pair<std::string, int32_t> result = Cd::changeDirectory(reinterpret_cast<std::string &>(argv[1]), currentDirectory, arg1, currentCluster);
+        if (result.second != -1) { currentDirectory = result.first; currentCluster = result.second; }
+    }},
     {"pwd", [argv](std::string&, std::string&){ }},
     {"info", [argv](std::string& arg1, std::string& arg2){ }},
     {"incp", [argv](std::string& arg1, std::string& arg2){ }},
@@ -71,7 +75,7 @@ int main(int argc, char* argv[]) {
         // Get the input
         std::string input;
         std::string command, arg1, arg2;
-        std::cout << COMAND_PREFIX;
+        std::cout << COMAND_PREFIX1 << currentDirectory << COMAND_PREFIX2;
         getline(std::cin, input);
 
         // Parse the input
