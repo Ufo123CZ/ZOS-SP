@@ -1,6 +1,7 @@
 #include "Commands.h"
 #include "../Utils/Items.h"
 #include "../Utils/FAT.h"
+#include <vector>
 #include <string>
 #include <cstring>
 #include <fstream>
@@ -20,14 +21,21 @@ namespace MkDir {
             return "Can't read filesystem description";
         }
 
-        // Check if directory already exists
+        // Read existing directory items
         fs.seekg(desc.data_start_address, std::ios::beg);
+        std::vector<DirectoryItem> dirItems;
         DirectoryItem dirItem{};
         while (fs.read(reinterpret_cast<char*>(&dirItem), sizeof(dirItem))) {
-            if (dirItem.name == dirname && !dirItem.isFile) {
+            dirItems.push_back(dirItem);
+        }
+
+        // Check if directory already exists
+        for (const auto& item : dirItems) {
+            if (item.name == dirname && !item.isFile) {
                 return "Directory already exists";
             }
         }
+
 
         // Initialize FAT and read clusters from file
         FAT fat;
@@ -43,6 +51,7 @@ namespace MkDir {
         fat.Clusters[freeCluster] = FAT_FILE_END;
         fat.writeToFile(filename);
 
+
         DirectoryItem newDirItem{};
         strncpy(newDirItem.name, dirname.c_str(), ITEM_MAX_NAME - 1);
         newDirItem.name[sizeof(newDirItem.name) - 1] = '\0';
@@ -50,12 +59,17 @@ namespace MkDir {
         newDirItem.size = 0;
         newDirItem.start_cluster = freeCluster;
 
-        // Write the new directory item to the filesystem
+        // Append the new directory item to the list
+        dirItems.push_back(newDirItem);
+
+        // Write all directory items back to the file
         fs.clear(); // Clear EOF flag
-        fs.seekp(0, std::ios::end);
-        fs.write(reinterpret_cast<char*>(&newDirItem), sizeof(newDirItem));
+        fs.seekp(desc.data_start_address, std::ios::beg);
+        for (const auto& item : dirItems) {
+            fs.write(reinterpret_cast<const char*>(&item), sizeof(item));
+        }
         if (!fs) {
-            return "Cannot write directory item";
+            return "Cannot write directory items";
         }
 
         return "Directory created successfully";

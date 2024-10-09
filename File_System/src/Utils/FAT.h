@@ -7,9 +7,9 @@
 class FAT {
 public:
     int Clusters[FORMAT_CLUSTER_COUNT] = {};
-    void writeToFile(const std::string& filename);
     void readFromFile(const std::string& filename);
-    int findFreeCluster() const;
+    void writeToFile(const std::string& filename);
+    [[nodiscard]] int findFreeCluster() const;
 };
 
 #endif //FAT_H

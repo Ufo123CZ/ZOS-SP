@@ -2,18 +2,6 @@
 #include <fstream>
 #include <stdexcept>
 
-void FAT::writeToFile(const std::string& filename) {
-    std::ofstream ofs(filename, std::ios::binary);
-    if (!ofs) {
-        throw std::runtime_error("Cannot open file for writing");
-    }
-
-
-    for (const auto& index : Clusters) {
-        ofs.write(reinterpret_cast<const char*>(&index), sizeof(index));
-    }
-}
-
 void FAT::readFromFile(const std::string& filename) {
     std::ifstream ifs(filename, std::ios::binary);
     if (!ifs) {
@@ -25,6 +13,17 @@ void FAT::readFromFile(const std::string& filename) {
     }
 }
 
+void FAT::writeToFile(const std::string& filename) {
+    std::ofstream ofs(filename, std::ios::binary);
+    if (!ofs) {
+        throw std::runtime_error("Cannot open file for writing");
+    }
+
+
+    for (const auto& index : Clusters) {
+        ofs.write(reinterpret_cast<const char*>(&index), sizeof(index));
+    }
+}
 
 int FAT::findFreeCluster() const {
     for (int i = 0; i < FORMAT_CLUSTER_COUNT; ++i) {
