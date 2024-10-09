@@ -21,20 +21,21 @@ namespace Format {
         // Convert the size to bytes
         int disk_size = std::stoi(match[1]) * 1024 * 1024; // 1MB = 1024KB = 1024 * 1024 bytes
 
+        // Calculate the cluster count
+        int cluster_count = disk_size / FORMAT_CLUSTER_SIZE;
+
         // Calculate the start addresses
         int fat_start_address = sizeof(Description);
-        int data_start_address = fat_start_address + sizeof(int32_t) * FORMAT_CLUSTER_COUNT;
+        int data_start_address = fat_start_address + sizeof(int32_t) * cluster_count;
 
 
         Description desc = {
             FORMAT_NAME,
             disk_size,
             FORMAT_CLUSTER_SIZE,
-            FORMAT_CLUSTER_COUNT,
-            FORMAT_CLUSTER_COUNT,
+            cluster_count,
             fat_start_address,
             data_start_address
-
         };
 
         // Write the description to the file
@@ -42,12 +43,14 @@ namespace Format {
 
         // Initialize and write the FAT clusters
         FAT fat;
-        for (int & Cluster : fat.Clusters) {
-            Cluster = FAT_UNUSED;
+        fat.clusterCount = cluster_count;
+        fat.Clusters = new int32_t[cluster_count];
+        for (int i = 0; i < cluster_count; ++i) {
+            fat.Clusters[i] = FAT_UNUSED;
         }
         // Write the Clusters directly after the Description
-        for (const auto& index : fat.Clusters) {
-            ofs.write(reinterpret_cast<const char*>(&index), sizeof(index));
+        for (int i = 0; i < cluster_count; ++i) {
+            ofs.write(reinterpret_cast<char*>(&fat.Clusters[i]), sizeof(int32_t));
         }
 
         return "File formatted successfully";

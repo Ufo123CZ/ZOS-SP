@@ -10,7 +10,6 @@
 // Constants for the filesystem
 #define FORMAT_NAME "root"
 #define FORMAT_CLUSTER_SIZE 1024
-#define FORMAT_CLUSTER_COUNT 512
 
 // Special markers in the FAT table
 constexpr int32_t FAT_UNUSED = INT32_MAX - 1;
@@ -24,7 +23,6 @@ public:
     int32_t disk_size;
     int32_t cluster_size;
     int32_t cluster_count;
-    int32_t fat_count;
     int32_t fat_start_address;
     int32_t data_start_address;
 };

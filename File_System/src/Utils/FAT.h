@@ -6,9 +6,11 @@
 
 class FAT {
 public:
-    int Clusters[FORMAT_CLUSTER_COUNT] = {};
+    int clusterCount = 0;
+    int32_t* Clusters = nullptr;
+
     void readFromFile(const std::string& filename);
-    void writeToFile(const std::string& filename);
+    void writeToFile(const std::string& filename) const;
     [[nodiscard]] int findFreeCluster() const;
 };
 
