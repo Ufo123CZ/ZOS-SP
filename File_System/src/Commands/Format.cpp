@@ -22,9 +22,8 @@ namespace Format {
         int disk_size = std::stoi(match[1]) * 1024 * 1024; // 1MB = 1024KB = 1024 * 1024 bytes
 
         // Calculate the start addresses
-        int fat1_start_address = sizeof(Description);
-        int fat2_start_address = fat1_start_address + sizeof(int32_t) * FORMAT_CLUSTER_COUNT;
-        int data_start_address = fat2_start_address + sizeof(int32_t) * FORMAT_CLUSTER_COUNT;
+        int fat_start_address = sizeof(Description);
+        int data_start_address = fat_start_address + sizeof(int32_t) * FORMAT_CLUSTER_COUNT;
 
 
         Description desc = {
@@ -33,8 +32,7 @@ namespace Format {
             FORMAT_CLUSTER_SIZE,
             FORMAT_CLUSTER_COUNT,
             FORMAT_CLUSTER_COUNT,
-            fat1_start_address,
-            fat2_start_address,
+            fat_start_address,
             data_start_address
 
         };

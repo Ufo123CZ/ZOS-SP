@@ -25,8 +25,7 @@ public:
     int32_t cluster_size;
     int32_t cluster_count;
     int32_t fat_count;
-    int32_t fat1_start_address;
-    int32_t fat2_start_address;
+    int32_t fat_start_address;
     int32_t data_start_address;
 };
 
