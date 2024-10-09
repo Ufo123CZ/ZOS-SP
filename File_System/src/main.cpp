@@ -11,8 +11,11 @@
 #define COMAND_PREFIX1 "~"
 #define COMAND_PREFIX2 "$"
 
-int currentCluster = 0;
-std::string currentDirectory = "";
+#define ROOT_CLUSTER (-2)
+
+// Global variables
+int currentCluster = ROOT_CLUSTER;
+std::string currentDirectory;
 
 int main(int argc, char* argv[]) {
     // Check if the number of arguments is correct
@@ -49,7 +52,11 @@ int main(int argc, char* argv[]) {
     {"rm", [argv](std::string& arg1, std::string&){ }},
     {"mkdir", [argv](std::string& arg1, std::string&){ std::cout << MkDir::makeDirectory(reinterpret_cast<std::string &>(argv[1]), arg1, currentCluster) << std::endl; }},
     {"rmdir", [argv](std::string& arg1, std::string&){ }},
-    {"ls", [argv](std::string& arg1, std::string&){ }},
+    {"ls", [argv](std::string& arg1, std::string&) {
+        std::string listThis;
+        if (arg1.empty()) { listThis = currentDirectory; } else { listThis = arg1; }
+        std::cout << Ls::listDirectory(reinterpret_cast<std::string &>(argv[1]), listThis) << std::endl;
+    }},
     {"cat", [argv](std::string& arg1, std::string&){ }},
     {"cd", [argv](std::string& arg1, std::string&) {
         std::pair<std::string, int32_t> result = Cd::changeDirectory(reinterpret_cast<std::string &>(argv[1]), currentDirectory, arg1, currentCluster);

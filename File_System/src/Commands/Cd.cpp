@@ -25,7 +25,7 @@ namespace Cd {
             // Check if the current directory is the root
             if (currentDirectory.empty() && currentCluster == 0) {
                 std::cerr << "Already at root directory" << std::endl;
-                return {"", 0};
+                return {"", -2};
             }
 
             // Read the current directory's parent cluster
@@ -45,7 +45,7 @@ namespace Cd {
         fs.seekg(desc.data_start_address, std::ios::beg);
         DirectoryItem dirItem{};
         while (fs.read(reinterpret_cast<char*>(&dirItem), sizeof(dirItem))) {
-            if (dirItem.name == dirname && !dirItem.isFile) {
+            if (dirItem.name == dirname && !dirItem.isFile && dirItem.parent_cluster == currentCluster) {
                 std::string newDir = currentDirectory + "/" + dirItem.name;
                 return {newDir, dirItem.start_cluster};
             }

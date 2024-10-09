@@ -31,7 +31,7 @@ namespace MkDir {
 
         // Check if directory already exists
         for (const auto& item : dirItems) {
-            if (item.name == dirname && !item.isFile) {
+            if (item.name == dirname && !item.isFile && item.parent_cluster == currentCluster) {
                 return "Directory already exists";
             }
         }

@@ -201,6 +201,30 @@ src/Commands/Help.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/Help.cpp.s
 .PHONY : src/Commands/Help.cpp.s
 
+src/Commands/Ls.o: src/Commands/Ls.cpp.o
+.PHONY : src/Commands/Ls.o
+
+# target to build an object file
+src/Commands/Ls.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/Ls.cpp.o
+.PHONY : src/Commands/Ls.cpp.o
+
+src/Commands/Ls.i: src/Commands/Ls.cpp.i
+.PHONY : src/Commands/Ls.i
+
+# target to preprocess a source file
+src/Commands/Ls.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/Ls.cpp.i
+.PHONY : src/Commands/Ls.cpp.i
+
+src/Commands/Ls.s: src/Commands/Ls.cpp.s
+.PHONY : src/Commands/Ls.s
+
+# target to generate assembly for a file
+src/Commands/Ls.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/Ls.cpp.s
+.PHONY : src/Commands/Ls.cpp.s
+
 src/Commands/MkDir.o: src/Commands/MkDir.cpp.o
 .PHONY : src/Commands/MkDir.o
 
@@ -339,6 +363,9 @@ help:
 	@echo "... src/Commands/Help.o"
 	@echo "... src/Commands/Help.i"
 	@echo "... src/Commands/Help.s"
+	@echo "... src/Commands/Ls.o"
+	@echo "... src/Commands/Ls.i"
+	@echo "... src/Commands/Ls.s"
 	@echo "... src/Commands/MkDir.o"
 	@echo "... src/Commands/MkDir.i"
 	@echo "... src/Commands/MkDir.s"
