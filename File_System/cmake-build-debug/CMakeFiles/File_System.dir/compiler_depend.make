@@ -157,6 +157,12 @@ CMakeFiles/File_System.dir/src/Commands/Cd.cpp.o: /mnt/c/Users/Ufo12/FAV/R3ZS/SP
   /usr/include/x86_64-linux-gnu/bits/posix2_lim.h \
   /usr/include/x86_64-linux-gnu/bits/xopen_lim.h \
   /usr/include/x86_64-linux-gnu/bits/uio_lim.h \
+  /mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Utils/Utils.h \
+  /usr/include/c++/12/vector \
+  /usr/include/c++/12/bits/stl_uninitialized.h \
+  /usr/include/c++/12/bits/stl_vector.h \
+  /usr/include/c++/12/bits/stl_bvector.h \
+  /usr/include/c++/12/bits/vector.tcc \
   /usr/include/c++/12/fstream \
   /usr/include/c++/12/istream \
   /usr/include/c++/12/ios \
@@ -1028,13 +1034,14 @@ CMakeFiles/File_System.dir/src/Commands/MkDir.cpp.o: /mnt/c/Users/Ufo12/FAV/R3ZS
   /usr/include/x86_64-linux-gnu/bits/posix2_lim.h \
   /usr/include/x86_64-linux-gnu/bits/xopen_lim.h \
   /usr/include/x86_64-linux-gnu/bits/uio_lim.h \
-  /mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Utils/FAT.h \
-  /mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Utils/Items.h \
+  /mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Utils/Utils.h \
   /usr/include/c++/12/vector \
   /usr/include/c++/12/bits/stl_uninitialized.h \
   /usr/include/c++/12/bits/stl_vector.h \
   /usr/include/c++/12/bits/stl_bvector.h \
   /usr/include/c++/12/bits/vector.tcc \
+  /mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Utils/FAT.h \
+  /mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Utils/Items.h \
   /usr/include/c++/12/cstring \
   /usr/include/string.h \
   /usr/include/strings.h \
@@ -1803,6 +1810,11 @@ CMakeFiles/File_System.dir/src/Utils/Utils.cpp.o: /mnt/c/Users/Ufo12/FAV/R3ZS/SP
   /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
   /usr/include/c++/12/bits/charconv.h \
   /usr/include/c++/12/bits/basic_string.tcc \
+  /usr/include/c++/12/vector \
+  /usr/include/c++/12/bits/stl_uninitialized.h \
+  /usr/include/c++/12/bits/stl_vector.h \
+  /usr/include/c++/12/bits/stl_bvector.h \
+  /usr/include/c++/12/bits/vector.tcc \
   /usr/include/c++/12/iostream \
   /usr/include/c++/12/ostream \
   /usr/include/c++/12/ios \
@@ -1854,11 +1866,24 @@ CMakeFiles/File_System.dir/src/Utils/Utils.cpp.o: /mnt/c/Users/Ufo12/FAV/R3ZS/SP
   /usr/include/c++/12/bits/codecvt.h \
   /usr/include/x86_64-linux-gnu/c++/12/bits/basic_file.h \
   /usr/include/x86_64-linux-gnu/c++/12/bits/c++io.h \
-  /usr/include/c++/12/bits/fstream.tcc
+  /usr/include/c++/12/bits/fstream.tcc \
+  /usr/include/c++/12/sstream \
+  /usr/include/c++/12/bits/sstream.tcc \
+  /mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Utils/Items.h \
+  /usr/include/c++/12/climits \
+  /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h \
+  /usr/lib/gcc/x86_64-linux-gnu/12/include/syslimits.h \
+  /usr/include/limits.h \
+  /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/local_lim.h \
+  /usr/include/linux/limits.h \
+  /usr/include/x86_64-linux-gnu/bits/posix2_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/xopen_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/uio_lim.h
 
 CMakeFiles/File_System.dir/src/main.cpp.o: /mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/main.cpp \
   /usr/include/stdc-predef.h \
-  /usr/include/c++/12/iostream \
+  /usr/include/c++/12/cstring \
   /usr/include/x86_64-linux-gnu/c++/12/bits/c++config.h \
   /usr/include/x86_64-linux-gnu/c++/12/bits/os_defines.h \
   /usr/include/features.h \
@@ -1871,6 +1896,13 @@ CMakeFiles/File_System.dir/src/main.cpp.o: /mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-S
   /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
   /usr/include/x86_64-linux-gnu/c++/12/bits/cpu_defines.h \
   /usr/include/c++/12/pstl/pstl_config.h \
+  /usr/include/string.h \
+  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
+  /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h \
+  /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
+  /usr/include/strings.h \
+  /usr/include/c++/12/iostream \
   /usr/include/c++/12/ostream \
   /usr/include/c++/12/ios \
   /usr/include/c++/12/iosfwd \
@@ -1879,10 +1911,8 @@ CMakeFiles/File_System.dir/src/main.cpp.o: /mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-S
   /usr/include/c++/12/bits/postypes.h \
   /usr/include/c++/12/cwchar \
   /usr/include/wchar.h \
-  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
   /usr/include/x86_64-linux-gnu/bits/floatn.h \
   /usr/include/x86_64-linux-gnu/bits/floatn-common.h \
-  /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h \
   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h \
   /usr/include/x86_64-linux-gnu/bits/wchar.h \
   /usr/include/x86_64-linux-gnu/bits/types/wint_t.h \
@@ -1890,8 +1920,6 @@ CMakeFiles/File_System.dir/src/main.cpp.o: /mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-S
   /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/__FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
-  /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
-  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
   /usr/include/c++/12/exception \
   /usr/include/c++/12/bits/exception.h \
   /usr/include/c++/12/bits/exception_ptr.h \
@@ -2103,8 +2131,6 @@ CMakeFiles/File_System.dir/src/main.cpp.o: /mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-S
 
 /mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/main.cpp:
 
-/mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Utils/Utils.h:
-
 /mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Utils/Utils.cpp:
 
 /mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/FileCheck/FileCheck.h:
@@ -2124,6 +2150,8 @@ CMakeFiles/File_System.dir/src/main.cpp.o: /mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-S
 /usr/include/c++/12/bits/regex_executor.h:
 
 /usr/include/c++/12/bits/regex.h:
+
+/usr/include/c++/12/bits/regex_compiler.tcc:
 
 /usr/include/alloca.h:
 
@@ -2186,10 +2214,6 @@ CMakeFiles/File_System.dir/src/main.cpp.o: /mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-S
 /usr/include/c++/12/bits/stl_iterator.h:
 
 /usr/include/c++/12/bits/ostream_insert.h:
-
-/usr/include/c++/12/vector:
-
-/usr/include/x86_64-linux-gnu/gnu/stubs.h:
 
 /usr/include/x86_64-linux-gnu/bits/endian.h:
 
@@ -2316,6 +2340,10 @@ CMakeFiles/File_System.dir/src/main.cpp.o: /mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-S
 /usr/include/x86_64-linux-gnu/bits/locale.h:
 
 /mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/Commands.h:
+
+/usr/include/c++/12/bits/regex_compiler.h:
+
+/usr/include/c++/12/system_error:
 
 /usr/include/x86_64-linux-gnu/bits/struct_mutex.h:
 
@@ -2491,6 +2519,20 @@ CMakeFiles/File_System.dir/src/main.cpp.o: /mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-S
 
 /usr/include/x86_64-linux-gnu/c++/12/bits/basic_file.h:
 
+/mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Utils/Utils.h:
+
+/usr/include/c++/12/bits/cxxabi_init_exception.h:
+
+/usr/include/x86_64-linux-gnu/gnu/stubs.h:
+
+/usr/include/c++/12/vector:
+
+/usr/include/c++/12/bits/streambuf_iterator.h:
+
+/usr/include/c++/12/bits/stl_vector.h:
+
+/usr/include/c++/12/bits/stl_bvector.h:
+
 /usr/include/c++/12/fstream:
 
 /usr/include/c++/12/ios:
@@ -2500,8 +2542,6 @@ CMakeFiles/File_System.dir/src/main.cpp.o: /mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-S
 /usr/include/c++/12/exception:
 
 /usr/include/c++/12/bits/exception_ptr.h:
-
-/usr/include/c++/12/bits/cxxabi_init_exception.h:
 
 /usr/include/c++/12/typeinfo:
 
@@ -2561,8 +2601,6 @@ CMakeFiles/File_System.dir/src/main.cpp.o: /mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-S
 
 /usr/include/c++/12/bits/unique_ptr.h:
 
-/usr/include/c++/12/bits/streambuf_iterator.h:
-
 /usr/include/c++/12/bits/basic_ios.tcc:
 
 /usr/include/c++/12/ctime:
@@ -2595,6 +2633,10 @@ CMakeFiles/File_System.dir/src/main.cpp.o: /mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-S
 
 /usr/include/c++/12/bits/locale_facets_nonio.tcc:
 
+/usr/include/c++/12/bits/stl_uninitialized.h:
+
+/usr/include/c++/12/bits/locale_conv.h:
+
 /usr/include/c++/12/bits/basic_ios.h:
 
 /usr/include/c++/12/sstream:
@@ -2604,10 +2646,6 @@ CMakeFiles/File_System.dir/src/main.cpp.o: /mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-S
 /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h:
 
 /usr/include/c++/12/deque:
-
-/usr/include/c++/12/bits/locale_conv.h:
-
-/usr/include/c++/12/bits/stl_uninitialized.h:
 
 /usr/include/features-time64.h:
 
@@ -2637,18 +2675,8 @@ CMakeFiles/File_System.dir/src/main.cpp.o: /mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-S
 
 /usr/include/c++/12/bits/stl_tempbuf.h:
 
-/usr/include/c++/12/bits/stl_vector.h:
-
-/usr/include/c++/12/bits/stl_bvector.h:
-
 /usr/include/c++/12/bits/regex_constants.h:
 
 /usr/include/c++/12/bits/regex_automaton.tcc:
 
 /usr/include/c++/12/bits/regex_scanner.tcc:
-
-/usr/include/c++/12/system_error:
-
-/usr/include/c++/12/bits/regex_compiler.h:
-
-/usr/include/c++/12/bits/regex_compiler.tcc:

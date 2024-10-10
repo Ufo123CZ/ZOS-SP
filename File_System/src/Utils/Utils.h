@@ -8,7 +8,7 @@ namespace Utils {
     void initializeFilesystem(std::string& filename);
     void loadFilesystem(std::string& filename);
     void endProgram();
-    std::pair<std::string, int> splitPath(std::string& filename, std::string& path, std::string& currentPath, int currentCluster);
+    std::pair<std::string, int32_t> splitPath(std::string& path);
 }
 
 #endif // UTILS_H

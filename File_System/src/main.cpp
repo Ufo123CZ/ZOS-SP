@@ -1,3 +1,4 @@
+#include <cstring>
 #include <iostream>
 #include <string>
 #include <unordered_map>
@@ -16,7 +17,8 @@
 
 // Global variables
 int currentCluster = ROOT_CLUSTER;
-std::string currentDirectory;
+std::string currentPath = ROOT_DIRECTORY;
+std::string filename;
 
 int main(int argc, char* argv[]) {
     // Check if the number of arguments is correct
@@ -31,6 +33,10 @@ int main(int argc, char* argv[]) {
         exit(1);
     }
     std::cout << "File is a .dat file" << std::endl;
+
+    // in filename store argv[1]
+    filename = argv[1];
+
 
     // Check if the file exists
     if (std::ifstream ifs(argv[1], std::ios::binary); !ifs) {
@@ -51,21 +57,22 @@ int main(int argc, char* argv[]) {
     {"cp", [argv](std::string& arg1, std::string& arg2){ }},
     {"mv", [argv](std::string& arg1, std::string& arg2){ }},
     {"rm", [argv](std::string& arg1, std::string&){ }},
-    {"mkdir", [argv](std::string& arg1, std::string&){ std::cout << MkDir::makeDirectory(reinterpret_cast<std::string &>(argv[1]), arg1, currentCluster) << std::endl; }},
-    {"rmdir", [argv](std::string& arg1, std::string&){ std::cout << RmDir::removeDirectory(reinterpret_cast<std::string &>(argv[1]), arg1, currentCluster) << std::endl; }},
+    {"mkdir", [](std::string& arg1, std::string&) {
+        std::cout << MkDir::makeDirectory(arg1) << std::endl;
+    }},
+    {"rmdir", [argv](std::string& arg1, std::string&) {
+        // std::cout << RmDir::removeDirectory(reinterpret_cast<std::string &>(argv[1]), arg1, currentCluster) << std::endl;
+    }},
     {"ls", [argv](std::string& arg1, std::string&) {
-        std::string listThis;
-        if (arg1.empty()) { listThis = currentDirectory; } else { listThis = arg1; }
-        std::cout << Ls::listDirectory(reinterpret_cast<std::string &>(argv[1]), listThis) << std::endl;
+        std::cout << Ls::listDirectory(arg1) << std::endl;
     }},
     {"cat", [argv](std::string& arg1, std::string&){ }},
-    {"cd", [argv](std::string& arg1, std::string&) {
-        std::pair<std::string, int32_t> result = Cd::changeDirectory(reinterpret_cast<std::string &>(argv[1]), currentDirectory, arg1, currentCluster);
-        if (result.second != -1) { currentDirectory = result.first; currentCluster = result.second; }
+    {"cd", [](std::string& arg1, std::string&) {
+        Cd::changeDirectory(arg1);
     }},
     {"pwd", [argv](std::string&, std::string&) {
-        if (currentDirectory.empty()) { std::cout << "You are in root" << std::endl; }
-        else { std::cout << "Current directory: " << currentDirectory << std::endl; }
+        if (currentPath == "/") { std::cout << "You are in root" << std::endl; }
+        else { std::cout << "Current directory: " << currentPath << std::endl; }
     }},
     {"info", [argv](std::string& arg1, std::string& arg2){ }},
     {"incp", [argv](std::string& arg1, std::string& arg2){ }},
@@ -86,7 +93,13 @@ int main(int argc, char* argv[]) {
         // Get the input
         std::string input;
         std::string command, arg1, arg2;
-        std::cout << COMAND_PREFIX1 << currentDirectory << COMAND_PREFIX2;
+        if (currentPath[currentPath.size() - 1] == '/') {
+            currentPath = currentPath.substr(0, currentPath.size() - 1);
+        }
+        if (currentPath.empty()) {
+            currentPath = ROOT_DIRECTORY;
+        }
+        std::cout << COMAND_PREFIX1 << currentPath << COMAND_PREFIX2;
         getline(std::cin, input);
 
         // Parse the input

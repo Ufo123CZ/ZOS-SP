@@ -5,8 +5,8 @@
 
 
 
-namespace MkDir {
-    std::string makeDirectory(std::string& filename, std::string& dirname, int32_t currentCluster);
+namespace  MkDir {
+    std::string makeDirectory(std::string& dirname);
 }
 
 namespace RmDir {
@@ -14,11 +14,11 @@ namespace RmDir {
 }
 
 namespace Ls {
-    std::string listDirectory(std::string& filename, std::string& path);
+    std::string listDirectory(std::string& path);
 }
 
 namespace Cd {
-    std::pair<std::string, int32_t> changeDirectory(std::string& filename, std::string& currentDirectory, std::string& dirname, int32_t currentCluster);
+    void changeDirectory(std::string& path);
 }
 
 namespace Format {
