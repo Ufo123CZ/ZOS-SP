@@ -11,7 +11,8 @@
 #define COMAND_PREFIX1 "~"
 #define COMAND_PREFIX2 "$"
 
-#define ROOT_CLUSTER (-2)
+#define ROOT_CLUSTER (0)
+#define ROOT_DIRECTORY ("/")
 
 // Global variables
 int currentCluster = ROOT_CLUSTER;

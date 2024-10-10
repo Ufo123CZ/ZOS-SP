@@ -48,10 +48,25 @@ namespace Format {
         for (int i = 0; i < cluster_count; ++i) {
             fat.Clusters[i] = FAT_UNUSED;
         }
+
+        // Create the root directory
+        DirectoryItem rootDir = {
+            "/",
+            false,
+            0,
+            0,
+            0
+        };
+        fat.Clusters[0] = 0;
+
         // Write the Clusters directly after the Description
         for (int i = 0; i < cluster_count; ++i) {
             ofs.write(reinterpret_cast<char*>(&fat.Clusters[i]), sizeof(int32_t));
         }
+
+        // Write the root directory to the file
+        ofs.seekp(data_start_address, std::ios::beg);
+        ofs.write(reinterpret_cast<char*>(&rootDir), sizeof(DirectoryItem));
 
         return "File formatted successfully";
     }
