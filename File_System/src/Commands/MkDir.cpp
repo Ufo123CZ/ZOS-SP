@@ -39,15 +39,13 @@ namespace MkDir {
         if (dirname.empty()) {
             return "Invalid directory name";
         }
-        int32_t newParentCluster = currentCluster;
-
         path = path.substr(0, path.find_last_of('/'));
 
         std::pair<std::string, int32_t> result = Utils::splitPath(path);
         if (result.first.empty() && result.second == -1) {
             return "Path does not exist";
         }
-        newParentCluster = result.second;
+        int32_t newParentCluster = result.second;
 
         // Initialize FAT and read clusters from file
         FAT fat;

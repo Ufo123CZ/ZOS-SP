@@ -35,38 +35,51 @@ std::pair<std::string, int32_t> splitPath(std::string& path) {
         tempPath = path.substr(0);
         cluster = 0;
     } else {
-        std::vector<std::string> directories;
+        //relative path
         tempPath = currentPath;
         if (tempPath[tempPath.size() - 1] != '/') {
             tempPath += "/";
         }
 
-        // Fill directories vector with path directories
         std::istringstream iss(path);
         std::string dir;
         while (std::getline(iss, dir, '/')) {
             if (dir.empty()) continue;
-            directories.push_back(dir);
-        }
 
-        // Update tempPath with directories and create the absolute path
-        for (const auto& dir : directories) {
             if (dir == "..") {
-                if (tempPath == "/") {
-                    continue;
-                }
-                if (tempPath[tempPath.size() - 1] == '/') {
-                    tempPath = tempPath.substr(0, tempPath.size() - 1);
-                }
                 tempPath = tempPath.substr(0, tempPath.find_last_of('/')) + "/";
-                if (tempPath == "/") {
-                    cluster = 0;
-
-                }
             } else {
                 tempPath += dir + "/";
             }
         }
+
+        //
+        // // Fill directories vector with path directories
+        // std::istringstream iss(path);
+        // std::string dir;
+        // while (std::getline(iss, dir, '/')) {
+        //     if (dir.empty()) continue;
+        //     directories.push_back(dir);
+        // }
+        //
+        // // Update tempPath with directories and create the absolute path
+        // for (const auto& dir : directories) {
+        //     if (dir == "..") {
+        //         if (tempPath == "/") {
+        //             continue;
+        //         }
+        //         if (tempPath[tempPath.size() - 1] == '/') {
+        //             tempPath = tempPath.substr(0, tempPath.size() - 1);
+        //         }
+        //         tempPath = tempPath.substr(0, tempPath.find_last_of('/')) + "/";
+        //         if (tempPath == "/") {
+        //             cluster = 0;
+        //
+        //         }
+        //     } else {
+        //         tempPath += dir + "/";
+        //     }
+        // }
     }
     // Read the filesystem description
     std::ifstream ifs(filename, std::ios::binary);
