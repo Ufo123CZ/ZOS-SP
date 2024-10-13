@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <cstdint>
 
 namespace Utils {
     void initializeFilesystem(std::string& filename);

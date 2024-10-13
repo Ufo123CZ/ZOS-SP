@@ -83,53 +83,5 @@ namespace MkDir {
         }
 
         return "Directory created successfully";
-
-
-
-        // // Check if directory already exists
-        // for (const auto& item : dirItems) {
-        //     if (item.name == dirname && !item.isFile && item.parent_cluster == currentCluster) {
-        //         return "Directory already exists";
-        //     }
-        // }
-        //
-        //
-        // // Initialize FAT and read clusters from file
-        // FAT fat;
-        // fat.readFromFile(filename);
-        //
-        // // Find the first free cluster
-        // int freeCluster = fat.findFreeCluster();
-        // if (freeCluster == -1) {
-        //     return "No free clusters available";
-        // }
-        //
-        // // Mark the cluster as used
-        // fat.Clusters[freeCluster] = FAT_FILE_END;
-        // fat.writeToFile(filename);
-        //
-        //
-        // DirectoryItem newDirItem{};
-        // strncpy(newDirItem.name, dirname.c_str(), ITEM_MAX_NAME - 1);
-        // newDirItem.name[sizeof(newDirItem.name) - 1] = '\0';
-        // newDirItem.isFile = false;
-        // newDirItem.size = 0;
-        // newDirItem.start_cluster = freeCluster;
-        // newDirItem.parent_cluster = currentCluster;
-        //
-        // // Append the new directory item to the list
-        // dirItems.push_back(newDirItem);
-        //
-        // // Write all directory items back to the file
-        // fs.clear(); // Clear EOF flag
-        // fs.seekp(desc.data_start_address, std::ios::beg);
-        // for (const auto& item : dirItems) {
-        //     fs.write(reinterpret_cast<const char*>(&item), sizeof(item));
-        // }
-        // if (!fs) {
-        //     return "Cannot write directory items";
-        // }
-        //
-        // return "Directory created successfully";
     }
 }

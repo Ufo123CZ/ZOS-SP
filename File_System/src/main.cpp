@@ -9,6 +9,7 @@
 #include "Utils/Utils.h"
 #include "Commands/Commands.h"
 
+
 #define COMAND_PREFIX1 "~"
 #define COMAND_PREFIX2 "$"
 
@@ -81,8 +82,8 @@ int main(int argc, char* argv[]) {
     {"format", [argv](std::string& arg1, std::string&){ std::cout << Format::formatFile(reinterpret_cast<std::string &>(argv[1]), arg1) << std::endl; }},
 
     {"exit", [](std::string&, std::string&) { Utils::endProgram(); }},
-    {"help", [](std::string&, std::string&) { Help::writeHelpInConsole(); }}
-    // {"test", [](std::string& arg1, std::string& arg2) { std::cout << "Command: test, Arg1: " << arg1 << ", Arg2: " << arg2 << std::endl; }}
+    {"help", [](std::string&, std::string&) { Help::writeHelpInConsole(); }},
+    {"test", [](std::string&, std::string&) { std::cout << "Command: test, Current path: " << currentPath << ", Current cluster: " << currentCluster << std::endl;}}
 };
 
     while (true) {
