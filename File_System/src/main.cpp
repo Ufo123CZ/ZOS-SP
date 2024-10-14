@@ -72,11 +72,11 @@ int main(int argc, char* argv[]) {
         Cd::changeDirectory(arg1);
     }},
     {"pwd", [](std::string&, std::string&) {
-        if (currentPath == "/") { std::cout << "You are in root" << std::endl; }
-        else { std::cout << "Current directory: " << currentPath << std::endl; }
+        if (currentPath == "/") std::cout << "You are in root" << std::endl;
+        else std::cout << "Current directory: " << currentPath << std::endl;
     }},
     {"info", [argv](std::string& arg1, std::string& arg2){ }},
-    {"incp", [argv](std::string& arg1, std::string& arg2){ }},
+    {"incp", [](std::string& arg1, std::string& arg2){ std::cout << Incp::copyFileInput(arg1, arg2) << std::endl; }},
     {"outcp", [argv](std::string& arg1, std::string& arg2){ }},
     {"load", [argv](std::string& arg1, std::string&){ }},
     {"format", [argv](std::string& arg1, std::string&){ std::cout << Format::formatFile(reinterpret_cast<std::string &>(argv[1]), arg1) << std::endl; }},

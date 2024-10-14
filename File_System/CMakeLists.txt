@@ -20,7 +20,7 @@ add_executable(File_System
 #        src/Commands/Cat.cpp
         src/Commands/Cd.cpp
 #        src/Commands/Info.cpp
-#        src/Commands/Incp.cpp
+        src/Commands/Incp.cpp
 #        src/Commands/Outcp.cpp
 #        src/Commands/Load.cpp
         src/Commands/Format.cpp

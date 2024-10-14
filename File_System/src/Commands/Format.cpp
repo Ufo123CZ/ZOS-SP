@@ -15,6 +15,8 @@ namespace Format {
         std::smatch match;
 
         if (!std::regex_match(size, match, sizeRegex)) {
+            // Close filesystem
+            ofs.close();
             return "Invalid size or wrong format. Size must be in MB";
         }
 
@@ -67,6 +69,9 @@ namespace Format {
         // Write the root directory to the file
         ofs.seekp(data_start_address, std::ios::beg);
         ofs.write(reinterpret_cast<char*>(&rootDir), sizeof(DirectoryItem));
+
+        // Close the file
+        ofs.close();
 
         return "File formatted successfully";
     }

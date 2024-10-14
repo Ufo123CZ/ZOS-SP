@@ -3,6 +3,7 @@
 
 #include "Items.h"
 #include <string>
+#include <cstdint>
 
 class FAT {
 public:

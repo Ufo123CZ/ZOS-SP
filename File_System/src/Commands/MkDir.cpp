@@ -23,6 +23,8 @@ namespace MkDir {
         Description desc{};
         fs.read(reinterpret_cast<char*>(&desc), sizeof(desc));
         if (!fs) {
+            // Close filesystem
+            fs.close();
             return "Can't read filesystem description";
         }
 
@@ -37,15 +39,31 @@ namespace MkDir {
         // New directory name is last directory in path
         std::string dirname = path.substr(path.find_last_of('/') + 1);
         if (dirname.empty()) {
+            // Close filesystem
+            fs.close();
             return "Invalid directory name";
         }
-        path = path.substr(0, path.find_last_of('/'));
 
-        std::pair<std::string, int32_t> result = Utils::splitPath(path);
-        if (result.first.empty() && result.second == -1) {
-            return "Path does not exist";
+        int32_t newParentCluster = currentCluster;
+        if (path.contains('/')) {
+            path = path.substr(0, path.find_last_of('/'));
+            std::pair<std::string, int32_t> result = Utils::splitPath(path);
+            if (result.first.empty() && result.second == -1) {
+                // Close filesystem
+                fs.close();
+                return "Path does not exist";
+            }
+            newParentCluster = result.second;
         }
-        int32_t newParentCluster = result.second;
+
+        // Check if the directory already exists
+        for (const auto& item : dirItems) {
+            if (item.parent_cluster == newParentCluster && strcmp(item.name, dirname.c_str()) == 0) {
+                // Close filesystem
+                fs.close();
+                return "Directory already exists";
+            }
+        }
 
         // Initialize FAT and read clusters from file
         FAT fat;
@@ -54,6 +72,8 @@ namespace MkDir {
         // Find the first free cluster
         int freeCluster = fat.findFreeCluster();
         if (freeCluster == -1) {
+            // Close filesystem
+            fs.close();
             return "No free clusters available";
         }
 
@@ -79,8 +99,13 @@ namespace MkDir {
             fs.write(reinterpret_cast<const char*>(&item), sizeof(item));
         }
         if (!fs) {
+            // Close filesystem
+            fs.close();
             return "Cannot write directory items";
         }
+
+        // Close filesystem
+        fs.close();
 
         return "Directory created successfully";
     }

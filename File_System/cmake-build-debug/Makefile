@@ -201,6 +201,30 @@ src/Commands/Help.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/Help.cpp.s
 .PHONY : src/Commands/Help.cpp.s
 
+src/Commands/Incp.o: src/Commands/Incp.cpp.o
+.PHONY : src/Commands/Incp.o
+
+# target to build an object file
+src/Commands/Incp.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/Incp.cpp.o
+.PHONY : src/Commands/Incp.cpp.o
+
+src/Commands/Incp.i: src/Commands/Incp.cpp.i
+.PHONY : src/Commands/Incp.i
+
+# target to preprocess a source file
+src/Commands/Incp.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/Incp.cpp.i
+.PHONY : src/Commands/Incp.cpp.i
+
+src/Commands/Incp.s: src/Commands/Incp.cpp.s
+.PHONY : src/Commands/Incp.s
+
+# target to generate assembly for a file
+src/Commands/Incp.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/Incp.cpp.s
+.PHONY : src/Commands/Incp.cpp.s
+
 src/Commands/Ls.o: src/Commands/Ls.cpp.o
 .PHONY : src/Commands/Ls.o
 
@@ -387,6 +411,9 @@ help:
 	@echo "... src/Commands/Help.o"
 	@echo "... src/Commands/Help.i"
 	@echo "... src/Commands/Help.s"
+	@echo "... src/Commands/Incp.o"
+	@echo "... src/Commands/Incp.i"
+	@echo "... src/Commands/Incp.s"
 	@echo "... src/Commands/Ls.o"
 	@echo "... src/Commands/Ls.i"
 	@echo "... src/Commands/Ls.s"
