@@ -64,14 +64,14 @@ int main(int argc, char* argv[]) {
     {"rmdir", [argv](std::string& arg1, std::string&) {
         // std::cout << RmDir::removeDirectory(reinterpret_cast<std::string &>(argv[1]), arg1, currentCluster) << std::endl;
     }},
-    {"ls", [argv](std::string& arg1, std::string&) {
+    {"ls", [](std::string& arg1, std::string&) {
         std::cout << Ls::listDirectory(arg1) << std::endl;
     }},
     {"cat", [argv](std::string& arg1, std::string&){ }},
     {"cd", [](std::string& arg1, std::string&) {
         Cd::changeDirectory(arg1);
     }},
-    {"pwd", [argv](std::string&, std::string&) {
+    {"pwd", [](std::string&, std::string&) {
         if (currentPath == "/") { std::cout << "You are in root" << std::endl; }
         else { std::cout << "Current directory: " << currentPath << std::endl; }
     }},

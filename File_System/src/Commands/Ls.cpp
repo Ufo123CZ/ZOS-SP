@@ -1,9 +1,9 @@
 #include "Commands.h"
 #include "../Utils/Items.h"
+#include "../Utils/Utils.h"
 #include <string>
 #include <fstream>
 #include <iostream>
-#include <sstream>
 
 extern int32_t currentCluster;
 extern std::string currentPath;
@@ -23,6 +23,32 @@ namespace Ls {
             return "Can't read filesystem description";
         }
 
+        int32_t clusterToRead = currentCluster;
+        if (!path.empty()) {
+            auto result = Utils::splitPath(path);
+            if (result.first.empty() && result.second == -1) {
+                return "Path does not exist";
+            }
+            clusterToRead = result.second;
+        }
+
+        // List all items with the same parentCluster
+        fs.seekg(desc.data_start_address, std::ios::beg);
+        DirectoryItem dirItem{};
+        std::string result;
+        while (fs.read(reinterpret_cast<char*>(&dirItem), sizeof(dirItem))) {
+            if (dirItem.parent_cluster == dirItem.start_cluster) { // root directory
+                continue;
+            }
+            if (dirItem.parent_cluster == clusterToRead) {
+                result += (dirItem.isFile ? "File: " : "Dir: ") + std::string(dirItem.name) + "\n";
+            }
+        }
+
+        return result.empty() ? "Directory is empty" : result;
+
+
+        /*
         // if argument is empty, list the current directory
         if (path.empty()) {
             // List all items with the same parentCluster
@@ -40,6 +66,7 @@ namespace Ls {
 
             return result.empty() ? "Directory is empty" : result;
         }
+        */
 
         // // go from root to the end of the path and find the cluster at the end of the path
         // int32_t currentCluster = ROOT_CLUSTER;
