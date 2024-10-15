@@ -42,7 +42,13 @@ namespace Ls {
         DirectoryItem dirItems[desc.cluster_size / sizeof(DirectoryItem)];
         DirectoryItem dirItem{};
         std::string result;
-        while (fs.read(reinterpret_cast<char*>(&dirItem), sizeof(dirItem))) {
+        for (int i = 0; i < desc.cluster_size / sizeof(DirectoryItem); ++i) {
+            fs.read(reinterpret_cast<char*>(&dirItem), sizeof(dirItem));
+            if (!fs) {
+                // Close filesystem
+                fs.close();
+                return "Can't read directory items";
+            }
             if (dirItem.parent_cluster == dirItem.start_cluster) { // root directory
                 continue;
             }

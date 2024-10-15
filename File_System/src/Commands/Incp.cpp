@@ -54,12 +54,19 @@ namespace Incp {
             dest = currentPath;
         }
 
+        // Read the directory items from the cluster into the dirItems array
+        DirectoryItem dirItems[desc.cluster_size / sizeof(DirectoryItem)];
+        DirectoryItem dirItem{};
+        fs.seekg(desc.data_start_address + cluster * desc.cluster_size, std::ios::beg);
+        for (int i = 0; i < desc.cluster_size / sizeof(DirectoryItem); ++i) {
+            fs.read(reinterpret_cast<char*>(&dirItem), sizeof(dirItem));
+            dirItems[i] = dirItem;
+        }
+
         // Check if the file already exists in the destination directory
-        fs.seekg(desc.data_start_address, std::ios::beg);
-        DirectoryItem dupItem{};
         std::string fN = source.substr(source.find_last_of('/') + 1);
-        while (fs.read(reinterpret_cast<char*>(&dupItem), sizeof(dupItem))) {
-            if (dupItem.parent_cluster == cluster && std::string(dupItem.name) == fN) {
+        for (const auto& item : dirItems) {
+            if (std::string(item.name) == fN) {
                 // Close file
                 srcFile.close();
                 fs.close();
@@ -67,9 +74,18 @@ namespace Incp {
             }
         }
 
-        // Reset file pointer to the correct position
-        fs.clear(); // Clear any EOF flags
-        fs.seekp(0, std::ios::end);
+        // Check if cluster has enough space for directory item
+        bool isFull = true;
+        for (const auto& item : dirItems) {
+            if (item.name[0] == '\0' || item.name[0] == '0') {
+                isFull = false;
+            }
+        }
+        if (isFull) {
+            // Close filesystem
+            fs.close();
+            return "Directory is full";
+        }
 
         // Check if in filesystem is enough space
         int srcClusterRequired = 1 + (srcFile.tellg() / desc.cluster_size);
@@ -100,31 +116,42 @@ namespace Incp {
         }
         delete[] buffer;
 
+
+        // Find free cluster for the content of the file
+        int32_t freeCluster = fat.findFreeCluster();
+
+        // Prepare directory item that will be in destination directory
+        DirectoryItem{};
+        std::string name = source.substr(source.find_last_of('/') + 1);
+        std::copy(name.begin(), name.end(), dirItem.name);
+        dirItem.isFile = true;
+        dirItem.size = srcFile.tellg();
+        dirItem.start_cluster = freeCluster;
+        dirItem.parent_cluster = cluster;
+
+        // Write the directory item to the parent cluster
+        // Find the first free directory item in dirItems
+        for (int i = 0; i < desc.cluster_size / sizeof(DirectoryItem); ++i) {
+            if (dirItems[i].name[0] == '\0' || dirItems[i].name[0] == '0') {
+                dirItems[i] = dirItem;
+                fs.seekp(desc.data_start_address + cluster * desc.cluster_size + i * sizeof(DirectoryItem), std::ios::beg);
+                fs.write(reinterpret_cast<char*>(&dirItems[i]), sizeof(dirItem));
+                break;
+            }
+        }
         // Write the file to the filesystem
         // Each time cluster is filled with data, find the next free cluster and update the FAT
-        int32_t freeCluster = -1;
         for (int i = 0; i < fragments.size(); ++i) {
             // Find the next free cluster
-            freeCluster = fat.findFreeCluster();
+            if (i != 0) {
+                freeCluster = fat.findFreeCluster();
+            }
             if (freeCluster == -1) {
                 // Close file
                 srcFile.close();
                 fs.close();
                 return "No free clusters in the filesystem";
             }
-
-            DirectoryItem dirItem{};
-            // Name of dirItem is the name of the file
-            std::string name = source.substr(source.find_last_of('/') + 1);
-            std::copy(name.begin(), name.end(), dirItem.name);
-            // Size of the file is the size of the fragment
-            dirItem.size = fragments[i].size();
-            // File is not a directory
-            dirItem.isFile = true;
-            // Start cluster is the free cluster
-            dirItem.start_cluster = freeCluster;
-            // Parent cluster is the cluster where the file will be written
-            dirItem.parent_cluster = cluster;
 
             cluster = freeCluster;
 
@@ -136,8 +163,6 @@ namespace Incp {
             }
 
             // Write the fragment to the filesystem
-            fs.seekp(desc.data_start_address + freeCluster * desc.cluster_size, std::ios::beg);
-            fs.write(reinterpret_cast<const char*>(&dirItem), sizeof(dirItem));
             fs.seekp(desc.data_start_address + freeCluster * (sizeof(dirItem) + desc.cluster_size), std::ios::beg);
             fs.write(fragments[i].c_str(), fragments[i].size());
             if (!fs) {
