@@ -129,6 +129,30 @@ File_System/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/build
 .PHONY : File_System/fast
 
+src/Commands/Cat.o: src/Commands/Cat.cpp.o
+.PHONY : src/Commands/Cat.o
+
+# target to build an object file
+src/Commands/Cat.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/Cat.cpp.o
+.PHONY : src/Commands/Cat.cpp.o
+
+src/Commands/Cat.i: src/Commands/Cat.cpp.i
+.PHONY : src/Commands/Cat.i
+
+# target to preprocess a source file
+src/Commands/Cat.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/Cat.cpp.i
+.PHONY : src/Commands/Cat.cpp.i
+
+src/Commands/Cat.s: src/Commands/Cat.cpp.s
+.PHONY : src/Commands/Cat.s
+
+# target to generate assembly for a file
+src/Commands/Cat.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/Cat.cpp.s
+.PHONY : src/Commands/Cat.cpp.s
+
 src/Commands/Cd.o: src/Commands/Cd.cpp.o
 .PHONY : src/Commands/Cd.o
 
@@ -402,6 +426,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... File_System"
+	@echo "... src/Commands/Cat.o"
+	@echo "... src/Commands/Cat.i"
+	@echo "... src/Commands/Cat.s"
 	@echo "... src/Commands/Cd.o"
 	@echo "... src/Commands/Cd.i"
 	@echo "... src/Commands/Cd.s"

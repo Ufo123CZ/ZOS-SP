@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/Cat.cpp" "CMakeFiles/File_System.dir/src/Commands/Cat.cpp.o" "gcc" "CMakeFiles/File_System.dir/src/Commands/Cat.cpp.o.d"
   "/mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/Cd.cpp" "CMakeFiles/File_System.dir/src/Commands/Cd.cpp.o" "gcc" "CMakeFiles/File_System.dir/src/Commands/Cd.cpp.o.d"
   "/mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/Format.cpp" "CMakeFiles/File_System.dir/src/Commands/Format.cpp.o" "gcc" "CMakeFiles/File_System.dir/src/Commands/Format.cpp.o.d"
   "/mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/Help.cpp" "CMakeFiles/File_System.dir/src/Commands/Help.cpp.o" "gcc" "CMakeFiles/File_System.dir/src/Commands/Help.cpp.o.d"

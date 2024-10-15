@@ -17,6 +17,10 @@ namespace Ls {
     std::string listDirectory(std::string& path);
 }
 
+namespace Cat {
+    void catFile(std::string& path);
+}
+
 namespace Cd {
     void changeDirectory(std::string& path);
 }

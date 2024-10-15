@@ -17,7 +17,7 @@ add_executable(File_System
         src/Commands/MkDir.cpp
         src/Commands/RmDir.cpp
         src/Commands/Ls.cpp
-#        src/Commands/Cat.cpp
+        src/Commands/Cat.cpp
         src/Commands/Cd.cpp
 #        src/Commands/Info.cpp
         src/Commands/Incp.cpp

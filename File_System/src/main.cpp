@@ -67,7 +67,7 @@ int main(int argc, char* argv[]) {
     {"ls", [](std::string& arg1, std::string&) {
         std::cout << Ls::listDirectory(arg1) << std::endl;
     }},
-    {"cat", [argv](std::string& arg1, std::string&){ }},
+    {"cat", [](std::string& arg1, std::string&){ Cat::catFile(arg1); }},
     {"cd", [](std::string& arg1, std::string&) {
         Cd::changeDirectory(arg1);
     }},

@@ -5,6 +5,8 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <vector>
+#include <filesystem>
 
 extern int32_t currentCluster;
 extern std::string currentPath;
@@ -116,16 +118,20 @@ namespace Incp {
         }
         delete[] buffer;
 
+        // Source file size
+        // auto fileSize = std::filesystem::file_size(filename);
+        // std::cout << "File size: " << fileSize << std::endl;
 
         // Find free cluster for the content of the file
         int32_t freeCluster = fat.findFreeCluster();
 
         // Prepare directory item that will be in destination directory
-        DirectoryItem{};
         std::string name = source.substr(source.find_last_of('/') + 1);
         std::copy(name.begin(), name.end(), dirItem.name);
         dirItem.isFile = true;
+        // dirItem.size = static_cast<int32_t>(fileSize);
         dirItem.size = srcFile.tellg();
+        std::cout << "Size: " << dirItem.size << std::endl;
         dirItem.start_cluster = freeCluster;
         dirItem.parent_cluster = cluster;
 
@@ -153,13 +159,19 @@ namespace Incp {
                 return "No free clusters in the filesystem";
             }
 
-            cluster = freeCluster;
-
             // Update the FAT
             if (i == fragments.size() - 1) {
                 fat.Clusters[freeCluster] = FAT_FILE_END;
             } else {
-                fat.Clusters[freeCluster] = freeCluster + 1;
+                int32_t nextFreeCluster = fat.findFreeCluster();
+                if (nextFreeCluster == -1) {
+                    // Close file
+                    srcFile.close();
+                    fs.close();
+                    return "No free clusters in the filesystem";
+                }
+                fat.Clusters[freeCluster] = nextFreeCluster;
+                freeCluster = nextFreeCluster;
             }
 
             // Write the fragment to the filesystem

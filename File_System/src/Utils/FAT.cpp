@@ -2,6 +2,7 @@
 #include "Items.h"
 #include <fstream>
 #include <stdexcept>
+#include <vector>
 
 void FAT::readFromFile(const std::string& filename) {
     std::ifstream ifs(filename, std::ios::binary);
@@ -48,4 +49,22 @@ int FAT::findFreeCluster() const {
         }
     }
     return -1;
+}
+
+std::vector<int32_t> FAT::getClusterChain(int32_t startCluster) {
+    std::vector<int32_t> clusters;
+    clusters.push_back(startCluster);
+
+    if (Clusters[startCluster] == FAT_FILE_END) {
+        return clusters;
+    }
+
+    int32_t cluster = startCluster;
+
+    while (Clusters[cluster] != FAT_FILE_END) {
+        clusters.push_back(cluster);
+        cluster = Clusters[cluster];
+    }
+
+    return clusters;
 }

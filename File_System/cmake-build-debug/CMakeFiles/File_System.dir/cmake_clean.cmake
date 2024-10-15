@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/File_System.dir/src/Commands/Cat.cpp.o"
+  "CMakeFiles/File_System.dir/src/Commands/Cat.cpp.o.d"
   "CMakeFiles/File_System.dir/src/Commands/Cd.cpp.o"
   "CMakeFiles/File_System.dir/src/Commands/Cd.cpp.o.d"
   "CMakeFiles/File_System.dir/src/Commands/Format.cpp.o"
