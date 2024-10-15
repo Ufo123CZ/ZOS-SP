@@ -38,7 +38,8 @@ namespace Ls {
         }
 
         // List all items with the same parentCluster
-        fs.seekg(desc.data_start_address, std::ios::beg);
+        fs.seekg(desc.data_start_address + clusterToRead * desc.cluster_size, std::ios::beg);
+        DirectoryItem dirItems[desc.cluster_size / sizeof(DirectoryItem)];
         DirectoryItem dirItem{};
         std::string result;
         while (fs.read(reinterpret_cast<char*>(&dirItem), sizeof(dirItem))) {

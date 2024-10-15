@@ -76,11 +76,21 @@ std::pair<std::string, int32_t> splitPath(std::string& path) {
     while (std::getline(iss, dir, '/')) {
         if (dir.empty()) continue;
 
-        ifs.seekg(desc.data_start_address, std::ios::beg);
+        ifs.seekg(desc.data_start_address + cluster * desc.cluster_size, std::ios::beg);
+        DirectoryItem dirItems[desc.cluster_size / sizeof(DirectoryItem)];
+        for (int i = 0; i < desc.cluster_size / sizeof(DirectoryItem); ++i) {
+            ifs.read(reinterpret_cast<char*>(&dirItem), sizeof(dirItem));
+            if (!ifs) {
+                std::cerr << "Error: Could not read directory items" << std::endl;
+                exit(1);
+            }
+            dirItems[i] = dirItem;
+        }
+
         bool found = false;
-        while (ifs.read(reinterpret_cast<char*>(&dirItem), sizeof(dirItem))) {
-            if (dirItem.name == dir && !dirItem.isFile && dirItem.parent_cluster == cluster) {
-                cluster = dirItem.start_cluster; // Update cluster
+        for (int i = 0; i < desc.cluster_size / sizeof(DirectoryItem); ++i) {
+            if (dirItems[i].name == dir && !dirItems[i].isFile && dirItems[i].parent_cluster == cluster) {
+                cluster = dirItems[i].start_cluster; // Update cluster
                 finalPath += dir + "/"; // Update finalPath
                 found = true;
                 break;
