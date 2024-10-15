@@ -4,6 +4,10 @@
 #include <fstream>
 #include <regex>
 
+
+extern int32_t currentCluster;
+extern std::string currentPath;
+
 namespace Format {
     std::string formatFile(std::string& filename, std::string& size) {
         std::ofstream ofs(filename, std::ios::binary);
@@ -78,6 +82,10 @@ namespace Format {
 
         // Close the file
         ofs.close();
+
+        // Set the current cluster and path
+        currentCluster = 0;
+        currentPath = "/";
 
         return "File formatted successfully";
     }
