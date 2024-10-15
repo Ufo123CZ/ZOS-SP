@@ -59,7 +59,7 @@ namespace Format {
             0,
             0
         };
-        fat.Clusters[0] = 0;
+        fat.Clusters[0] = FAT_FILE_END;
 
         // Write the Clusters directly after the Description
         for (int i = 0; i < cluster_count; ++i) {
@@ -69,6 +69,12 @@ namespace Format {
         // Write the root directory to the file
         ofs.seekp(data_start_address, std::ios::beg);
         ofs.write(reinterpret_cast<char*>(&rootDir), sizeof(DirectoryItem));
+
+        // Fill the rest of the disk with zeros
+        ofs.seekp(0, std::ios::end);
+        for (int i = 0; i < disk_size - ofs.tellp(); ++i) {
+            ofs.put(0);
+        }
 
         // Close the file
         ofs.close();
