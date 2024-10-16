@@ -15,11 +15,11 @@ add_executable(File_System
 #        src/Commands/Mv.cpp
 #        src/Commands/Rm.cpp
         src/Commands/MkDir.cpp
-        src/Commands/RmDir.cpp
+#        src/Commands/RmDir.cpp
         src/Commands/Ls.cpp
         src/Commands/Cat.cpp
         src/Commands/Cd.cpp
-#        src/Commands/Info.cpp
+        src/Commands/Info.cpp
         src/Commands/Incp.cpp
 #        src/Commands/Outcp.cpp
 #        src/Commands/Load.cpp

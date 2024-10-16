@@ -249,6 +249,30 @@ src/Commands/Incp.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/Incp.cpp.s
 .PHONY : src/Commands/Incp.cpp.s
 
+src/Commands/Info.o: src/Commands/Info.cpp.o
+.PHONY : src/Commands/Info.o
+
+# target to build an object file
+src/Commands/Info.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/Info.cpp.o
+.PHONY : src/Commands/Info.cpp.o
+
+src/Commands/Info.i: src/Commands/Info.cpp.i
+.PHONY : src/Commands/Info.i
+
+# target to preprocess a source file
+src/Commands/Info.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/Info.cpp.i
+.PHONY : src/Commands/Info.cpp.i
+
+src/Commands/Info.s: src/Commands/Info.cpp.s
+.PHONY : src/Commands/Info.s
+
+# target to generate assembly for a file
+src/Commands/Info.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/Info.cpp.s
+.PHONY : src/Commands/Info.cpp.s
+
 src/Commands/Ls.o: src/Commands/Ls.cpp.o
 .PHONY : src/Commands/Ls.o
 
@@ -296,30 +320,6 @@ src/Commands/MkDir.s: src/Commands/MkDir.cpp.s
 src/Commands/MkDir.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/MkDir.cpp.s
 .PHONY : src/Commands/MkDir.cpp.s
-
-src/Commands/RmDir.o: src/Commands/RmDir.cpp.o
-.PHONY : src/Commands/RmDir.o
-
-# target to build an object file
-src/Commands/RmDir.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/RmDir.cpp.o
-.PHONY : src/Commands/RmDir.cpp.o
-
-src/Commands/RmDir.i: src/Commands/RmDir.cpp.i
-.PHONY : src/Commands/RmDir.i
-
-# target to preprocess a source file
-src/Commands/RmDir.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/RmDir.cpp.i
-.PHONY : src/Commands/RmDir.cpp.i
-
-src/Commands/RmDir.s: src/Commands/RmDir.cpp.s
-.PHONY : src/Commands/RmDir.s
-
-# target to generate assembly for a file
-src/Commands/RmDir.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/RmDir.cpp.s
-.PHONY : src/Commands/RmDir.cpp.s
 
 src/FileCheck/FileCheck.o: src/FileCheck/FileCheck.cpp.o
 .PHONY : src/FileCheck/FileCheck.o
@@ -441,15 +441,15 @@ help:
 	@echo "... src/Commands/Incp.o"
 	@echo "... src/Commands/Incp.i"
 	@echo "... src/Commands/Incp.s"
+	@echo "... src/Commands/Info.o"
+	@echo "... src/Commands/Info.i"
+	@echo "... src/Commands/Info.s"
 	@echo "... src/Commands/Ls.o"
 	@echo "... src/Commands/Ls.i"
 	@echo "... src/Commands/Ls.s"
 	@echo "... src/Commands/MkDir.o"
 	@echo "... src/Commands/MkDir.i"
 	@echo "... src/Commands/MkDir.s"
-	@echo "... src/Commands/RmDir.o"
-	@echo "... src/Commands/RmDir.i"
-	@echo "... src/Commands/RmDir.s"
 	@echo "... src/FileCheck/FileCheck.o"
 	@echo "... src/FileCheck/FileCheck.i"
 	@echo "... src/FileCheck/FileCheck.s"

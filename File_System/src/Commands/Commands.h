@@ -25,12 +25,16 @@ namespace Cd {
     void changeDirectory(std::string& path);
 }
 
+namespace Info {
+    std::string fileInfo(std::string& path);
+}
+
 namespace Incp {
     std::string copyFileInput(std::string& source, std::string& dest);
 }
 
 namespace Format {
-    std::string formatFile(std::string& filename, std::string& size);
+    std::string formatFile(std::string& size);
 }
 
 namespace Help {

@@ -7,9 +7,10 @@
 
 extern int32_t currentCluster;
 extern std::string currentPath;
+extern std::string filename;
 
 namespace Format {
-    std::string formatFile(std::string& filename, std::string& size) {
+    std::string formatFile(std::string& size) {
         std::ofstream ofs(filename, std::ios::binary);
         if (!ofs) {
             return "Cannot create file";

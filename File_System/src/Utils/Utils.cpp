@@ -84,7 +84,7 @@ std::pair<std::string, int32_t> splitPath(std::string& path) {
             ifs.read(reinterpret_cast<char*>(&dirItem), sizeof(dirItem));
             if (!ifs) {
                 std::cerr << "Error: Could not read directory items" << std::endl;
-                exit(1);
+                return {"", -1};
             }
             dirItems[i] = dirItem;
         }
