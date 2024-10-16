@@ -89,8 +89,20 @@ namespace Incp {
             return "Directory is full";
         }
 
+        // Seize of the source file
+        // Move the file pointer to the end to get the file size
+        srcFile.seekg(0, std::ios::end);
+        std::streampos fileSize = srcFile.tellg();
+        if (fileSize == -1) {
+            srcFile.close();
+            return "Error determining file size";
+        }
+
+        // Move the file pointer back to the beginning
+        srcFile.seekg(0, std::ios::beg);
+
         // Check if in filesystem is enough space
-        int srcClusterRequired = 1 + (srcFile.tellg() / desc.cluster_size);
+        int srcClusterRequired = 1 + (fileSize / desc.cluster_size);
 
         // Init FAT
         FAT fat;
@@ -118,10 +130,6 @@ namespace Incp {
         }
         delete[] buffer;
 
-        // Source file size
-        // auto fileSize = std::filesystem::file_size(filename);
-        // std::cout << "File size: " << fileSize << std::endl;
-
         // Find free cluster for the content of the file
         int32_t freeCluster = fat.findFreeCluster();
 
@@ -129,9 +137,7 @@ namespace Incp {
         std::string name = source.substr(source.find_last_of('/') + 1);
         std::copy(name.begin(), name.end(), dirItem.name);
         dirItem.isFile = true;
-        // dirItem.size = static_cast<int32_t>(fileSize);
-        dirItem.size = srcFile.tellg();
-        std::cout << "Size: " << dirItem.size << std::endl;
+        dirItem.size = static_cast<int32_t>(fileSize);
         dirItem.start_cluster = freeCluster;
         dirItem.parent_cluster = cluster;
 
@@ -145,6 +151,7 @@ namespace Incp {
                 break;
             }
         }
+
         // Write the file to the filesystem
         // Each time cluster is filled with data, find the next free cluster and update the FAT
         for (int i = 0; i < fragments.size(); ++i) {
@@ -175,7 +182,7 @@ namespace Incp {
             }
 
             // Write the fragment to the filesystem
-            fs.seekp(desc.data_start_address + freeCluster * (sizeof(dirItem) + desc.cluster_size), std::ios::beg);
+            fs.seekp(desc.data_start_address + freeCluster * desc.cluster_size, std::ios::beg);
             fs.write(fragments[i].c_str(), fragments[i].size());
             if (!fs) {
                 // Close file

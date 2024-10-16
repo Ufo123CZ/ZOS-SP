@@ -32,11 +32,11 @@ std::pair<std::string, int32_t> splitPath(std::string& path) {
     std::string finalPath = "/";
     int32_t cluster = currentCluster;
 
-    // absolute path
+    // Absolute path
     if (path[0] == '/') {
         tempPath = path.substr(0);
     } else {
-        //relative path
+        // Relative path
         tempPath = currentPath;
         if (tempPath[tempPath.size() - 1] != '/') {
             tempPath += "/";
@@ -69,6 +69,7 @@ std::pair<std::string, int32_t> splitPath(std::string& path) {
         exit(1);
     }
 
+    // Read the directory items from the cluster into the dirItems array
     DirectoryItem dirItem{};
     std::istringstream iss(tempPath);
     std::string dir;
@@ -76,6 +77,7 @@ std::pair<std::string, int32_t> splitPath(std::string& path) {
     while (std::getline(iss, dir, '/')) {
         if (dir.empty()) continue;
 
+        // Read the directory items from the cluster into the dirItems array
         ifs.seekg(desc.data_start_address + cluster * desc.cluster_size, std::ios::beg);
         DirectoryItem dirItems[desc.cluster_size / sizeof(DirectoryItem)];
         for (int i = 0; i < desc.cluster_size / sizeof(DirectoryItem); ++i) {
@@ -87,6 +89,7 @@ std::pair<std::string, int32_t> splitPath(std::string& path) {
             dirItems[i] = dirItem;
         }
 
+        // Find the directory in the directory items
         bool found = false;
         for (int i = 0; i < desc.cluster_size / sizeof(DirectoryItem); ++i) {
             if (dirItems[i].name == dir && !dirItems[i].isFile && dirItems[i].parent_cluster == cluster) {

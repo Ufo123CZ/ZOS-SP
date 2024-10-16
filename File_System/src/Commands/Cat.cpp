@@ -94,7 +94,6 @@ namespace Cat {
         for (int cluster1 : clusters) {
             ifs.seekg(desc.data_start_address + cluster1 * desc.cluster_size, std::ios::beg);
             int readSize = std::min(desc.cluster_size, remainingSize);
-            std::cout << "ReadSize: " << readSize << std::endl;
             char buffer[desc.cluster_size];
             ifs.read(buffer, readSize);
             if (!ifs) {
@@ -107,5 +106,6 @@ namespace Cat {
                 break;
             }
         }
+        std::cout << std::endl;
     }
 }
