@@ -51,9 +51,8 @@ int FAT::findFreeCluster() const {
     return -1;
 }
 
-std::vector<int32_t> FAT::getClusterChain(int32_t startCluster) {
+std::vector<int32_t> FAT::getClusterChain(int32_t startCluster) const {
     std::vector<int32_t> clusters;
-    clusters.push_back(startCluster);
 
     if (Clusters[startCluster] == FAT_FILE_END) {
         return clusters;
@@ -65,6 +64,7 @@ std::vector<int32_t> FAT::getClusterChain(int32_t startCluster) {
         clusters.push_back(cluster);
         cluster = Clusters[cluster];
     }
+    clusters.push_back(cluster);
 
     return clusters;
 }

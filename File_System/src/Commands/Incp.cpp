@@ -6,7 +6,6 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
-#include <filesystem>
 
 extern int32_t currentCluster;
 extern std::string currentPath;
@@ -154,6 +153,7 @@ namespace Incp {
 
         // Write the file to the filesystem
         // Each time cluster is filled with data, find the next free cluster and update the FAT
+        int32_t previousCluster = -1;
         for (int i = 0; i < fragments.size(); ++i) {
             // Find the next free cluster
             if (i != 0) {
@@ -170,16 +170,13 @@ namespace Incp {
             if (i == fragments.size() - 1) {
                 fat.Clusters[freeCluster] = FAT_FILE_END;
             } else {
-                int32_t nextFreeCluster = fat.findFreeCluster();
-                if (nextFreeCluster == -1) {
-                    // Close file
-                    srcFile.close();
-                    fs.close();
-                    return "No free clusters in the filesystem";
-                }
-                fat.Clusters[freeCluster] = nextFreeCluster;
-                freeCluster = nextFreeCluster;
+                fat.Clusters[freeCluster] = fat.findFreeCluster();
             }
+            // Link the previous cluster to the current one
+            if (previousCluster != -1) {
+                fat.Clusters[previousCluster] = freeCluster;
+            }
+            previousCluster = freeCluster;
 
             // Write the fragment to the filesystem
             fs.seekp(desc.data_start_address + freeCluster * desc.cluster_size, std::ios::beg);

@@ -14,7 +14,7 @@ public:
     void readFromFile(const std::string& filename);
     void writeToFile(const std::string& filename) const;
     [[nodiscard]] int findFreeCluster() const;
-    [[nodiscard]]std::vector<int32_t> getClusterChain(int32_t startCluster);
+    [[nodiscard]]std::vector<int32_t> getClusterChain(int32_t startCluster) const;
 };
 
 #endif //FAT_H
