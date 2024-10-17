@@ -273,6 +273,30 @@ src/Commands/Info.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/Info.cpp.s
 .PHONY : src/Commands/Info.cpp.s
 
+src/Commands/Load.o: src/Commands/Load.cpp.o
+.PHONY : src/Commands/Load.o
+
+# target to build an object file
+src/Commands/Load.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/Load.cpp.o
+.PHONY : src/Commands/Load.cpp.o
+
+src/Commands/Load.i: src/Commands/Load.cpp.i
+.PHONY : src/Commands/Load.i
+
+# target to preprocess a source file
+src/Commands/Load.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/Load.cpp.i
+.PHONY : src/Commands/Load.cpp.i
+
+src/Commands/Load.s: src/Commands/Load.cpp.s
+.PHONY : src/Commands/Load.s
+
+# target to generate assembly for a file
+src/Commands/Load.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/Load.cpp.s
+.PHONY : src/Commands/Load.cpp.s
+
 src/Commands/Ls.o: src/Commands/Ls.cpp.o
 .PHONY : src/Commands/Ls.o
 
@@ -344,6 +368,30 @@ src/FileCheck/FileCheck.s: src/FileCheck/FileCheck.cpp.s
 src/FileCheck/FileCheck.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/FileCheck/FileCheck.cpp.s
 .PHONY : src/FileCheck/FileCheck.cpp.s
+
+src/Utils/CommandMap.o: src/Utils/CommandMap.cpp.o
+.PHONY : src/Utils/CommandMap.o
+
+# target to build an object file
+src/Utils/CommandMap.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Utils/CommandMap.cpp.o
+.PHONY : src/Utils/CommandMap.cpp.o
+
+src/Utils/CommandMap.i: src/Utils/CommandMap.cpp.i
+.PHONY : src/Utils/CommandMap.i
+
+# target to preprocess a source file
+src/Utils/CommandMap.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Utils/CommandMap.cpp.i
+.PHONY : src/Utils/CommandMap.cpp.i
+
+src/Utils/CommandMap.s: src/Utils/CommandMap.cpp.s
+.PHONY : src/Utils/CommandMap.s
+
+# target to generate assembly for a file
+src/Utils/CommandMap.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Utils/CommandMap.cpp.s
+.PHONY : src/Utils/CommandMap.cpp.s
 
 src/Utils/FAT.o: src/Utils/FAT.cpp.o
 .PHONY : src/Utils/FAT.o
@@ -444,6 +492,9 @@ help:
 	@echo "... src/Commands/Info.o"
 	@echo "... src/Commands/Info.i"
 	@echo "... src/Commands/Info.s"
+	@echo "... src/Commands/Load.o"
+	@echo "... src/Commands/Load.i"
+	@echo "... src/Commands/Load.s"
 	@echo "... src/Commands/Ls.o"
 	@echo "... src/Commands/Ls.i"
 	@echo "... src/Commands/Ls.s"
@@ -453,6 +504,9 @@ help:
 	@echo "... src/FileCheck/FileCheck.o"
 	@echo "... src/FileCheck/FileCheck.i"
 	@echo "... src/FileCheck/FileCheck.s"
+	@echo "... src/Utils/CommandMap.o"
+	@echo "... src/Utils/CommandMap.i"
+	@echo "... src/Utils/CommandMap.s"
 	@echo "... src/Utils/FAT.o"
 	@echo "... src/Utils/FAT.i"
 	@echo "... src/Utils/FAT.s"

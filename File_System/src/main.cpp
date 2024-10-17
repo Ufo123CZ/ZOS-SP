@@ -6,6 +6,7 @@
 #include <sstream>
 #include <fstream>
 #include "FileCheck/FileCheck.h"
+#include "Utils/CommandMap.h"
 #include "Utils/Utils.h"
 #include "Commands/Commands.h"
 
@@ -55,54 +56,8 @@ int main(int argc, char* argv[]) {
         std::cout << "File loaded successfully" << std::endl;
     }
 
-    std::unordered_map<std::string, std::function<void(std::string&, std::string&)>> commandMap = {
-        // Commands
-    {"cp", [](std::string& arg1, std::string& arg2){ }},
-    {"mv", [](std::string& arg1, std::string& arg2){ }},
-    {"rm", [](std::string& arg1, std::string&){ }},
-    {"mkdir", [](std::string& arg1, std::string&) {
-        std::cout << MkDir::makeDirectory(arg1) << std::endl;
-    }},
-    {"rmdir", [](std::string& arg1, std::string&) {
-        // std::cout << RmDir::removeDirectory(reinterpret_cast<std::string &>(argv[1]), arg1, currentCluster) << std::endl;
-    }},
-    {"ls", [](std::string& arg1, std::string&) {
-        std::cout << Ls::listDirectory(arg1) << std::endl;
-    }},
-    {"cat", [](std::string& arg1, std::string&) {
-        Cat::catFile(arg1);
-    }},
-    {"cd", [](std::string& arg1, std::string&) {
-        Cd::changeDirectory(arg1);
-    }},
-    {"pwd", [](std::string&, std::string&) {
-        if (currentPath == "/") std::cout << "You are in root" << std::endl;
-        else std::cout << "Current directory: " << currentPath << std::endl;
-    }},
-    {"info", [](std::string& arg1, std::string&) {
-        std::cout << Info::fileInfo(arg1) << std::endl;
-    }},
-    {"incp", [](std::string& arg1, std::string& arg2) {
-        std::cout << Incp::copyFileInput(arg1, arg2) << std::endl;
-    }},
-    {"outcp", [](std::string& arg1, std::string& arg2){ }},
-    {"load", [](std::string& arg1, std::string&){ }},
-    {"format", [](std::string& arg1, std::string&) {
-        isFilesystemLoaded = true;
-        std::cout << Format::formatFile(arg1) << std::endl;
-    }},
-
-        // Extra commands
-    {"exit", [](std::string&, std::string&) {
-        Utils::endProgram();
-    }},
-    {"help", [](std::string&, std::string&) {
-        Help::writeHelpInConsole();
-    }},
-    {"test", [](std::string&, std::string&) {
-        std::cout << "Command: test, Current path: " << currentPath << ", Current cluster: " << currentCluster << std::endl;
-    }}
-};
+    // Initialize the command map
+    CommandMap::initCommandMap();
 
     while (true) {
         if (std::ifstream ifs(argv[1], std::ios::binary); !ifs) {
@@ -129,16 +84,14 @@ int main(int argc, char* argv[]) {
         if (!isFilesystemLoaded && command != "format" && command != "exit" && command != "help") {
             std::cout << "Filesystem not loaded. Only 'format', 'help' or 'exit' command is available." << std::endl;
         } else {
-            auto cmd = commandMap.find(command);
-            if (cmd != commandMap.end()) {
+            auto cmd = CommandMap::commandMap.find(command);
+            if (cmd != CommandMap::commandMap.end()) {
                 cmd->second(arg1, arg2);
             } else {
                 std::cout << "Invalid command" << std::endl
                           << "Type 'help' for a list of commands" << std::endl;
             }
         }
-
-
 
         // Clear the variables
         command.clear();

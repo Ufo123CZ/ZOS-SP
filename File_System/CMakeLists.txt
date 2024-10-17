@@ -9,6 +9,7 @@ add_executable(File_System
         src/FileCheck/FileCheck.cpp
         src/Utils/Utils.cpp
         src/Utils/FAT.cpp
+        src/Utils/CommandMap.cpp
 
         # Commands
 #        src/Commands/Cp.cpp
@@ -22,13 +23,15 @@ add_executable(File_System
         src/Commands/Info.cpp
         src/Commands/Incp.cpp
 #        src/Commands/Outcp.cpp
-#        src/Commands/Load.cpp
+        src/Commands/Load.cpp
         src/Commands/Format.cpp
         src/Commands/Help.cpp
 
+        # Headers
         src/Utils/Utils.h
         src/Utils/Items.h
         src/Utils/FAT.h
         src/FileCheck/FileCheck.h
         src/Commands/Commands.h
+        src/Utils/CommandMap.h
 )
