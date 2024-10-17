@@ -42,13 +42,8 @@ int main(int argc, char* argv[]) {
 
     // Check if the file exists
     if (std::ifstream ifs(argv[1], std::ios::binary); !ifs) {
-        std::cout << "File does not exist. Creating and initializing filesystem..." << std::endl;
-        std::ofstream ofs(argv[1], std::ios::binary);
-        if (!ofs) {
-            std::cout << "Error: Could not create file " << argv[1] << std::endl;
-        } else {
-            std::cout << "File created successfully" << std::endl;
-        }
+        std::cout << "File does not exist." << std::endl
+        << " File will be created when the filesystem is formatted." << std::endl;
     } else {
         std::cout << "File exists. Loading filesystem..." << std::endl;
         ifs.close();
@@ -60,10 +55,6 @@ int main(int argc, char* argv[]) {
     CommandMap::initCommandMap();
 
     while (true) {
-        if (std::ifstream ifs(argv[1], std::ios::binary); !ifs) {
-            std::cerr << "Error: Could not open file " << argv[1] << std::endl;
-            break;
-        }
         // Get the input
         std::string input;
         std::string command, arg1, arg2;
@@ -81,8 +72,8 @@ int main(int argc, char* argv[]) {
         iss >> command >> arg1 >> arg2;
 
         // Check if the command is valid
-        if (!isFilesystemLoaded && command != "format" && command != "exit" && command != "help") {
-            std::cout << "Filesystem not loaded. Only 'format', 'help' or 'exit' command is available." << std::endl;
+        if (!isFilesystemLoaded && command != "format" && command != "exit" && command != "help" && command != "load") {
+            std::cout << "Filesystem not loaded. Only 'format', 'help', 'exit' or 'load' command is available." << std::endl;
         } else {
             auto cmd = CommandMap::commandMap.find(command);
             if (cmd != CommandMap::commandMap.end()) {
@@ -98,6 +89,4 @@ int main(int argc, char* argv[]) {
         arg1.clear();
         arg2.clear();
     }
-
-    return 0;
 }

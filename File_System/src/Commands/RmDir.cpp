@@ -2,13 +2,21 @@
 #include "../Utils/Items.h"
 #include "../Utils/FAT.h"
 #include <string>
+#include <cstring>
 #include <vector>
 #include <fstream>
 #include <iostream>
 #include <sstream>
 
+#include "../Utils/Utils.h"
+
+extern int32_t currentCluster;
+extern std::string currentPath;
+extern std::string filename;
+
 namespace RmDir {
-    std::string removeDirectory(std::string& filename, std::string& dirname, int32_t currentCluster) {
+    std::string removeDirectory(std::string& path) {
+        // Open the filesystem
         std::fstream fs(filename, std::ios::in | std::ios::out | std::ios::binary);
         if (!fs) {
             return "Cannot open filesystem";
@@ -21,64 +29,68 @@ namespace RmDir {
             return "Can't read filesystem description";
         }
 
-        // Navigate to the specified directory
-        std::istringstream iss(dirname);
-        std::string dir;
-        int32_t parentCluster = currentCluster;
-        while (std::getline(iss, dir, '/')) {
-            if (dir.empty()) continue;
+        // Directory name to search
+        std::string dirname = path.substr(path.find_last_of('/') + 1);
 
-            fs.seekg(desc.data_start_address, std::ios::beg);
-            DirectoryItem dirItem{};
-            bool found = false;
-            while (fs.read(reinterpret_cast<char*>(&dirItem), sizeof(dirItem))) {
-                if (dirItem.name == dir && !dirItem.isFile) {
-                    // parentCluster = currentCluster;
-                    currentCluster = dirItem.start_cluster;
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                return "Directory not found: " + dir;
-            }
+        // Navigate to the specified directory
+        std::pair<std::string, int32_t> result = Utils::splitPath(path);
+        if (result.first.empty() && result.second == -1) {
+            fs.close();
+            return "Path does not exist";
+        }
+        int32_t cluster = result.second;
+
+        // Fill the directory items with the content of the directory
+        DirectoryItem dirItems[desc.cluster_size / sizeof(DirectoryItem)];
+        fs.seekg(desc.data_start_address + cluster * desc.cluster_size, std::ios::beg);
+        for (int i = 0; i < desc.cluster_size / sizeof(DirectoryItem); ++i) {
+            fs.read(reinterpret_cast<char*>(&dirItems[i]), sizeof(DirectoryItem));
         }
 
         // Check if the directory is empty
-        fs.seekg(desc.data_start_address, std::ios::beg);
-        DirectoryItem dirItem{};
-        while (fs.read(reinterpret_cast<char*>(&dirItem), sizeof(dirItem))) {
-            if (dirItem.parent_cluster == currentCluster) {
+        for (int i = 0; i < desc.cluster_size / sizeof(DirectoryItem); ++i) {
+            if (dirItems[i].name[0] != '\0') {
+                fs.close();
                 return "Directory is not empty";
             }
         }
 
-        // Remove the directory entry
-        fs.clear();
-        fs.seekg(desc.data_start_address, std::ios::beg);
-        while (fs.read(reinterpret_cast<char*>(&dirItem), sizeof(dirItem))) {
-            if (dirItem.start_cluster == currentCluster && dirItem.parent_cluster == parentCluster) {
-                dirItem.name[0] = '\0'; // Mark as deleted
-                fs.seekp(-static_cast<int>(sizeof(dirItem)), std::ios::cur);
-                fs.write(reinterpret_cast<char*>(&dirItem), sizeof(dirItem));
+        // Remove the directoryItem that references the directory from the parent directory
+        std::string parentPath = path.substr(0, path.find_last_of('/'));
+        int32_t parentCluster = cluster;
+        if (parentPath == path) {
+            parentPath = currentPath;
+            parentCluster = currentCluster;
+        } else {
+            std::pair<std::string, int32_t> parent = Utils::splitPath(parentPath);
+            if (parent.first.empty() && parent.second == -1) {
+                fs.close();
+                return "Parent directory does not exist";
+            }
+            parentCluster = parent.second;
+        }
+
+        DirectoryItem parentDirItems[desc.cluster_size / sizeof(DirectoryItem)];
+        fs.seekg(desc.data_start_address + parentCluster * desc.cluster_size, std::ios::beg);
+        for (int i = 0; i < desc.cluster_size / sizeof(DirectoryItem); ++i) {
+            fs.read(reinterpret_cast<char*>(&parentDirItems[i]), sizeof(DirectoryItem));
+        }
+        for (int i = 0; i < desc.cluster_size / sizeof(DirectoryItem); ++i) {
+            if (dirname == parentDirItems[i].name) {
+                parentDirItems[i].name[0] = '\0';
+                fs.seekp(desc.data_start_address + parentCluster * desc.cluster_size + i * sizeof(DirectoryItem), std::ios::beg);
+                fs.write(parentDirItems[i].name, sizeof(DirectoryItem));
                 break;
             }
         }
 
-        // Mark clusters as free in FAT and clear data segment
         FAT fat;
         fat.readFromFile(filename);
-
-        // Mark the cluster as free
-        fat.Clusters[currentCluster - 1] = FAT_UNUSED;
-        // Find current cluster in data segment
-        // fill with zeros
-        // fs.seekp(desc.data_start_address + currentCluster * desc.cluster_size, std::ios::beg);
-        // for (int i = 0; i < desc.cluster_size; ++i) {
-        //     fs.put(0);
-        // }
-
+        fat.Clusters[cluster] = FAT_UNUSED;
         fat.writeToFile(filename);
+
+        // Close the filesystem
+        fs.close();
 
         return "Directory removed";
     }

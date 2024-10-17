@@ -5,6 +5,8 @@
 #include <iostream>
 #include <sstream>
 
+extern bool isFilesystemLoaded;
+
 namespace Load {
     std::string loadCommands(std::string& commandFile) {
         // Read the command file
@@ -18,12 +20,15 @@ namespace Load {
             std::istringstream iss(line);
             std::string command, arg1, arg2;
             iss >> command >> arg1 >> arg2;
-
-            auto cmd = CommandMap::commandMap.find(command);
-            if (cmd != CommandMap::commandMap.end()) {
-                cmd->second(arg1, arg2);
+            if (!isFilesystemLoaded && command != "format" && command != "exit" && command != "help" && command != "load") {
+                std::cout << "Filesystem not loaded. Only 'format', 'help', 'exit' or 'load' command is available." << std::endl;
             } else {
-                return "Command: " + command + " not recognized";
+                auto cmd = CommandMap::commandMap.find(command);
+                if (cmd != CommandMap::commandMap.end()) {
+                    cmd->second(arg1, arg2);
+                } else {
+                    return "Command: " + command + " not recognized";
+                }
             }
             command.clear();
             arg1.clear();

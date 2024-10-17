@@ -21,7 +21,7 @@ void CommandMap::initCommandMap() {
             std::cout << MkDir::makeDirectory(arg1) << std::endl;
         }},
         {"rmdir", [](std::string& arg1, std::string&) {
-            // std::cout << RmDir::removeDirectory(reinterpret_cast<std::string &>(argv[1]), arg1, currentCluster) << std::endl;
+            std::cout << RmDir::removeDirectory(arg1) << std::endl;
         }},
         {"ls", [](std::string& arg1, std::string&) {
             std::cout << Ls::listDirectory(arg1) << std::endl;

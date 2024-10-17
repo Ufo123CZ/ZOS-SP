@@ -10,7 +10,7 @@ namespace  MkDir {
 }
 
 namespace RmDir {
-    std::string removeDirectory(std::string& filename, std::string& dirname, int32_t currentCluster);
+    std::string removeDirectory(std::string& path);
 }
 
 namespace Ls {

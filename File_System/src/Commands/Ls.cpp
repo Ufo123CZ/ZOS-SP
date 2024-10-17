@@ -51,7 +51,7 @@ namespace Ls {
             if (dirItem.parent_cluster == dirItem.start_cluster) { // root directory
                 continue;
             }
-            if (dirItem.parent_cluster == clusterToRead) {
+            if (dirItem.parent_cluster == clusterToRead && dirItem.name[0] != '\0') {
                 result += (dirItem.isFile ? "File: " : "Dir: ") + std::string(dirItem.name) + "\n";
             }
         }
