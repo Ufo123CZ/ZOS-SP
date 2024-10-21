@@ -33,6 +33,10 @@ namespace Incp {
     std::string copyFileInput(std::string& source, std::string& dest);
 }
 
+namespace Outcp {
+    std::string copyFileOutput(std::string& source, std::string& dest);
+}
+
 namespace Load {
     std::string loadCommands(std::string& commandFile);
 }

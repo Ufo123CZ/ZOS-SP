@@ -42,7 +42,9 @@ void CommandMap::initCommandMap() {
         {"incp", [](std::string& arg1, std::string& arg2) {
             std::cout << Incp::copyFileInput(arg1, arg2) << std::endl;
         }},
-        {"outcp", [](std::string& arg1, std::string& arg2){ }},
+        {"outcp", [](std::string& arg1, std::string& arg2) {
+            std::cout << Outcp::copyFileOutput(arg1, arg2) << std::endl;
+        }},
         {"load", [](std::string& arg1, std::string&) {
             std::cout << Load::loadCommands(arg1) << std::endl;
         }},

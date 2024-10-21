@@ -237,10 +237,24 @@ CMakeFiles/File_System.dir/src/Commands/Incp.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/File_System.dir/src/Commands/Incp.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/Incp.cpp -o CMakeFiles/File_System.dir/src/Commands/Incp.cpp.s
 
+CMakeFiles/File_System.dir/src/Commands/Outcp.cpp.o: CMakeFiles/File_System.dir/flags.make
+CMakeFiles/File_System.dir/src/Commands/Outcp.cpp.o: /mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/Outcp.cpp
+CMakeFiles/File_System.dir/src/Commands/Outcp.cpp.o: CMakeFiles/File_System.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/File_System.dir/src/Commands/Outcp.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/File_System.dir/src/Commands/Outcp.cpp.o -MF CMakeFiles/File_System.dir/src/Commands/Outcp.cpp.o.d -o CMakeFiles/File_System.dir/src/Commands/Outcp.cpp.o -c /mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/Outcp.cpp
+
+CMakeFiles/File_System.dir/src/Commands/Outcp.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/File_System.dir/src/Commands/Outcp.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/Outcp.cpp > CMakeFiles/File_System.dir/src/Commands/Outcp.cpp.i
+
+CMakeFiles/File_System.dir/src/Commands/Outcp.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/File_System.dir/src/Commands/Outcp.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/Outcp.cpp -o CMakeFiles/File_System.dir/src/Commands/Outcp.cpp.s
+
 CMakeFiles/File_System.dir/src/Commands/Load.cpp.o: CMakeFiles/File_System.dir/flags.make
 CMakeFiles/File_System.dir/src/Commands/Load.cpp.o: /mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/Load.cpp
 CMakeFiles/File_System.dir/src/Commands/Load.cpp.o: CMakeFiles/File_System.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/File_System.dir/src/Commands/Load.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/File_System.dir/src/Commands/Load.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/File_System.dir/src/Commands/Load.cpp.o -MF CMakeFiles/File_System.dir/src/Commands/Load.cpp.o.d -o CMakeFiles/File_System.dir/src/Commands/Load.cpp.o -c /mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/Load.cpp
 
 CMakeFiles/File_System.dir/src/Commands/Load.cpp.i: cmake_force
@@ -254,7 +268,7 @@ CMakeFiles/File_System.dir/src/Commands/Load.cpp.s: cmake_force
 CMakeFiles/File_System.dir/src/Commands/Format.cpp.o: CMakeFiles/File_System.dir/flags.make
 CMakeFiles/File_System.dir/src/Commands/Format.cpp.o: /mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/Format.cpp
 CMakeFiles/File_System.dir/src/Commands/Format.cpp.o: CMakeFiles/File_System.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/File_System.dir/src/Commands/Format.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/File_System.dir/src/Commands/Format.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/File_System.dir/src/Commands/Format.cpp.o -MF CMakeFiles/File_System.dir/src/Commands/Format.cpp.o.d -o CMakeFiles/File_System.dir/src/Commands/Format.cpp.o -c /mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/Format.cpp
 
 CMakeFiles/File_System.dir/src/Commands/Format.cpp.i: cmake_force
@@ -268,7 +282,7 @@ CMakeFiles/File_System.dir/src/Commands/Format.cpp.s: cmake_force
 CMakeFiles/File_System.dir/src/Commands/Help.cpp.o: CMakeFiles/File_System.dir/flags.make
 CMakeFiles/File_System.dir/src/Commands/Help.cpp.o: /mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/Help.cpp
 CMakeFiles/File_System.dir/src/Commands/Help.cpp.o: CMakeFiles/File_System.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/File_System.dir/src/Commands/Help.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/File_System.dir/src/Commands/Help.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/File_System.dir/src/Commands/Help.cpp.o -MF CMakeFiles/File_System.dir/src/Commands/Help.cpp.o.d -o CMakeFiles/File_System.dir/src/Commands/Help.cpp.o -c /mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/Help.cpp
 
 CMakeFiles/File_System.dir/src/Commands/Help.cpp.i: cmake_force
@@ -293,6 +307,7 @@ File_System_OBJECTS = \
 "CMakeFiles/File_System.dir/src/Commands/Cd.cpp.o" \
 "CMakeFiles/File_System.dir/src/Commands/Info.cpp.o" \
 "CMakeFiles/File_System.dir/src/Commands/Incp.cpp.o" \
+"CMakeFiles/File_System.dir/src/Commands/Outcp.cpp.o" \
 "CMakeFiles/File_System.dir/src/Commands/Load.cpp.o" \
 "CMakeFiles/File_System.dir/src/Commands/Format.cpp.o" \
 "CMakeFiles/File_System.dir/src/Commands/Help.cpp.o"
@@ -312,12 +327,13 @@ File_System: CMakeFiles/File_System.dir/src/Commands/Cat.cpp.o
 File_System: CMakeFiles/File_System.dir/src/Commands/Cd.cpp.o
 File_System: CMakeFiles/File_System.dir/src/Commands/Info.cpp.o
 File_System: CMakeFiles/File_System.dir/src/Commands/Incp.cpp.o
+File_System: CMakeFiles/File_System.dir/src/Commands/Outcp.cpp.o
 File_System: CMakeFiles/File_System.dir/src/Commands/Load.cpp.o
 File_System: CMakeFiles/File_System.dir/src/Commands/Format.cpp.o
 File_System: CMakeFiles/File_System.dir/src/Commands/Help.cpp.o
 File_System: CMakeFiles/File_System.dir/build.make
 File_System: CMakeFiles/File_System.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Linking CXX executable File_System"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Linking CXX executable File_System"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/File_System.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

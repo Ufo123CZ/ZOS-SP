@@ -1,4 +1,6 @@
-format 5MB
-mkdir t1
-mkdir t2
-mkdir t1/t3
+# format 5MB
+# incp ../Test/main.c
+# mkdir t1
+# incp ../Test/Incp.cpp t1
+outcp main.c ../Out/
+outcp t1/Incp.cpp ../Out/

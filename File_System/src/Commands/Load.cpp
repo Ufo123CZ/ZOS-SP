@@ -17,6 +17,11 @@ namespace Load {
 
         std::string line;
         while (std::getline(file, line)) {
+
+            if (line[0] == '#') {
+                continue;
+            }
+
             std::istringstream iss(line);
             std::string command, arg1, arg2;
             iss >> command >> arg1 >> arg2;
