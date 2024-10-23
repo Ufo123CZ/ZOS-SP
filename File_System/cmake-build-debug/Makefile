@@ -369,6 +369,30 @@ src/Commands/Outcp.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/Outcp.cpp.s
 .PHONY : src/Commands/Outcp.cpp.s
 
+src/Commands/Rm.o: src/Commands/Rm.cpp.o
+.PHONY : src/Commands/Rm.o
+
+# target to build an object file
+src/Commands/Rm.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/Rm.cpp.o
+.PHONY : src/Commands/Rm.cpp.o
+
+src/Commands/Rm.i: src/Commands/Rm.cpp.i
+.PHONY : src/Commands/Rm.i
+
+# target to preprocess a source file
+src/Commands/Rm.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/Rm.cpp.i
+.PHONY : src/Commands/Rm.cpp.i
+
+src/Commands/Rm.s: src/Commands/Rm.cpp.s
+.PHONY : src/Commands/Rm.s
+
+# target to generate assembly for a file
+src/Commands/Rm.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/Rm.cpp.s
+.PHONY : src/Commands/Rm.cpp.s
+
 src/Commands/RmDir.o: src/Commands/RmDir.cpp.o
 .PHONY : src/Commands/RmDir.o
 
@@ -552,6 +576,9 @@ help:
 	@echo "... src/Commands/Outcp.o"
 	@echo "... src/Commands/Outcp.i"
 	@echo "... src/Commands/Outcp.s"
+	@echo "... src/Commands/Rm.o"
+	@echo "... src/Commands/Rm.i"
+	@echo "... src/Commands/Rm.s"
 	@echo "... src/Commands/RmDir.o"
 	@echo "... src/Commands/RmDir.i"
 	@echo "... src/Commands/RmDir.s"

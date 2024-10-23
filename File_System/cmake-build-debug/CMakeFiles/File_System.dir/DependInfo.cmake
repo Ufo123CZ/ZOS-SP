@@ -18,6 +18,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/Ls.cpp" "CMakeFiles/File_System.dir/src/Commands/Ls.cpp.o" "gcc" "CMakeFiles/File_System.dir/src/Commands/Ls.cpp.o.d"
   "/mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/MkDir.cpp" "CMakeFiles/File_System.dir/src/Commands/MkDir.cpp.o" "gcc" "CMakeFiles/File_System.dir/src/Commands/MkDir.cpp.o.d"
   "/mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/Outcp.cpp" "CMakeFiles/File_System.dir/src/Commands/Outcp.cpp.o" "gcc" "CMakeFiles/File_System.dir/src/Commands/Outcp.cpp.o.d"
+  "/mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/Rm.cpp" "CMakeFiles/File_System.dir/src/Commands/Rm.cpp.o" "gcc" "CMakeFiles/File_System.dir/src/Commands/Rm.cpp.o.d"
   "/mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/RmDir.cpp" "CMakeFiles/File_System.dir/src/Commands/RmDir.cpp.o" "gcc" "CMakeFiles/File_System.dir/src/Commands/RmDir.cpp.o.d"
   "/mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/FileCheck/FileCheck.cpp" "CMakeFiles/File_System.dir/src/FileCheck/FileCheck.cpp.o" "gcc" "CMakeFiles/File_System.dir/src/FileCheck/FileCheck.cpp.o.d"
   "/mnt/c/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Utils/CommandMap.cpp" "CMakeFiles/File_System.dir/src/Utils/CommandMap.cpp.o" "gcc" "CMakeFiles/File_System.dir/src/Utils/CommandMap.cpp.o.d"

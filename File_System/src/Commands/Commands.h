@@ -4,6 +4,9 @@
 #include <string>
 #include <cstdint>
 
+namespace Rm {
+    std::string removeFile(std::string& path);
+}
 
 namespace  MkDir {
     std::string makeDirectory(std::string& dirname);

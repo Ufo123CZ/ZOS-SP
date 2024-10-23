@@ -16,7 +16,9 @@ void CommandMap::initCommandMap() {
     commandMap = {
         {"cp", [](std::string& arg1, std::string& arg2){ }},
         {"mv", [](std::string& arg1, std::string& arg2){ }},
-        {"rm", [](std::string& arg1, std::string&){ }},
+        {"rm", [](std::string& arg1, std::string&) {
+            std::cout << Rm::removeFile(arg1) << std::endl;
+        }},
         {"mkdir", [](std::string& arg1, std::string&) {
             std::cout << MkDir::makeDirectory(arg1) << std::endl;
         }},
