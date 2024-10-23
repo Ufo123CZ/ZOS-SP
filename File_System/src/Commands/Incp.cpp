@@ -96,8 +96,6 @@ namespace Incp {
             srcFile.close();
             return "Error determining file size";
         }
-
-        // Move the file pointer back to the beginning
         srcFile.seekg(0, std::ios::beg);
 
         // Check if in filesystem is enough space
@@ -121,6 +119,13 @@ namespace Incp {
             return "Not enough space in the filesystem";
         }
 
+        // Filename limiter
+        std::string fName = fN.substr(0, ITEM_MAX_NAME - 4);
+        std::string fSuff = fN.substr(fName.size() - 4, 4);
+        // Name in the filesystem
+        fName += fSuff;
+
+
         // Split the srcFile into fragments
         std::vector<std::string> fragments;
         auto buffer = new char[desc.cluster_size];
@@ -133,7 +138,7 @@ namespace Incp {
         int32_t freeCluster = fat.findFreeCluster();
 
         // Prepare directory item that will be in destination directory
-        std::string name = source.substr(source.find_last_of('/') + 1);
+        std::string name = fName;
         std::copy(name.begin(), name.end(), dirItem.name);
         dirItem.isFile = true;
         dirItem.size = static_cast<int32_t>(fileSize);
