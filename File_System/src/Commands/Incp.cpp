@@ -120,10 +120,10 @@ namespace Incp {
         }
 
         // Filename limiter
-        std::string fName = fN.substr(0, ITEM_MAX_NAME - 4);
-        std::string fSuff = fN.substr(fName.size() - 4, 4);
+        std::string fName = fN.substr(0, 7);
+        std::string fSuff = fN.substr(fN.find_last_of('.')+1);
         // Name in the filesystem
-        fName += fSuff;
+        fName += "." + fSuff;
 
 
         // Split the srcFile into fragments
