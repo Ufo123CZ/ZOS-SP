@@ -121,6 +121,10 @@ namespace Incp {
 
         // Filename limiter
         std::string fName = fN.substr(0, 7);
+        // If in Fname is suffix remove it
+        if (fName.find('.') != std::string::npos) {
+            fName = fName.substr(0, fName.find('.'));
+        }
         std::string fSuff = fN.substr(fN.find_last_of('.')+1);
         // Name in the filesystem
         fName += "." + fSuff;

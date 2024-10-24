@@ -177,6 +177,30 @@ src/Commands/Cd.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/Cd.cpp.s
 .PHONY : src/Commands/Cd.cpp.s
 
+src/Commands/Cp.o: src/Commands/Cp.cpp.o
+.PHONY : src/Commands/Cp.o
+
+# target to build an object file
+src/Commands/Cp.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/Cp.cpp.o
+.PHONY : src/Commands/Cp.cpp.o
+
+src/Commands/Cp.i: src/Commands/Cp.cpp.i
+.PHONY : src/Commands/Cp.i
+
+# target to preprocess a source file
+src/Commands/Cp.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/Cp.cpp.i
+.PHONY : src/Commands/Cp.cpp.i
+
+src/Commands/Cp.s: src/Commands/Cp.cpp.s
+.PHONY : src/Commands/Cp.s
+
+# target to generate assembly for a file
+src/Commands/Cp.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/Cp.cpp.s
+.PHONY : src/Commands/Cp.cpp.s
+
 src/Commands/Format.o: src/Commands/Format.cpp.o
 .PHONY : src/Commands/Format.o
 
@@ -552,6 +576,9 @@ help:
 	@echo "... src/Commands/Cd.o"
 	@echo "... src/Commands/Cd.i"
 	@echo "... src/Commands/Cd.s"
+	@echo "... src/Commands/Cp.o"
+	@echo "... src/Commands/Cp.i"
+	@echo "... src/Commands/Cp.s"
 	@echo "... src/Commands/Format.o"
 	@echo "... src/Commands/Format.i"
 	@echo "... src/Commands/Format.s"

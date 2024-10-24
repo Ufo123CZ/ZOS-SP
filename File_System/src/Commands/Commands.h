@@ -4,6 +4,10 @@
 #include <string>
 #include <cstdint>
 
+namespace Cp {
+    std::string copyFile(std::string& source, std::string& dest);
+}
+
 namespace Rm {
     std::string removeFile(std::string& path);
 }

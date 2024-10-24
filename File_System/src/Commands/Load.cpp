@@ -18,7 +18,7 @@ namespace Load {
         std::string line;
         while (std::getline(file, line)) {
 
-            if (line[0] == '#') {
+            if (line[0] == '#' || line.empty()) {
                 continue;
             }
 

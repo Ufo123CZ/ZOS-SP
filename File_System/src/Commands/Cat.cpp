@@ -13,7 +13,6 @@ extern std::string filename;
 
 namespace Cat {
     void catFile(std::string& path) {
-
         // Read the filesystem description
         std::ifstream ifs(filename, std::ios::binary);
         if (!ifs) {

@@ -1,2 +1,7 @@
 format 5MB
-incp ../Test/main.c
+mkdir t1
+mkdir t2
+incp ../Test/Incp.cpp t1
+cp t1/Incp.cpp t2
+cat t1/Incp.cpp
+cat t2/Incp.cpp

@@ -14,7 +14,9 @@ std::unordered_map<std::string, std::function<void(std::string&, std::string&)>>
 
 void CommandMap::initCommandMap() {
     commandMap = {
-        {"cp", [](std::string& arg1, std::string& arg2){ }},
+        {"cp", [](std::string& arg1, std::string& arg2) {
+            std::cout << Cp::copyFile(arg1, arg2) << std::endl;
+        }},
         {"mv", [](std::string& arg1, std::string& arg2){ }},
         {"rm", [](std::string& arg1, std::string&) {
             std::cout << Rm::removeFile(arg1) << std::endl;
