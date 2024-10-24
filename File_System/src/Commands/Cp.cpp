@@ -43,7 +43,6 @@ namespace Cp {
         // Find the source file in the directory
         DirectoryItem dirItems[desc.cluster_size / sizeof(DirectoryItem)];
         DirectoryItem dirItem{};
-        fs.seekg(desc.data_start_address + sourceDirCluster * desc.cluster_size, std::ios::beg);
         for (int i = 0; i < desc.cluster_size / sizeof(DirectoryItem); ++i) {
             fs.seekg(desc.data_start_address + result.second * desc.cluster_size + i * sizeof(DirectoryItem), std::ios::beg);
             fs.read(reinterpret_cast<char*>(&dirItem), sizeof(dirItem));

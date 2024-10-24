@@ -17,7 +17,9 @@ void CommandMap::initCommandMap() {
         {"cp", [](std::string& arg1, std::string& arg2) {
             std::cout << Cp::copyFile(arg1, arg2) << std::endl;
         }},
-        {"mv", [](std::string& arg1, std::string& arg2){ }},
+        {"mv", [](std::string& arg1, std::string& arg2) {
+            std::cout << Mv::moveFile(arg1, arg2) << std::endl;
+        }},
         {"rm", [](std::string& arg1, std::string&) {
             std::cout << Rm::removeFile(arg1) << std::endl;
         }},

@@ -1,11 +1,21 @@
 #ifndef COMMANDS_H
 #define COMMANDS_H
 
+#define COMAND_PREFIX1 "~"
+#define COMAND_PREFIX2 "$"
+
+#define ROOT_CLUSTER (0)
+#define ROOT_DIRECTORY ("/")
+
 #include <string>
 #include <cstdint>
 
 namespace Cp {
     std::string copyFile(std::string& source, std::string& dest);
+}
+
+namespace Mv {
+    std::string moveFile(std::string& source, std::string& dest);
 }
 
 namespace Rm {

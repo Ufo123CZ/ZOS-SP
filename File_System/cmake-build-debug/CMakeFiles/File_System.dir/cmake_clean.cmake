@@ -19,6 +19,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/File_System.dir/src/Commands/Ls.cpp.o.d"
   "CMakeFiles/File_System.dir/src/Commands/MkDir.cpp.o"
   "CMakeFiles/File_System.dir/src/Commands/MkDir.cpp.o.d"
+  "CMakeFiles/File_System.dir/src/Commands/Mv.cpp.o"
+  "CMakeFiles/File_System.dir/src/Commands/Mv.cpp.o.d"
   "CMakeFiles/File_System.dir/src/Commands/Outcp.cpp.o"
   "CMakeFiles/File_System.dir/src/Commands/Outcp.cpp.o.d"
   "CMakeFiles/File_System.dir/src/Commands/Rm.cpp.o"

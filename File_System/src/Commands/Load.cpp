@@ -5,6 +5,7 @@
 #include <iostream>
 #include <sstream>
 
+extern std::string currentPath;
 extern bool isFilesystemLoaded;
 
 namespace Load {
@@ -25,6 +26,22 @@ namespace Load {
             std::istringstream iss(line);
             std::string command, arg1, arg2;
             iss >> command >> arg1 >> arg2;
+
+            if (currentPath[currentPath.size() - 1] == '/') {
+                currentPath = currentPath.substr(0, currentPath.size() - 1);
+            }
+            if (currentPath.empty()) {
+                currentPath = ROOT_DIRECTORY;
+            }
+            std::string printedCommand = command;
+            if (!arg1.empty()) {
+                printedCommand += " " + arg1;
+            }
+            if (!arg2.empty()) {
+                printedCommand += " " + arg2;
+            }
+            std::cout << "LOAD: " << COMAND_PREFIX1 << currentPath << COMAND_PREFIX2  << printedCommand << std::endl;
+
             if (!isFilesystemLoaded && command != "format" && command != "exit" && command != "help" && command != "load") {
                 std::cout << "Filesystem not loaded. Only 'format', 'help', 'exit' or 'load' command is available." << std::endl;
             } else {

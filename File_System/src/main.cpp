@@ -10,13 +10,6 @@
 #include "Utils/Utils.h"
 #include "Commands/Commands.h"
 
-
-#define COMAND_PREFIX1 "~"
-#define COMAND_PREFIX2 "$"
-
-#define ROOT_CLUSTER (0)
-#define ROOT_DIRECTORY ("/")
-
 // Global variables
 int currentCluster = ROOT_CLUSTER;
 std::string currentPath = ROOT_DIRECTORY;

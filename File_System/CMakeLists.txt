@@ -13,7 +13,7 @@ add_executable(File_System
 
         # Commands
         src/Commands/Cp.cpp
-#        src/Commands/Mv.cpp
+        src/Commands/Mv.cpp
         src/Commands/Rm.cpp
         src/Commands/MkDir.cpp
         src/Commands/RmDir.cpp
