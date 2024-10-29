@@ -136,18 +136,8 @@ namespace Incp {
         }
 
         // Filename limiter
-        bool dNameModified = false;
-        std::string oldName = dName;
         if (dName.size() > ITEM_MAX_NAME) {
-            // Find the suffix of the filename if there is any
-            std::string suffix = dName.substr(dName.find_last_of('.'));
-            // Max lenght of suffix is ITEM_MAX_NAME - 8
-            if (suffix.size() > ITEM_MAX_NAME - 8) {
-                suffix = suffix.substr(0, ITEM_MAX_NAME - 8);
-            }
-            dName = dName.substr(0, ITEM_MAX_NAME - suffix.size());
-            dName += suffix;
-            dNameModified = true;
+            return "Error: Destination file name is too long";
         }
 
         // Split the srcFile into fragments
@@ -224,10 +214,6 @@ namespace Incp {
         // Close the files
         srcFile.close();
         fs.close();
-
-        if (dNameModified) {
-            return "File copied successfully. Filename was modified from: " + oldName + " to: " + dName;
-        }
 
         return "File copied successfully";
     }
