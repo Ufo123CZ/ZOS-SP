@@ -3,6 +3,7 @@
 #include "../Utils/Utils.h"
 #include "../Utils/FAT.h"
 #include <fstream>
+#include <string.h>
 #include <string>
 #include <vector>
 
@@ -36,21 +37,24 @@ namespace Cp {
         std::string sPath = source.substr(0, source.find_last_of('/'));
         std::string sName = source.substr(source.find_last_of('/') + 1);
 
+        int32_t sourceDirCluster;
         if (sPath == sName) {
             sPath = currentPath;
-        }
-
-        // Find the source file and its cluster
-        std::pair<std::string, int32_t> result = Utils::splitPath(sPath);
-        if (result.second == -1 && result.first.empty()) {
-            return "Error: Cannot find source file";
+            sourceDirCluster = currentCluster;
+        } else {
+            // Find the source file and its cluster
+            std::pair<std::string, int32_t> result = Utils::splitPath(sPath);
+            if (result.second == -1 && result.first.empty()) {
+                return "Error: Cannot find source file";
+            }
+            sourceDirCluster = result.second;
         }
 
         // Find the source file in the directory
         DirectoryItem dirItems[desc.cluster_size / sizeof(DirectoryItem)];
         DirectoryItem dirItem{};
         for (int i = 0; i < desc.cluster_size / sizeof(DirectoryItem); ++i) {
-            fs.seekg(desc.data_start_address + result.second * desc.cluster_size + i * sizeof(DirectoryItem), std::ios::beg);
+            fs.seekg(desc.data_start_address + sourceDirCluster * desc.cluster_size + i * sizeof(DirectoryItem), std::ios::beg);
             fs.read(reinterpret_cast<char*>(&dirItem), sizeof(dirItem));
             dirItems[i] = dirItem;
         }
@@ -87,27 +91,41 @@ namespace Cp {
             return "Error: Not enough free clusters";
         }
 
-        // Find the destination directory
-        int32_t destDirCluster;
-        result = Utils::splitPath(dest);
-        if (result.second == -1 && result.first.empty()) {
-            return "Error: Cannot find destination directory";
-        }
+        std::string dPath = dest.substr(0, dest.find_last_of('/'));
+        std::string dName = dest.substr(dest.find_last_of('/') + 1);
 
-        destDirCluster = result.second;
+        int32_t destDirCluster;
+        if (dPath == dName) {
+            dPath = currentPath;
+            destDirCluster = currentCluster;
+        } else {
+            // Find the destination directory
+            std::pair<std::string, int32_t> result = Utils::splitPath(dPath);
+            if (result.second == -1 && result.first.empty()) {
+                return "Error: Cannot find destination directory";
+            }
+            destDirCluster = result.second;
+        }
 
         // Find all items in the destination directory
         fs.seekg(desc.data_start_address + destDirCluster * desc.cluster_size, std::ios::beg);
         for (int i = 0; i < desc.cluster_size / sizeof(DirectoryItem); ++i) {
-            fs.seekg(desc.data_start_address + result.second * desc.cluster_size + i * sizeof(DirectoryItem), std::ios::beg);
+            fs.seekg(desc.data_start_address + destDirCluster * desc.cluster_size + i * sizeof(DirectoryItem), std::ios::beg);
             fs.read(reinterpret_cast<char*>(&dirItem), sizeof(dirItem));
             dirItems[i] = dirItem;
         }
 
+        if (dName.size() > sizeof(copyItem.name)) {
+            return "Error: Destination file name is too long";
+        }
+        // Clear copyItem.name
+        memset(copyItem.name, 0, sizeof(copyItem.name));
+        strncpy(copyItem.name, dName.c_str(), sizeof(copyItem.name));
+
         // Check if the destination file already exists
         for (const auto& item : dirItems) {
             if (std::string(item.name) == copyItem.name) {
-                return "Error: Cannot find file";
+                return "File already exists in the destination directory";
             }
         }
 

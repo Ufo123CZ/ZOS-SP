@@ -229,7 +229,7 @@ Ta obsahuje informace o souborovém systému.
 Každý soubor a adresář je reprezentován třídou \texttt{DirectoryItem}.
 Ta obsahuje informace o souboru nebo adresáři, jako je jméno, jestli se jedná o soubor nebo o adresář, velikost, pozice ve FAT a rodičovský adresář.
 
-Dále jsou nadefinovány třídy konstanty:
+Dále jsou nadefinovány konstanty:
 \begin{itemize}
     \item FAT\_UNUSED -- INT32\_MAX - 1
     \item FAT\_FILE\_END -- INT32\_MAX - 2
@@ -237,11 +237,56 @@ Dále jsou nadefinovány třídy konstanty:
     \item FORMAT\_CLUSTER\_SIZE = 1024
 \end{itemize}
 
-% TODO: FAT
+FAT tabulka je reprezentována polem Clusterů, kde na každém indexu je uložen jeden \texttt{int32\_t}.
+Velikost pole je Clusterů je:
+\begin{center}
+    \large
+    \begin{math}
+        Pocet Clusteru = \frac{Velikost FS}{Velikost clusteru}
+    \end{math}
+\end{center}
 
-\subsection{Příkazy}
-\subsubsection{Mapování příkazů}
+\subsection{Utils}
+V souboru \texttt{Utils.cpp} je implementována jedna metoda, 
+která kontroluje validnost zadané cesty a vrátí pair ze standardní knihovny C++ s cestou a clusterem.
+Metoda dokáže zpracovat cesty Absolutní i Relativní.
+Absolutní cesta začíná znakem \texttt{/}, relativní cesta začíná znakem nezačíná \texttt{/} a může obsahovat \texttt{..} pro návrat o úroveň výše.
+Pokud je cesta Absolutní metoda pouze projde všechny adresáře a vrátí poslední cluster a cestu.
+Pokud je cesta Relativní metoda poupraví současnou cestu a pak projde všechny adresáře a vrátí poslední cluster a cestu.
+
+\section{Příkazy}
+Všechny příkazy jsou implementovány v separátních souborech \texttt{.cpp} ve svém vlastním namespace.
+Sjednocení všech příkazů je v souboru \texttt{Commands.h}.
+\subsection{Mapování příkazů}
 K jednoduchému mapování příkazů byla využita Unordered Map ze standardní knihovny C++, které obsahuje klíč (příkaz) a funkci pro předání argumentů příslušným metodám.
 Tato mapa je velmi jednoduše rozšířitelná o další příkazy do budoucna.
+
+\subsection{Příkaz cp}
+Implementace příkazu \texttt{cp} je v souboru \texttt{Cp.cpp}.
+Nejprve se zkontroluje, zda Souborový Systém existuje a přečte se Description.
+Následně se zkontroluje cesta zdrojového souboru a cílového souboru.
+Soubory ve zdrojovém adresáři a cílovém adresáři se načtou a zkontrolují se, zda zdrojový i cílový soubor existují.
+Pokud cílový soubor existuje, kopírování se neprovede.
+Pokud cílový soubor neexistuje, zkontroluje se, zda je dostatek místa pro kopírování.
+Následně se zkopírují data ze zdrojového souboru do cílového souboru.
+
+\subsection{Příkaz mv}
+Implementace příkazu \texttt{mv} je v souboru \texttt{Mv.cpp}.
+Nejprve se zkontroluje, zda Souborový Systém existuje a přečte se Description.
+Následně se zkontroluje cesta zdrojového souboru a cílového souboru.
+Soubory ve zdrojovém adresáři a cílovém adresáři se načtou a zkontrolují se, zda zdrojový i cílový soubor existují.
+Pokud se jména zdroje a cíle neshodují, soubor se přejmenuje.
+Pokud se cesta zdroje a cíle neshodují, soubor se přesune a předchozí soubor se smaže (jméno souboru na 0 indexu se nastaví na \textbackslash 0).
+Obsah souboru zůstane v clusterech, kde byl původně uložen.
+
+\subsection{Příkaz rm}
+Implementace příkazu \texttt{rm} je v souboru \texttt{Rm.cpp}.
+Nejprve se zkontroluje, zda Souborový Systém existuje a přečte se Description.
+Následně se zkontroluje cesta zdrojového souboru.
+Soubor ve zdrojovém adresáři se načte a zkontroluje se, zda zdrojový soubor existuje.
+pokud soubor existuje, smaže (jméno souboru na 0 indexu se nastaví na \textbackslash 0) se a vymaže obsah clusterů, kde byl uložen.
+
+
+
 
 \end{document}

@@ -45,18 +45,13 @@ namespace Mv {
             rename = true;
         }
 
-        // New name is empty keep the old name
-        if (dName.empty()) {
-            dName = sName;
-        }
-
         // Split the paths into directory and file name for source and destination
         std::pair<std::string, int32_t> sResult, dResult;
         if (sPath == sName) {
             sResult = {currentPath, currentCluster};
         } else {
             sResult = Utils::splitPath(sPath);
-            if (sResult.second == -1 && sResult.first == "") {
+            if (sResult.second == -1 && sResult.first.empty()) {
                 return "Error: Cannot find file";
             }
         }
@@ -64,7 +59,7 @@ namespace Mv {
             dResult = {currentPath, currentCluster};
         } else {
             dResult = Utils::splitPath(dPath);
-            if (dResult.second == -1 && dResult.first == "") {
+            if (dResult.second == -1 && dResult.first.empty()) {
                 return "Error: Cannot find file";
             }
         }
@@ -87,21 +82,58 @@ namespace Mv {
             dDirItems[i] = dDirItem;
         }
 
-        // Rename the file
-        if (rename) {
-            for (int i = 0; i < desc.cluster_size / sizeof(DirectoryItem); ++i) {
-                if (std::string(sDirItems[i].name) == sName && sDirItems[i].isFile) {
-                    // Clear renamed item name
-                    std::memset(sDirItems[i].name, 0, sizeof(sDirItems[i].name));
-                    // Copy the new name
-                    strncpy(sDirItems[i].name, dName.c_str(), dName.size());
-                    fs.seekg(desc.data_start_address + sResult.second * desc.cluster_size + i * sizeof(DirectoryItem), std::ios::beg);
-                    fs.write(reinterpret_cast<char*>(&sDirItems[i]), sizeof(dDirItem));
-                }
+        // Find the source file in the directory items
+        bool found = false;
+        DirectoryItem sourceI{};
+        for (int i = 0; i < desc.cluster_size / sizeof(DirectoryItem); ++i) {
+            if (std::string(sDirItems[i].name) == sName && sDirItems[i].isFile) {
+                found = true;
+                sourceI = sDirItems[i];
+                break;
             }
         }
+        if (!found) {
+            fs.close();
+            return "Source file not found in the filesystem";
+        }
+
+        // Rename the file
+        if (rename) {
+            // Clear sourceI
+            std::memset(sourceI.name, 0, sizeof(sourceI.name));
+            // Copy the new name
+            strncpy(sourceI.name, dName.c_str(), dName.size());
+        }
+
+        // Only Renaming
         if (sResult.second == dResult.second) {
-            return "File moved successfully";
+            // Check if sourceI is already in the destination directory
+            for (int i = 0; i < desc.cluster_size / sizeof(DirectoryItem); ++i) {
+                if (std::string(dDirItems[i].name) == sourceI.name) {
+                    fs.close();
+                    return "File already exists in the destination directory";
+                }
+            }
+
+            for (int i = 0; i < desc.cluster_size / sizeof(DirectoryItem); ++i) {
+                if (std::string(sDirItems[i].name) == sName && sDirItems[i].isFile) {
+                    fs.seekg(desc.data_start_address + sResult.second * desc.cluster_size + i * sizeof(DirectoryItem), std::ios::beg);
+                    fs.write(reinterpret_cast<char*>(&sourceI), sizeof(sourceI));
+                    break;
+                }
+            }
+
+            // Close the filesystem
+            fs.close();
+
+            return "File renamed successfully";
+        }
+        // Check if sourceI is already in the destination directory
+        for (int i = 0; i < desc.cluster_size / sizeof(DirectoryItem); ++i) {
+            if (std::string(dDirItems[i].name) == sourceI.name) {
+                fs.close();
+                return "File already exists in the destination directory";
+            }
         }
 
         // Check if there is a free space in destination directory
@@ -116,40 +148,33 @@ namespace Mv {
             return "Error: No free space in the destination directory";
         }
 
-        // Save the moved item
-        DirectoryItem movedItem{};
-
-        // Find the source file in the directory items and remove it
-        int32_t cluster = -1;
-        for (int i = 0; i < desc.cluster_size / sizeof(DirectoryItem); ++i) {
-            if (std::string(sDirItems[i].name) == dName && sDirItems[i].isFile) {
-
-                // Rewrite the directory item name[0] and save the item
-                fs.seekp(desc.data_start_address + sResult.second * desc.cluster_size + i * sizeof(DirectoryItem), std::ios::beg);
-                sDirItem = sDirItems[i];
-                movedItem = sDirItems[i];
-                sDirItem.name[0] = '\0';
-                fs.write(reinterpret_cast<char*>(&sDirItem), sizeof(sDirItem));
-
-                cluster = sDirItems[i].start_cluster;
-                break;
-            }
-        }
-        if (cluster == -1) {
-            fs.close();
-            return "Source file not found in the filesystem";
-        }
-
-        // Write the moved item to the destination directory
+        // Create a new file in the destination directory
         for (int i = 0; i < desc.cluster_size / sizeof(DirectoryItem); ++i) {
             if (dDirItems[i].name[0] == '\0') {
-                movedItem.parent_cluster = dResult.second;
+                sourceI.parent_cluster = dResult.second;
                 fs.seekp(desc.data_start_address + dResult.second * desc.cluster_size + i * sizeof(DirectoryItem), std::ios::beg);
-                fs.write(reinterpret_cast<const char*>(&movedItem), sizeof(movedItem));
+                fs.write(reinterpret_cast<const char*>(&sourceI), sizeof(sourceI));
                 break;
             }
         }
 
+        // Remove the source file from the source directory
+        for (int i = 0; i < desc.cluster_size / sizeof(DirectoryItem); ++i) {
+            if (std::string(sDirItems[i].name) == sName && sDirItems[i].isFile) {
+                // Clear sourceI
+                sDirItems[i].name[0] = '\0';
+                fs.seekg(desc.data_start_address + sResult.second * desc.cluster_size + i * sizeof(DirectoryItem), std::ios::beg);
+                fs.write(reinterpret_cast<char*>(&sDirItems[i]), sizeof(sDirItems[i]));
+                break;
+            }
+        }
+
+        // Close the filesystem
+        fs.close();
+
+        if (rename) {
+            return "File moved and renamed successfully";
+        }
         return "File moved successfully";
     }
 }

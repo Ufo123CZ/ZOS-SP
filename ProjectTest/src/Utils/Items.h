@@ -2,7 +2,6 @@
 #define ITEMS_H
 
 #include <cstdint>
-#include <climits>
 
 #define FS_MAX_NAME 12
 #define ITEM_MAX_NAME 12
@@ -19,7 +18,7 @@ constexpr int32_t FAT_BAD_CLUSTER = INT32_MAX - 3;
 // Description class
 class Description {
 public:
-    char login[FS_MAX_NAME];
+    char signature[FS_MAX_NAME];
     int32_t disk_size;
     int32_t cluster_size;
     int32_t cluster_count;
