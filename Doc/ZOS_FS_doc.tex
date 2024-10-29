@@ -1,0 +1,247 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[czech]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{tocloft}
+\usepackage{multicol}
+\usepackage[hidelinks]{hyperref}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{fontawesome}
+
+\newcommand{\Subject}{ZOS}
+\newcommand{\TypeOfWork}{Semestrální práce}
+\newcommand{\WorkFor}{\Subject\- -- \TypeOfWork}
+\newcommand{\NameOfProject}{File System s využitím PseudoFAT systému}
+\newcommand{\Autor}{Martin Schön}
+\newcommand{\Id}{A22B0144P}
+\newcommand{\Date}{\today}
+
+\begin{document}
+
+\begin{titlepage}
+    \begin{center}
+        
+        
+        \vspace{2cm}
+        
+        \Huge
+        \textbf{\WorkFor}
+        
+        \vspace{1cm}
+        
+        \LARGE
+        \NameOfProject
+        
+        \vfill
+        
+        \vspace{0.5cm}
+        
+        \normalsize
+        \raggedright
+        Vypracoval: \Autor \\
+        Studijní číslo: \Id \\
+        Datum: \Date
+        \vspace{0.2cm}
+        
+    \end{center}
+\end{titlepage}
+\thispagestyle{empty}
+\pagebreak
+
+%tečky v obsahu
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsubsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsubsubsecleader}{\cftdotfill{\cftdotsep}}
+
+%obsah
+\setcounter{page}{2}
+\tableofcontents
+\pagebreak
+
+\section{Zadání}
+\subsection{Obecné zadání}
+Tématem semestrální práce bude práce se zjednodušeným souborovým systémem založeným na
+pseudoFAT. Vaším cílem bude splnit několik vybraných úloh.
+Základní funkčnost, kterou musí program splňovat. Formát výpisů je závazný.
+Program bude mít jeden parametr a tím bude název Vašeho souborového systému. Po spuštění bude
+program čekat na zadání jednotlivých příkazů s minimální funkčností viz níže (všechny soubory
+mohou být zadány jak absolutní, tak relativní cestou):
+
+\begin{itemize}[itemsep=-3pt]
+    \item Zkopíruje soubor s1 do umístění s2
+    \begin{itemize}
+        \item[] \texttt{cp s1 s2}
+        \item[] \texttt{s1 -- zdrojový soubor}
+        \item[] \texttt{s2 -- cílový soubor}
+    \end{itemize}
+    \item Přesune soubor s1 do umístění s2, nebo přejmenuje s1 na s2
+    \begin{itemize}
+        \item[] \texttt{mv s1 s2}
+        \item[] \texttt{s1 -- zdrojový soubor}
+        \item[] \texttt{s2 -- cílový soubor}
+    \end{itemize}
+    \item Smaže soubor s1
+    \begin{itemize}
+        \item[] \texttt{rm s1}
+        \item[] \texttt{s1 -- soubor, který se má smazat}
+    \end{itemize}
+    \item Vytvoří adresář a1
+    \begin{itemize}
+        \item[] \texttt{mkdir a1}
+        \item[] \texttt{a1 -- adresář, který se má vytvořit}
+    \end{itemize}
+    \item Smaže prázdný adresář a1
+    \begin{itemize}
+        \item[] \texttt{rmdir a1}
+        \item[] \texttt{a1 -- adresář, který se má smazat}
+    \end{itemize}
+    \item Vypíše obsah adresáře a1, bez parametru vypíše obsah aktuálního adresáře
+    \begin{itemize}
+        \item[] \texttt{ls a1}
+        \item[] \texttt{a1 -- adresář, jehož obsah se má vypsat}
+        \item[] \texttt{ls -- vypíše obsah aktuálního adresáře}
+    \end{itemize}
+    \item Vypíše obsah souboru s1
+    \begin{itemize}
+        \item[] \texttt{cat s1}
+        \item[] \texttt{s1 -- soubor, jehož obsah se má vypsat}
+    \end{itemize}
+    \item Změní aktuální cestu do adresáře a1
+    \begin{itemize}
+        \item[] \texttt{cd a1}
+        \item[] \texttt{a1 -- adresář, do kterého se má změnit aktuální cesta}
+    \end{itemize}
+    \item Vypíše aktuální cestu
+    \begin{itemize}
+        \item[] \texttt{pwd}
+    \end{itemize}
+    \item Vypíše informace o souboru/adresáři s1/a1 (v jakých clusterech se nachází)
+    \begin{itemize}
+        \item[] \texttt{info a1/s1}
+        \item[] \texttt{a1/s1 -- soubor/adresář, o kterém se mají vypsat informace}
+    \end{itemize}
+    \item Nahraje soubor s1 z pevného disku do umístění s2 ve vašem FS
+    \begin{itemize}
+        \item[] \texttt{incp s1 s2}
+        \item[] \texttt{s1 -- zdrojový soubor}
+        \item[] \texttt{s2 -- cílový soubor}
+    \end{itemize}
+    \item Nahraje soubor s1 z vašeho FS do umístění s2 na pevném disku
+    \begin{itemize}
+        \item[] \texttt{outcp s1 s2}
+        \item[] \texttt{s1 -- zdrojový soubor}
+        \item[] \texttt{s2 -- cílový soubor}
+    \end{itemize}
+    \item Načte soubor z pevného disku, ve kterém budou jednotlivé příkazy, a začne je sekvenčně vykonávat. Formát je 1 příkaz/1řádek
+    \begin{itemize}
+        \item[] \texttt{load s1}
+        \item[] \texttt{s1 -- soubor, ve kterém jsou příkazy}
+    \end{itemize}
+    \item Příkaz provede formát souboru, který byl zadán jako parametr při spuštění programu na souborový systém dané velikosti. Pokud už soubor nějaká data obsahoval, budou přemazána. Pokud soubor neexistoval, bude vytvořen
+    \begin{itemize}
+        \item[] \texttt{format <size>MB}
+        \item[] \texttt{size -- velikost souborového systému v MB}
+    \end{itemize}
+\end{itemize}
+
+Budeme předpokládat korektní zadání syntaxe příkazů, nikoliv však sémantiky (tj. např. cp s1 zadáno
+nebude, ale může být zadáno cat s1, kde s1 neexistuje).
+
+\subsection{Rozšíření zadání}
+\begin{itemize}
+    \item Maximální délka názvu souboru bude 8+3=11 znaků (jméno.přípona) + \textbackslash 0 (ukončovací znak v
+    C/C++), tedy 12 bytů.
+    \item Každý název bude zabírat právě 12 bytů (do délky 12 bytů doplníte \textbackslash 0 - při kratších názvech).
+\end{itemize}
+
+Nad vytvořeným a naplněným souborovým systémem umožněte provedení následujících operací:
+
+\begin{itemize}
+    \item[--] Kontrola konzistence souborového systému -- pokud login studenta začíná j-r
+    \item[] \texttt{příkaz check} -- Zkontroluje, zda je souborový systém nepoškozen.
+    \item[] \texttt{příkaz bug s1} -- Poškodí souborový systém, dle vašeho uvážení, tak aby bylo možné
+    ověřit funkcionalitu příkazu check.
+\end{itemize}
+
+\pagebreak
+
+\section{Struktura souborového systému}
+Souborový systém ve formátu \texttt{<name>.dat} je rozdělen na několik částí. 
+První část obsahuje informace o souborovém systému, následuje tabulka clusterů (FAT), kořenový adresář a samotná data.
+
+\subsection{Informace o souborovém systému}
+Obsahem této části je informace o souborovém systému:
+Tyto informace jsou:
+\begin{itemize}
+    \item Signature -- identifikace souborového systému
+    \item Velikost souborového systému -- v MB (1MB = 1024KB = 1024*1024B)
+    \item Velikost clusteru -- v B (1 cluster = 1 sektor)
+    \item Počet clusterů -- celkový počet clusterů
+    \item Adresa FAT -- adresa FAT tabulky
+    \item Adresa kořenového adresáře -- adresa kořenového adresáře
+\end{itemize}
+
+\subsection{FAT}
+FAT tabulka obsahuje informace o jednotlivých clusterech.
+Každý cluster má svůj záznam v tabulce, který obsahuje stav clusteru.
+Stav clusteru může být:
+\begin{itemize}
+    \item Volný -- cluster je volný
+    \item Obsazený -- cluster je obsazený
+    \item Řetězec -- cluster je součástí řetězce clusterů
+    \item Poškozený -- cluster je poškozený
+\end{itemize}
+
+\subsection{Datová část}
+Kořenový adresář obsahuje informace o jednotlivých složkách a adresářích.
+Samotný adresář se nachází na začátku datové části souborového systému neboli v nultém clusteru.
+Pokud je cluster přiřazen složce ukládá si informace o dalších složkách nebo souborech, které dále odkazují na další clustery.
+Pokud je cluster přiřazen souboru ukládá si informace o souboru.
+
+\section{Implementace}
+Program byl implementován v jazyce C++.
+Na začátku programu se zkontroluje počet argumentů a formát souboru, který reprezentuje souborový systém.
+Následně se načtou informace o souborovém systému, pokud již existoval, nebo se vytvoří nový souborový systém.
+Nový, či poškozený souborový systém bude první vyžadovat formátování na počáteční velikost.
+Pokud byl souborový systém načten, program bude čekat na zadání příkazů.
+
+Konzole při spuštění systémů vždy zobrazuje aktuální cestu kde se nachází.
+Dále se čeká na zadání příkazu, který určuje co se má provést.
+Jednotlivé příkazy se rozdělují podle počtů argumentů:
+\begin{itemize}[itemsep=-4pt]
+    \item command -- příkaz bez argumentů
+    \item command arg1 -- příkaz s jedním argumentem
+    \item command arg1 arg2 -- příkaz s dvěma argumenty
+\end{itemize}
+
+Pokud nastane stav, kdy se souborový systém poškodí bude možné zadat pouze příkazy \texttt{exit}, \texttt{help}, \texttt{check} a \texttt{load}.
+
+\subsection{Předměty a FAT}
+Popis souborového systému je reprezentován třídou \texttt{Description}. 
+Ta obsahuje informace o souborovém systému.
+Každý soubor a adresář je reprezentován třídou \texttt{DirectoryItem}.
+Ta obsahuje informace o souboru nebo adresáři, jako je jméno, jestli se jedná o soubor nebo o adresář, velikost, pozice ve FAT a rodičovský adresář.
+
+Dále jsou nadefinovány třídy konstanty:
+\begin{itemize}
+    \item FAT\_UNUSED -- INT32\_MAX - 1
+    \item FAT\_FILE\_END -- INT32\_MAX - 2
+    \item FAT\_BAD\_CLUSTER -- INT32\_MAX - 3
+    \item FORMAT\_CLUSTER\_SIZE = 1024
+\end{itemize}
+
+% TODO: FAT
+
+\subsection{Příkazy}
+\subsubsection{Mapování příkazů}
+K jednoduchému mapování příkazů byla využita Unordered Map ze standardní knihovny C++, které obsahuje klíč (příkaz) a funkci pro předání argumentů příslušným metodám.
+Tato mapa je velmi jednoduše rozšířitelná o další příkazy do budoucna.
+
+\end{document}
