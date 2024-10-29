@@ -27,14 +27,19 @@ namespace Cd {
             return;
         }
 
-        // Split the path into directories
-        std::pair<std::string, int32_t> result = Utils::splitPath(path);
-        if (result.first.empty() && result.second == -1) {
-            std::cout << "Path does not exist" << std::endl;
+        if (path.empty()) {
+            currentCluster = ROOT_CLUSTER;
+            currentPath = ROOT_DIRECTORY;
         } else {
-            //set result.first to currentPath and result.second to currentCluster
-            currentPath = result.first;
-            currentCluster = result.second;
+            // Split the path into directories
+            std::pair<std::string, int32_t> result = Utils::splitPath(path);
+            if (result.first.empty() && result.second == -1) {
+                std::cout << "Path does not exist" << std::endl;
+            } else {
+                //set result.first to currentPath and result.second to currentCluster
+                currentPath = result.first;
+                currentCluster = result.second;
+            }
         }
 
         // Close filesystem

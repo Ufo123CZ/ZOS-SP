@@ -67,7 +67,7 @@ void CommandMap::initCommandMap() {
         }},
         // Additional required commands
         {"bug", [](std::string& arg1, std::string&) {
-            BugCreator::createBug(arg1);
+            std::cout << BugCreator::createBug(arg1) << std::endl;
         }},
         {"check", [](std::string&, std::string&) {
             BugCheck::checkForBugs();
