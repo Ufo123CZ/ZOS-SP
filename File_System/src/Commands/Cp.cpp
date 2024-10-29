@@ -36,10 +36,14 @@ namespace Cp {
         std::string sPath = source.substr(0, source.find_last_of('/'));
         std::string sName = source.substr(source.find_last_of('/') + 1);
 
+        if (sPath == sName) {
+            sPath = currentPath;
+        }
+
         // Find the source file and its cluster
         std::pair<std::string, int32_t> result = Utils::splitPath(sPath);
         if (result.second == -1 && result.first.empty()) {
-            return "Error: Cannot find file";
+            return "Error: Cannot find source file";
         }
 
         // Find the source file in the directory
@@ -55,7 +59,7 @@ namespace Cp {
         bool found = false;
         DirectoryItem copyItem{};
         for (const auto& item : dirItems) {
-            if (std::string(item.name) == sName) {
+            if (std::string(item.name) == sName && item.isFile) {
                 found = true;
                 copyItem = item;
                 break;
@@ -87,7 +91,7 @@ namespace Cp {
         int32_t destDirCluster;
         result = Utils::splitPath(dest);
         if (result.second == -1 && result.first.empty()) {
-            return "Error: Cannot find file";
+            return "Error: Cannot find destination directory";
         }
 
         destDirCluster = result.second;

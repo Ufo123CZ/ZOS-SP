@@ -129,6 +129,16 @@ namespace MkDir {
                 break;
             }
         }
+
+        // Shorten the directory name if it is too long
+        if (dirname.size() > ITEM_MAX_NAME) {
+            dirname = dirname.substr(0, ITEM_MAX_NAME - 1);
+            std::cout << "Directory name is too long. Shortened to: " << dirname << std::endl;
+        }
+
+        // Close the filesystem
+        fs.close();
+
         return  "Directory created";
     }
 }

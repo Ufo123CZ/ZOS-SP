@@ -1,8 +1,9 @@
 format 5MB
-mkdir t1
-mkdir t2
-mkdir t3
-incp ../Test/main.c t1
-incp ../Test/Incp.cpp t2
-bug t1/main.c
-check
+incp Test.dat
+# mkdir t1
+# mkdir t2
+# mkdir t3
+# incp ../Test/main.c t1
+# incp ../Test/Incp.cpp t2
+# bug t1/main.c
+# check

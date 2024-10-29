@@ -43,8 +43,27 @@ namespace Incp {
             return "Can't read filesystem description";
         }
 
+        // Size of the source file
+        // Move the file pointer to the end to get the file size
+        srcFile.seekg(0, std::ios::end);
+        std::streampos fileSize = srcFile.tellg();
+        if (fileSize == -1) {
+            srcFile.close();
+            return "Error determining file size";
+        }
+        srcFile.seekg(0, std::ios::beg);
+
+        // Check if there is enought space in the filesystem
+        int currentFreeSpace = desc.disk_size - desc.data_start_address;
+        if (fileSize > currentFreeSpace) {
+            // Close file
+            srcFile.close();
+            fs.close();
+            return "Not enough space in the filesystem";
+        }
+
         // Find the cluster where the file will be written
-        int32_t cluster = currentCluster;
+        int32_t cluster;
         if (!dest.empty()) {
             std::pair result = Utils::splitPath(dest);
             if (result.second == -1 && result.first == "") {
@@ -91,16 +110,6 @@ namespace Incp {
             fs.close();
             return "Directory is full";
         }
-
-        // Seize of the source file
-        // Move the file pointer to the end to get the file size
-        srcFile.seekg(0, std::ios::end);
-        std::streampos fileSize = srcFile.tellg();
-        if (fileSize == -1) {
-            srcFile.close();
-            return "Error determining file size";
-        }
-        srcFile.seekg(0, std::ios::beg);
 
         // Check if in filesystem is enough space
         int srcClusterRequired = 1 + (fileSize / desc.cluster_size);

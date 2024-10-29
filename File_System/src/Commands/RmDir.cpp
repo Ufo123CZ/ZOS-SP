@@ -73,7 +73,7 @@ namespace RmDir {
             fs.read(reinterpret_cast<char*>(&parentDirItems[i]), sizeof(DirectoryItem));
         }
         for (int i = 0; i < desc.cluster_size / sizeof(DirectoryItem); ++i) {
-            if (dirname == parentDirItems[i].name) {
+            if (dirname == parentDirItems[i].name && !parentDirItems[i].isFile) {
                 parentDirItems[i].name[0] = '\0';
                 fs.seekp(desc.data_start_address + parentCluster * desc.cluster_size + i * sizeof(DirectoryItem), std::ios::beg);
                 fs.write(parentDirItems[i].name, sizeof(DirectoryItem));

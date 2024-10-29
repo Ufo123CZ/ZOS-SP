@@ -65,6 +65,9 @@ namespace Ls {
         // Close filesystem
         fs.close();
 
+        // Remove the last newline character
+        result = result.substr(0, result.size() - 1);
+
         return result.empty() ? "Directory is empty" : result;
     }
 }

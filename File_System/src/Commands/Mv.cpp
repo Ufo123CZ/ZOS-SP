@@ -45,6 +45,11 @@ namespace Mv {
             rename = true;
         }
 
+        // New name is empty keep the old name
+        if (dName.empty()) {
+            dName = sName;
+        }
+
         // Split the paths into directory and file name for source and destination
         std::pair<std::string, int32_t> sResult, dResult;
         if (sPath == sName) {
@@ -85,7 +90,10 @@ namespace Mv {
         // Rename the file
         if (rename) {
             for (int i = 0; i < desc.cluster_size / sizeof(DirectoryItem); ++i) {
-                if (std::string(sDirItems[i].name) == sName) {
+                if (std::string(sDirItems[i].name) == sName && sDirItems[i].isFile) {
+                    // Clear renamed item name
+                    std::memset(sDirItems[i].name, 0, sizeof(sDirItems[i].name));
+                    // Copy the new name
                     strncpy(sDirItems[i].name, dName.c_str(), dName.size());
                     fs.seekg(desc.data_start_address + sResult.second * desc.cluster_size + i * sizeof(DirectoryItem), std::ios::beg);
                     fs.write(reinterpret_cast<char*>(&sDirItems[i]), sizeof(dDirItem));

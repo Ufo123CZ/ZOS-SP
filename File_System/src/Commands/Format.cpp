@@ -84,7 +84,7 @@ namespace Format {
 
         // Fill the rest of the disk with zeros
         ofs.seekp(0, std::ios::end);
-        for (int i = 0; i < disk_size - ofs.tellp(); ++i) {
+        for (int i = 0; i < disk_size - data_start_address; ++i) {
             ofs.put(0);
         }
 
