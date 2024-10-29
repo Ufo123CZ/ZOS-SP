@@ -2,6 +2,9 @@
 #include <iostream>
 
 namespace Help {
+    /**
+     * @brief Print help menu in console
+     */
     void writeHelpInConsole() {
         std::cout << "Help menu: " << std::endl
                 << "   cp s1 s2: Copy s1 to s2" << std::endl
@@ -20,6 +23,8 @@ namespace Help {
                 << "   load s1: Load a file into the program" << std::endl
                 << "   format 600MB: Format a 600MB file. Size must be in MB. If there are any information in file it will be erased. If file does not exist it will be created" << std::endl
                 << "   exit: Exit the program" << std::endl
-                << "   help: Display this help menu" << std::endl;
+                << "   help: Display this help menu" << std::endl
+                << "   check: Check for bad clusters in the filesystem" << std::endl
+                << "   bug: create a bad cluster in FAT on starting cluster of s1" << std::endl;
     }
 }

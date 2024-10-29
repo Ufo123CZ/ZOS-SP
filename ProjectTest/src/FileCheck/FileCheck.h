@@ -3,10 +3,9 @@
 
 #include <string>
 
-class FileCheck {
-public:
-    static bool checkArgcSize(int argc, int expectedSize);
-    static bool isDatFile(const std::string &filename);
-};
+namespace FileCheck {
+    bool checkArgcSize(int argc, int expectedSize);
+    bool isDatFile(const std::string &filename);
+}
 
 #endif //FILECHECK_H

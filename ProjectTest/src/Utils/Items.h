@@ -16,7 +16,7 @@ constexpr int32_t FAT_UNUSED = INT32_MAX - 1;
 constexpr int32_t FAT_FILE_END = INT32_MAX - 2;
 constexpr int32_t FAT_BAD_CLUSTER = INT32_MAX - 3;
 
-// Description of the filesystem
+// Description class
 class Description {
 public:
     char login[FS_MAX_NAME];
@@ -27,7 +27,7 @@ public:
     int32_t data_start_address;
 };
 
-// Directory item structure
+// Directory item class
 class DirectoryItem {
 public:
     char name[ITEM_MAX_NAME];

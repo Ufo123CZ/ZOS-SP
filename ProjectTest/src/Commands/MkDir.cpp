@@ -13,7 +13,13 @@ extern std::string currentPath;
 extern std::string filename;
 
 namespace MkDir {
+    /**
+     * @brief Create a new directory in the filesystem
+     * @param path - path to the new directory
+     * @return - message if the directory was created
+     */
     std::string makeDirectory(std::string& path) {
+        // Open the filesystem
         std::fstream fs(filename, std::ios::in | std::ios::out | std::ios::binary);
         if (!fs) {
             return "Cannot open filesystem";
@@ -85,7 +91,7 @@ namespace MkDir {
             }
         }
 
-        // Initialize FAT and read clusters from file
+        // Initialize FAT
         FAT fat;
         fat.readFromFile(filename);
 
@@ -123,6 +129,16 @@ namespace MkDir {
                 break;
             }
         }
+
+        // Shorten the directory name if it is too long
+        if (dirname.size() > ITEM_MAX_NAME) {
+            dirname = dirname.substr(0, ITEM_MAX_NAME - 1);
+            std::cout << "Directory name is too long. Shortened to: " << dirname << std::endl;
+        }
+
+        // Close the filesystem
+        fs.close();
+
         return  "Directory created";
     }
 }

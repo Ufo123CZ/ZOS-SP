@@ -1,11 +1,11 @@
 CC=g++
-CFLAGS=-Wall -Wextra -std=c++23
+CFLAGS= -std=c++23
 SRCDIR=src
 BUILDDIR=build
-TARGET=File_System.exe
+TARGET=File_System
 
-SRC=$(wildcard $(SRCDIR)/**/*.cpp) $(wildcard $(SRCDIR)/*.cpp)
-OBJ=$(patsubst $(SRCDIR)/%.cpp,$(BUILDDIR)/%.o,$(SRC))
+SRC=$(shell find $(SRCDIR) -name '*.cpp')
+OBJ=$(SRC:$(SRCDIR)/%.cpp=$(BUILDDIR)/%.o)
 
 all: $(TARGET)
 

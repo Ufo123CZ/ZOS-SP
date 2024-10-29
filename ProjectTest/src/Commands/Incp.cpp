@@ -12,11 +12,15 @@ extern std::string currentPath;
 extern std::string filename;
 
 namespace Incp {
-
+    /**
+     * @brief Copy a file from the outside of filesystem into the filesystem
+     * @param source - path to the source file outside filesystem
+     * @param dest - path to the destination in the filesystem
+     * @return - message if the file was copied
+     */
     std::string copyFileInput(std::string& source, std::string& dest) {
-        std::ifstream srcFile(source, std::ios::binary);
-
         // Check if the source file exists
+        std::ifstream srcFile(source, std::ios::binary);
         if (!srcFile) {
             return "Cannot open source file";
         }
@@ -39,8 +43,27 @@ namespace Incp {
             return "Can't read filesystem description";
         }
 
+        // Size of the source file
+        // Move the file pointer to the end to get the file size
+        srcFile.seekg(0, std::ios::end);
+        std::streampos fileSize = srcFile.tellg();
+        if (fileSize == -1) {
+            srcFile.close();
+            return "Error determining file size";
+        }
+        srcFile.seekg(0, std::ios::beg);
+
+        // Check if there is enought space in the filesystem
+        int currentFreeSpace = desc.disk_size - desc.data_start_address;
+        if (fileSize > currentFreeSpace) {
+            // Close file
+            srcFile.close();
+            fs.close();
+            return "Not enough space in the filesystem";
+        }
+
         // Find the cluster where the file will be written
-        int32_t cluster = currentCluster;
+        int32_t cluster;
         if (!dest.empty()) {
             std::pair result = Utils::splitPath(dest);
             if (result.second == -1 && result.first == "") {
@@ -88,22 +111,10 @@ namespace Incp {
             return "Directory is full";
         }
 
-        // Seize of the source file
-        // Move the file pointer to the end to get the file size
-        srcFile.seekg(0, std::ios::end);
-        std::streampos fileSize = srcFile.tellg();
-        if (fileSize == -1) {
-            srcFile.close();
-            return "Error determining file size";
-        }
-
-        // Move the file pointer back to the beginning
-        srcFile.seekg(0, std::ios::beg);
-
         // Check if in filesystem is enough space
         int srcClusterRequired = 1 + (fileSize / desc.cluster_size);
 
-        // Init FAT
+        // Initialize the FAT
         FAT fat;
         fat.readFromFile(filename);
 
@@ -121,6 +132,17 @@ namespace Incp {
             return "Not enough space in the filesystem";
         }
 
+        // Filename limiter
+        std::string fName = fN.substr(0, 7);
+        // If in Fname is suffix remove it
+        if (fName.find('.') != std::string::npos) {
+            fName = fName.substr(0, fName.find('.'));
+        }
+        std::string fSuff = fN.substr(fN.find_last_of('.')+1);
+        // Name in the filesystem
+        fName += "." + fSuff;
+
+
         // Split the srcFile into fragments
         std::vector<std::string> fragments;
         auto buffer = new char[desc.cluster_size];
@@ -133,7 +155,7 @@ namespace Incp {
         int32_t freeCluster = fat.findFreeCluster();
 
         // Prepare directory item that will be in destination directory
-        std::string name = source.substr(source.find_last_of('/') + 1);
+        std::string name = fName;
         std::copy(name.begin(), name.end(), dirItem.name);
         dirItem.isFile = true;
         dirItem.size = static_cast<int32_t>(fileSize);

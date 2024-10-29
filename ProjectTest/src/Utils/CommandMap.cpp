@@ -1,7 +1,4 @@
 #include "CommandMap.h"
-
-#include <complex>
-
 #include "../Commands/Commands.h"
 #include "Utils.h"
 #include <iostream>
@@ -10,13 +7,23 @@ extern int currentCluster;
 extern std::string currentPath;
 extern bool isFilesystemLoaded;
 
+// Initialize the command map
 std::unordered_map<std::string, std::function<void(std::string&, std::string&)>> CommandMap::commandMap;
 
+/**
+ * @brief Initialize the command map
+ */
 void CommandMap::initCommandMap() {
     commandMap = {
-        {"cp", [](std::string& arg1, std::string& arg2){ }},
-        {"mv", [](std::string& arg1, std::string& arg2){ }},
-        {"rm", [](std::string& arg1, std::string&){ }},
+        {"cp", [](std::string& arg1, std::string& arg2) {
+            std::cout << Cp::copyFile(arg1, arg2) << std::endl;
+        }},
+        {"mv", [](std::string& arg1, std::string& arg2) {
+            std::cout << Mv::moveFile(arg1, arg2) << std::endl;
+        }},
+        {"rm", [](std::string& arg1, std::string&) {
+            std::cout << Rm::removeFile(arg1) << std::endl;
+        }},
         {"mkdir", [](std::string& arg1, std::string&) {
             std::cout << MkDir::makeDirectory(arg1) << std::endl;
         }},
@@ -42,7 +49,9 @@ void CommandMap::initCommandMap() {
         {"incp", [](std::string& arg1, std::string& arg2) {
             std::cout << Incp::copyFileInput(arg1, arg2) << std::endl;
         }},
-        {"outcp", [](std::string& arg1, std::string& arg2){ }},
+        {"outcp", [](std::string& arg1, std::string& arg2) {
+            std::cout << Outcp::copyFileOutput(arg1, arg2) << std::endl;
+        }},
         {"load", [](std::string& arg1, std::string&) {
             std::cout << Load::loadCommands(arg1) << std::endl;
         }},
@@ -50,14 +59,20 @@ void CommandMap::initCommandMap() {
             isFilesystemLoaded = true;
             std::cout << Format::formatFile(arg1) << std::endl;
         }},
+        // Additional commands
         {"exit", [](std::string&, std::string&) {
-            Utils::endProgram();
+            std::cout << "Exiting..." << std::endl;
+            exit(0);
         }},
         {"help", [](std::string&, std::string&) {
             Help::writeHelpInConsole();
         }},
-        {"test", [](std::string&, std::string&) {
-            std::cout << "Command: test, Current path: " << currentPath << ", Current cluster: " << currentCluster << std::endl;
+        // Additional required commands
+        {"bug", [](std::string& arg1, std::string&) {
+            std::cout << BugCreator::createBug(arg1) << std::endl;
+        }},
+        {"check", [](std::string&, std::string&) {
+            BugCheck::checkForBugs();
         }}
     };
 }

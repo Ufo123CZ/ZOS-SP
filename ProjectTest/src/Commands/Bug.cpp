@@ -4,21 +4,20 @@
 #include "../Utils/FAT.h"
 #include <string>
 #include <fstream>
-#include <iostream>
-#include <vector>
 #include <regex>
 
+extern std::string filename;
 extern int32_t currentCluster;
 extern std::string currentPath;
-extern std::string filename;
+extern bool isFilesystemDamaged;
 
-namespace Info {
+namespace BugCreator {
     /**
-     * @brief Display information about a file or directory
-     * @param path - path to the file or directory
-     * @return - message with information about the file or directory
+     * @brief Create a bug in the filesystem
+     * @param path - path to the file
+     * @return - message if the bug was created
      */
-    std::string fileInfo(std::string& path) {
+    std::string createBug(std::string& path) {
         // Open the filesystem
         std::fstream fs(filename, std::ios::in | std::ios::out | std::ios::binary);
         if (!fs) {
@@ -86,22 +85,16 @@ namespace Info {
             }
         }
 
-        // Initialize FAT
+        // Initialize the FAT
         FAT fat;
         fat.readFromFile(filename);
 
-        // Read the cluster chain of the file
-        std::vector<int32_t> clusters = fat.getClusterChain(cluster);
+        fat.Clusters[cluster] = FAT_BAD_CLUSTER;
+        fat.writeToFile(filename);
 
-        // Close the filesystem
+        isFilesystemDamaged = true;
         fs.close();
 
-        // Print the list of clusters
-        std::string resultStr = "File: " + itemName + "\nFile is in cluster: ";
-        for (const auto& cl : clusters) {
-            resultStr += std::to_string(cl) + " ";
-        }
-
-        return resultStr;
-   }
+        return "Bug created";
+    }
 }

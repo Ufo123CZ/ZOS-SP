@@ -4,21 +4,28 @@
 #include <fstream>
 #include <regex>
 
-
 extern int32_t currentCluster;
 extern std::string currentPath;
 extern std::string filename;
+extern bool isFilesystemLoaded;
+extern bool isFilesystemDamaged;
 
 namespace Format {
+    /**
+     * @brief Format the file
+     * @param size - size of the file
+     * @return - message if the file was formatted
+     */
     std::string formatFile(std::string& size) {
+        // Create or rewrite the file
         std::ofstream ofs(filename, std::ios::binary);
         if (!ofs) {
             return "Cannot create file";
         }
 
+        // Check if the size is in the correct format
         std::regex sizeRegex(R"(^(\d+)(MB)$)");
         std::smatch match;
-
         if (!std::regex_match(size, match, sizeRegex)) {
             // Close filesystem
             ofs.close();
@@ -35,7 +42,7 @@ namespace Format {
         int fat_start_address = sizeof(Description);
         int data_start_address = fat_start_address + sizeof(int32_t) * cluster_count;
 
-
+        // Create the Description
         Description desc = {
             FORMAT_NAME,
             disk_size,
@@ -77,7 +84,7 @@ namespace Format {
 
         // Fill the rest of the disk with zeros
         ofs.seekp(0, std::ios::end);
-        for (int i = 0; i < disk_size - ofs.tellp(); ++i) {
+        for (int i = 0; i < disk_size - data_start_address; ++i) {
             ofs.put(0);
         }
 
@@ -87,6 +94,10 @@ namespace Format {
         // Set the current cluster and path
         currentCluster = 0;
         currentPath = "/";
+
+        // Set Flags
+        isFilesystemLoaded = true;
+        isFilesystemDamaged = false;
 
         return "File formatted successfully";
     }

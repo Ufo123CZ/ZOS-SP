@@ -1,28 +1,25 @@
 #include <cstring>
 #include <iostream>
 #include <string>
-#include <unordered_map>
-#include <functional>
 #include <sstream>
 #include <fstream>
 #include "FileCheck/FileCheck.h"
 #include "Utils/CommandMap.h"
-#include "Utils/Utils.h"
 #include "Commands/Commands.h"
-
-
-#define COMAND_PREFIX1 "~"
-#define COMAND_PREFIX2 "$"
-
-#define ROOT_CLUSTER (0)
-#define ROOT_DIRECTORY ("/")
 
 // Global variables
 int currentCluster = ROOT_CLUSTER;
 std::string currentPath = ROOT_DIRECTORY;
 std::string filename;
 bool isFilesystemLoaded = false;
+bool isFilesystemDamaged = false;
 
+/**
+ * @brief Main function
+ * @param argc - number of arguments
+ * @param argv - arguments
+ * @return 0 if successful
+ */
 int main(int argc, char* argv[]) {
     // Check if the number of arguments is correct
     if (!FileCheck::checkArgcSize(argc, 2)) {
@@ -49,6 +46,8 @@ int main(int argc, char* argv[]) {
         ifs.close();
         isFilesystemLoaded = true;
         std::cout << "File loaded successfully" << std::endl;
+        // Check for bad clusters
+        BugCheck::checkForBugs();
     }
 
     // Initialize the command map
@@ -71,9 +70,16 @@ int main(int argc, char* argv[]) {
         std::istringstream iss(input);
         iss >> command >> arg1 >> arg2;
 
+        // Empty command
+        if (command.empty()) {
+            continue;
+        }
+
         // Check if the command is valid
-        if (!isFilesystemLoaded && command != "format" && command != "exit" && command != "help" && command != "load") {
+        if (!isFilesystemLoaded && command != "format" && command != "exit" && command != "help" && command != "load" && command != "check") {
             std::cout << "Filesystem not loaded. Only 'format', 'help', 'exit' or 'load' command is available." << std::endl;
+        } else if (isFilesystemDamaged && command != "format" && command != "exit" && command != "help" && command != "load" && command != "check") {
+            std::cout << "Filesystem damaged. Only 'format', 'help', 'exit' or 'load' command is available." << std::endl;
         } else {
             auto cmd = CommandMap::commandMap.find(command);
             if (cmd != CommandMap::commandMap.end()) {

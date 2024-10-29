@@ -6,14 +6,16 @@
 #include <iostream>
 #include <string>
 
-
 extern int32_t currentCluster;
 extern std::string currentPath;
 extern std::string filename;
 
 namespace Cat {
+    /**
+     * @brief Read the content of a file
+     * @param path - path to the file
+     */
     void catFile(std::string& path) {
-
         // Read the filesystem description
         std::ifstream ifs(filename, std::ios::binary);
         if (!ifs) {
@@ -35,10 +37,10 @@ namespace Cat {
         }
 
         // Find the that will be read
-        int32_t cluster = currentCluster;
+        int32_t cluster;
         if (!path.empty()) {
             std::pair result = Utils::splitPath(pathToFile);
-            if (result.second == -1 && result.first == "") {
+            if (result.second == -1 && result.first.empty()) {
                 std::cerr << "Error: Cannot find file" << std::endl;
                 return;
             }
@@ -46,8 +48,6 @@ namespace Cat {
         } else {
             cluster = currentCluster;
         }
-
-
 
         // Read the directory items from the cluster into the dirItems array
         DirectoryItem dirItems[desc.cluster_size / sizeof(DirectoryItem)];
@@ -71,21 +71,18 @@ namespace Cat {
                 break;
             }
         }
-
         if (!found) {
             std::cerr << "Error: File not found" << std::endl;
            return;
         }
 
-
-        // clusters.push_back(cluster);
+        // Initialize the FAT
         FAT fat;
         fat.readFromFile(filename);
 
         // Parameters for reading the file
         cluster = dirItem.start_cluster;
         int remainingSize = dirItem.size;
-
 
         // Get the clusters of the file
         std::vector<int32_t> clusters = fat.getClusterChain(cluster);
@@ -107,5 +104,8 @@ namespace Cat {
             }
         }
         std::cout << std::endl;
+
+        // Close the filesystem
+        ifs.close();
     }
 }
