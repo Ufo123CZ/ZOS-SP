@@ -1,0 +1,8 @@
+# Ignore build directory
+build/
+
+# Ignore Makefile with Zone.Identifier
+MakefileZone.Identifier
+
+# Ignore File_System
+File_System
