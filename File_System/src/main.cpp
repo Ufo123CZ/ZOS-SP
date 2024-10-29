@@ -76,12 +76,14 @@ int main(int argc, char* argv[]) {
         } else if (isFilesystemDamaged && command != "format" && command != "exit" && command != "help" && command != "load" && command != "check") {
             std::cout << "Filesystem damaged. Only 'format', 'help', 'exit' or 'load' command is available." << std::endl;
         } else {
-            auto cmd = CommandMap::commandMap.find(command);
-            if (cmd != CommandMap::commandMap.end()) {
-                cmd->second(arg1, arg2);
-            } else {
-                std::cout << "Invalid command" << std::endl
-                          << "Type 'help' for a list of commands" << std::endl;
+            if (!command.empty()) {
+                auto cmd = CommandMap::commandMap.find(command);
+                if (cmd != CommandMap::commandMap.end()) {
+                    cmd->second(arg1, arg2);
+                } else {
+                    std::cout << "Invalid command" << std::endl
+                              << "Type 'help' for a list of commands" << std::endl;
+                }
             }
         }
 

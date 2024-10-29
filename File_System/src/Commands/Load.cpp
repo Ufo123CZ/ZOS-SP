@@ -61,15 +61,16 @@ namespace Load {
                 std::cout << "Filesystem damaged. Only 'format', 'help', 'exit' or 'load' command is available." << std::endl;
                 return "Commands not executed";
             }
-            
-            // Check if the command is valid
-            auto cmd = CommandMap::commandMap.find(command);
-            if (cmd != CommandMap::commandMap.end()) {
-                cmd->second(arg1, arg2);
-            } else {
-                return "Command: " + command + " not recognized";
-            }
 
+            // Check if the command is valid
+            if (!command.empty()) {
+                auto cmd = CommandMap::commandMap.find(command);
+                if (cmd != CommandMap::commandMap.end()) {
+                    cmd->second(arg1, arg2);
+                } else {
+                    return "Command: " + command + " not recognized";
+                }
+            }
             command.clear();
             arg1.clear();
             arg2.clear();
