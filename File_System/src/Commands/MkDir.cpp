@@ -69,7 +69,19 @@ namespace MkDir {
             dirItems[i] = dirItem;
         }
 
-        // Check if the DirItems array is full
+        // Check if the directory already exists
+        for (const auto& item : dirItems) {
+            if (item.name == dirname) {
+                // Close filesystem
+                fs.close();
+                if (item.isFile) {
+                    return "File with the same name already exists";
+                }
+                return "Directory already exists";
+            }
+        }
+
+        // Check if the DirItems is full
         bool isFull = true;
         for (const auto& item : dirItems) {
             if (item.name[0] == '\0' || item.name[0] == '0') {
@@ -80,15 +92,6 @@ namespace MkDir {
             // Close filesystem
             fs.close();
             return "Directory is full";
-        }
-
-        // Check if the directory already exists
-        for (const auto& item : dirItems) {
-            if (item.parent_cluster == newParentCluster && strcmp(item.name, dirname.c_str()) == 0) {
-                // Close filesystem
-                fs.close();
-                return "Directory already exists";
-            }
         }
 
         // Initialize FAT
@@ -116,7 +119,7 @@ namespace MkDir {
         newDirItem.start_cluster = freeCluster;
         newDirItem.parent_cluster = newParentCluster;
 
-        // find free place in dirItems
+        // Find free place in dirItems
         for (int i = 0; i < desc.cluster_size / sizeof(DirectoryItem); ++i) {
             if (dirItems[i].name[0] == '\0' || dirItems[i].name[0] == '0') {
                 fs.seekp(desc.data_start_address + i * sizeof(DirectoryItem) + newParentCluster * desc.cluster_size, std::ios::beg);
@@ -128,12 +131,6 @@ namespace MkDir {
                 }
                 break;
             }
-        }
-
-        // Shorten the directory name if it is too long
-        if (dirname.size() > ITEM_MAX_NAME) {
-            dirname = dirname.substr(0, ITEM_MAX_NAME - 1);
-            std::cout << "Directory name is too long. Shortened to: " << dirname << std::endl;
         }
 
         // Close the filesystem

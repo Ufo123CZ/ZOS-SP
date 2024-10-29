@@ -1,6 +1,5 @@
 format 5MB
 mkdir t1
 mkdir t2
-incp ../Test/main.c t1
+mkdir t3
 incp ../Test/main.c t1/main.c
-incp ../Test/main.c t2/mainnnnnnnnnnnnnnnnn.cccccccccccccccccc
