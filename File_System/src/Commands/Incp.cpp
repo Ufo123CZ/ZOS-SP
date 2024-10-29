@@ -64,18 +64,22 @@ namespace Incp {
 
         // Find the cluster where the file will be written
         int32_t cluster;
-        if (!dest.empty()) {
-            std::pair result = Utils::splitPath(dest);
-            if (result.second == -1 && result.first == "") {
+
+        std::string dPath = dest.substr(0, dest.find_last_of('/'));
+        std::string dName = dest.substr(dest.find_last_of('/') + 1);
+
+        if (dPath == dName) {
+            dPath = currentPath;
+            cluster = currentCluster;
+        } else {
+            std::pair result = Utils::splitPath(dPath);
+            if (result.second == -1 && result.first.empty()) {
                 // Close file
                 srcFile.close();
                 fs.close();
                 return "Cannot find destination directory";
             }
             cluster = result.second;
-        } else {
-            cluster = currentCluster;
-            dest = currentPath;
         }
 
         // Read the directory items from the cluster into the dirItems array
@@ -88,9 +92,8 @@ namespace Incp {
         }
 
         // Check if the file already exists in the destination directory
-        std::string fN = source.substr(source.find_last_of('/') + 1);
         for (const auto& item : dirItems) {
-            if (std::string(item.name) == fN) {
+            if (std::string(item.name) == dName) {
                 // Close file
                 srcFile.close();
                 fs.close();
@@ -133,15 +136,19 @@ namespace Incp {
         }
 
         // Filename limiter
-        std::string fName = fN.substr(0, 7);
-        // If in Fname is suffix remove it
-        if (fName.find('.') != std::string::npos) {
-            fName = fName.substr(0, fName.find('.'));
+        bool dNameModified = false;
+        std::string oldName = dName;
+        if (dName.size() > ITEM_MAX_NAME) {
+            // Find the suffix of the filename if there is any
+            std::string suffix = dName.substr(dName.find_last_of('.'));
+            // Max lenght of suffix is ITEM_MAX_NAME - 8
+            if (suffix.size() > ITEM_MAX_NAME - 8) {
+                suffix = suffix.substr(0, ITEM_MAX_NAME - 8);
+            }
+            dName = dName.substr(0, ITEM_MAX_NAME - suffix.size());
+            dName += suffix;
+            dNameModified = true;
         }
-        std::string fSuff = fN.substr(fN.find_last_of('.')+1);
-        // Name in the filesystem
-        fName += "." + fSuff;
-
 
         // Split the srcFile into fragments
         std::vector<std::string> fragments;
@@ -155,7 +162,7 @@ namespace Incp {
         int32_t freeCluster = fat.findFreeCluster();
 
         // Prepare directory item that will be in destination directory
-        std::string name = fName;
+        std::string name = dName;
         std::copy(name.begin(), name.end(), dirItem.name);
         dirItem.isFile = true;
         dirItem.size = static_cast<int32_t>(fileSize);
@@ -217,6 +224,10 @@ namespace Incp {
         // Close the files
         srcFile.close();
         fs.close();
+
+        if (dNameModified) {
+            return "File copied successfully. Filename was modified from: " + oldName + " to: " + dName;
+        }
 
         return "File copied successfully";
     }

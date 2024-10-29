@@ -82,10 +82,22 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/Bug.cpp">
+			<Option target="File_System"/>
+		</Unit>
+		<Unit filename="C:/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/Cat.cpp">
+			<Option target="File_System"/>
+		</Unit>
 		<Unit filename="C:/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/Cd.cpp">
 			<Option target="File_System"/>
 		</Unit>
+		<Unit filename="C:/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/Check.cpp">
+			<Option target="File_System"/>
+		</Unit>
 		<Unit filename="C:/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/Commands.h">
+			<Option target="File_System"/>
+		</Unit>
+		<Unit filename="C:/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/Cp.cpp">
 			<Option target="File_System"/>
 		</Unit>
 		<Unit filename="C:/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/Format.cpp">
@@ -94,10 +106,28 @@
 		<Unit filename="C:/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/Help.cpp">
 			<Option target="File_System"/>
 		</Unit>
+		<Unit filename="C:/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/Incp.cpp">
+			<Option target="File_System"/>
+		</Unit>
+		<Unit filename="C:/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/Info.cpp">
+			<Option target="File_System"/>
+		</Unit>
+		<Unit filename="C:/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/Load.cpp">
+			<Option target="File_System"/>
+		</Unit>
 		<Unit filename="C:/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/Ls.cpp">
 			<Option target="File_System"/>
 		</Unit>
 		<Unit filename="C:/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/MkDir.cpp">
+			<Option target="File_System"/>
+		</Unit>
+		<Unit filename="C:/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/Mv.cpp">
+			<Option target="File_System"/>
+		</Unit>
+		<Unit filename="C:/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/Outcp.cpp">
+			<Option target="File_System"/>
+		</Unit>
+		<Unit filename="C:/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/Rm.cpp">
 			<Option target="File_System"/>
 		</Unit>
 		<Unit filename="C:/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Commands/RmDir.cpp">
@@ -107,6 +137,12 @@
 			<Option target="File_System"/>
 		</Unit>
 		<Unit filename="C:/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/FileCheck/FileCheck.h">
+			<Option target="File_System"/>
+		</Unit>
+		<Unit filename="C:/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Utils/CommandMap.cpp">
+			<Option target="File_System"/>
+		</Unit>
+		<Unit filename="C:/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Utils/CommandMap.h">
 			<Option target="File_System"/>
 		</Unit>
 		<Unit filename="C:/Users/Ufo12/FAV/R3ZS/SPs/ZOS-SP/File_System/src/Utils/FAT.cpp">
