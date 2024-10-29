@@ -9,6 +9,9 @@ extern std::string filename;
 extern bool isFilesystemDamaged;
 
 namespace BugCheck {
+    /**
+     * @brief Check for bad clusters in the filesystem
+     */
     void checkForBugs() {
         // Open the filesystem
         std::fstream fs(filename, std::ios::in | std::ios::out | std::ios::binary);
@@ -39,7 +42,6 @@ namespace BugCheck {
                 std::cout << "In Cluster " << i << " is something wrong!" << std::endl;
             }
         }
-
         if (!found) {
             std::cout << "No bad clusters found" << std::endl;
         } else {
@@ -47,6 +49,7 @@ namespace BugCheck {
             std::cout << "Bad clusters found. Flagging FileSystem as broken." << std::endl;
         }
 
+        // Close filesystem
         fs.close();
     }
 }

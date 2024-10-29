@@ -1,14 +1,11 @@
 #include "Commands.h"
 #include "../Utils/Items.h"
 #include "../Utils/FAT.h"
+#include "../Utils/Utils.h"
 #include <string>
-#include <cstring>
 #include <vector>
 #include <fstream>
 #include <iostream>
-#include <sstream>
-
-#include "../Utils/Utils.h"
 
 extern int32_t currentCluster;
 extern std::string currentPath;
@@ -57,9 +54,8 @@ namespace RmDir {
 
         // Remove the directoryItem that references the directory from the parent directory
         std::string parentPath = path.substr(0, path.find_last_of('/'));
-        int32_t parentCluster = cluster;
+        int32_t parentCluster;
         if (parentPath == path) {
-            parentPath = currentPath;
             parentCluster = currentCluster;
         } else {
             std::pair<std::string, int32_t> parent = Utils::splitPath(parentPath);
@@ -70,6 +66,7 @@ namespace RmDir {
             parentCluster = parent.second;
         }
 
+        // Fill the parent directory items with the content of the parent directory
         DirectoryItem parentDirItems[desc.cluster_size / sizeof(DirectoryItem)];
         fs.seekg(desc.data_start_address + parentCluster * desc.cluster_size, std::ios::beg);
         for (int i = 0; i < desc.cluster_size / sizeof(DirectoryItem); ++i) {
@@ -84,8 +81,10 @@ namespace RmDir {
             }
         }
 
+        // Initialize the FAT
         FAT fat;
         fat.readFromFile(filename);
+        // Mark the clusters as unused
         fat.Clusters[cluster] = FAT_UNUSED;
         fat.writeToFile(filename);
 

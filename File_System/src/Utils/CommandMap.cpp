@@ -1,7 +1,4 @@
 #include "CommandMap.h"
-
-#include <complex>
-
 #include "../Commands/Commands.h"
 #include "Utils.h"
 #include <iostream>
@@ -10,8 +7,12 @@ extern int currentCluster;
 extern std::string currentPath;
 extern bool isFilesystemLoaded;
 
+// Initialize the command map
 std::unordered_map<std::string, std::function<void(std::string&, std::string&)>> CommandMap::commandMap;
 
+/**
+ * @brief Initialize the command map
+ */
 void CommandMap::initCommandMap() {
     commandMap = {
         {"cp", [](std::string& arg1, std::string& arg2) {
@@ -60,7 +61,8 @@ void CommandMap::initCommandMap() {
         }},
         // Additional commands
         {"exit", [](std::string&, std::string&) {
-            Utils::endProgram();
+            std::cout << "Exiting..." << std::endl;
+            exit(0);
         }},
         {"help", [](std::string&, std::string&) {
             Help::writeHelpInConsole();

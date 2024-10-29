@@ -2,10 +2,8 @@
 #include "../Utils/Items.h"
 #include "../Utils/Utils.h"
 #include "../Utils/FAT.h"
-#include <iostream>
 #include <fstream>
 #include <string>
-#include <cstring>
 #include <vector>
 
 extern int32_t currentCluster;
@@ -13,6 +11,12 @@ extern std::string currentPath;
 extern std::string filename;
 
 namespace Cp {
+    /**
+     * @brief Copy a file from the source to the destination in the filesystem
+     * @param source - path to the source file
+     * @param dest - path to the destination file
+     * @return - message if the file was copied
+     */
     std::string copyFile(std::string& source, std::string& dest) {
         // Open the filesystem
         std::fstream fs(filename, std::ios::in | std::ios::out | std::ios::binary);
@@ -33,12 +37,10 @@ namespace Cp {
         std::string sName = source.substr(source.find_last_of('/') + 1);
 
         // Find the source file and its cluster
-        int32_t sourceDirCluster;
         std::pair<std::string, int32_t> result = Utils::splitPath(sPath);
-        if (result.second == -1 && result.first == "") {
+        if (result.second == -1 && result.first.empty()) {
             return "Error: Cannot find file";
         }
-        sourceDirCluster = result.second;
 
         // Find the source file in the directory
         DirectoryItem dirItems[desc.cluster_size / sizeof(DirectoryItem)];
@@ -84,7 +86,7 @@ namespace Cp {
         // Find the destination directory
         int32_t destDirCluster;
         result = Utils::splitPath(dest);
-        if (result.second == -1 && result.first == "") {
+        if (result.second == -1 && result.first.empty()) {
             return "Error: Cannot find file";
         }
 
@@ -165,7 +167,6 @@ namespace Cp {
             fs.seekp(desc.data_start_address + freeCluster * desc.cluster_size, std::ios::beg);
             fs.write(buffer, desc.cluster_size);
         }
-
         fat.writeToFile(filename);
 
         // Close filesystem

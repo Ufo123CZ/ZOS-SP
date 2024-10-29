@@ -4,6 +4,10 @@
 #include <stdexcept>
 #include <vector>
 
+/**
+ * @brief Read the FAT from a file
+ * @param filename - name of the file to read from
+ */
 void FAT::readFromFile(const std::string& filename) {
     std::ifstream ifs(filename, std::ios::binary);
     if (!ifs) {
@@ -28,6 +32,10 @@ void FAT::readFromFile(const std::string& filename) {
     }
 }
 
+/**
+ * @brief Write the FAT to a file
+ * @param filename - name of the file to write to
+ */
 void FAT::writeToFile(const std::string& filename) const {
     std::ofstream ofs(filename, std::ios::binary | std::ios::in | std::ios::out);
     if (!ofs) {
@@ -42,6 +50,10 @@ void FAT::writeToFile(const std::string& filename) const {
     }
 }
 
+/**
+ * @brief Find the first free cluster in the FAT
+ * @return - index of the first free cluster
+ */
 int FAT::findFreeCluster() const {
     for (int i = 0; i < clusterCount; ++i) {
         if (Clusters[i] == FAT_UNUSED) {
@@ -51,16 +63,23 @@ int FAT::findFreeCluster() const {
     return -1;
 }
 
+/**
+ * @brief Get the cluster chain of a file
+ * @param startCluster - starting cluster of the file
+ * @return - vector of clusters
+ */
 std::vector<int32_t> FAT::getClusterChain(int32_t startCluster) const {
     std::vector<int32_t> clusters;
 
     int32_t cluster = startCluster;
 
+    // If the chain is 1 cluster long
     if (Clusters[cluster] == FAT_FILE_END) {
         clusters.push_back(cluster);
         return clusters;
     }
 
+    // If the chain is longer than 1 cluster
     while (Clusters[cluster] != FAT_FILE_END) {
         clusters.push_back(cluster);
         cluster = Clusters[cluster];

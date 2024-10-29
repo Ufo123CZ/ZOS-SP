@@ -8,12 +8,16 @@
 #include <vector>
 #include <regex>
 
-
 extern int32_t currentCluster;
 extern std::string currentPath;
 extern std::string filename;
 
 namespace Info {
+    /**
+     * @brief Display information about a file or directory
+     * @param path - path to the file or directory
+     * @return - message with information about the file or directory
+     */
     std::string fileInfo(std::string& path) {
         // Open the filesystem
         std::fstream fs(filename, std::ios::in | std::ios::out | std::ios::binary);
@@ -41,7 +45,7 @@ namespace Info {
         bool isFile = !match.empty();
 
         // Traverse the directory structure to find the directory item
-        int32_t cluster = currentCluster;
+        int32_t cluster;
         std::pair<std::string, int32_t> result;
         if (isFile) {
             std::string pathWithoutItem = path.substr(0, path.find_last_of('/'));
@@ -82,8 +86,11 @@ namespace Info {
             }
         }
 
+        // Initialize FAT
         FAT fat;
         fat.readFromFile(filename);
+
+        // Read the cluster chain of the file
         std::vector<int32_t> clusters = fat.getClusterChain(cluster);
 
         // Close the filesystem

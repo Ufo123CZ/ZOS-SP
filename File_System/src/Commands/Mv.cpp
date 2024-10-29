@@ -11,6 +11,12 @@ extern std::string currentPath;
 extern std::string filename;
 
 namespace Mv {
+    /**
+     * @brief Move a file from one directory to another and rename it if needed
+     * @param source - path to the source file
+     * @param dest - path to the destination file
+     * @return - message if the file was moved and renamed
+     */
     std::string moveFile(std::string& source, std::string& dest) {
         // Open the filesystem
         std::fstream fs(filename, std::ios::in | std::ios::out | std::ios::binary);
@@ -33,13 +39,13 @@ namespace Mv {
         std::string dPath = dest.substr(0, dest.find_last_of('/'));
         std::string dName = dest.substr(dest.find_last_of('/') + 1);
 
-        // Rename?
+        // Rename the file if the source and destination names are different
         bool rename = false;
         if (sName != dName) {
             rename = true;
         }
 
-        int32_t sCluster, dCluster;
+        // Split the paths into directory and file name for source and destination
         std::pair<std::string, int32_t> sResult, dResult;
         if (sPath == sName) {
             sResult = {currentPath, currentCluster};
@@ -76,6 +82,7 @@ namespace Mv {
             dDirItems[i] = dDirItem;
         }
 
+        // Rename the file
         if (rename) {
             for (int i = 0; i < desc.cluster_size / sizeof(DirectoryItem); ++i) {
                 if (std::string(sDirItems[i].name) == sName) {

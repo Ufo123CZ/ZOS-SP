@@ -1,13 +1,10 @@
 #include <cstring>
 #include <iostream>
 #include <string>
-#include <unordered_map>
-#include <functional>
 #include <sstream>
 #include <fstream>
 #include "FileCheck/FileCheck.h"
 #include "Utils/CommandMap.h"
-#include "Utils/Utils.h"
 #include "Commands/Commands.h"
 
 // Global variables
@@ -17,6 +14,12 @@ std::string filename;
 bool isFilesystemLoaded = false;
 bool isFilesystemDamaged = false;
 
+/**
+ * @brief Main function
+ * @param argc - number of arguments
+ * @param argv - arguments
+ * @return 0 if successful
+ */
 int main(int argc, char* argv[]) {
     // Check if the number of arguments is correct
     if (!FileCheck::checkArgcSize(argc, 2)) {

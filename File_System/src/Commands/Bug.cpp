@@ -2,19 +2,21 @@
 #include "../Utils/Items.h"
 #include "../Utils/Utils.h"
 #include "../Utils/FAT.h"
-#include <iostream>
 #include <string>
 #include <fstream>
 #include <regex>
-#include <vector>
 
 extern std::string filename;
 extern int32_t currentCluster;
 extern std::string currentPath;
-
 extern bool isFilesystemDamaged;
 
 namespace BugCreator {
+    /**
+     * @brief Create a bug in the filesystem
+     * @param path - path to the file
+     * @return - message if the bug was created
+     */
     std::string createBug(std::string& path) {
         // Open the filesystem
         std::fstream fs(filename, std::ios::in | std::ios::out | std::ios::binary);
@@ -42,7 +44,7 @@ namespace BugCreator {
         bool isFile = !match.empty();
 
         // Traverse the directory structure to find the directory item
-        int32_t cluster = currentCluster;
+        int32_t cluster;
         std::pair<std::string, int32_t> result;
         if (isFile) {
             std::string pathWithoutItem = path.substr(0, path.find_last_of('/'));

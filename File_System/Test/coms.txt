@@ -4,4 +4,5 @@ mkdir t2
 mkdir t3
 incp ../Test/main.c t1
 incp ../Test/Incp.cpp t2
-# bug t1/main.c
+bug t1/main.c
+check

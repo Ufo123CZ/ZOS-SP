@@ -12,11 +12,15 @@ extern std::string currentPath;
 extern std::string filename;
 
 namespace Incp {
-
+    /**
+     * @brief Copy a file from the outside of filesystem into the filesystem
+     * @param source - path to the source file outside filesystem
+     * @param dest - path to the destination in the filesystem
+     * @return - message if the file was copied
+     */
     std::string copyFileInput(std::string& source, std::string& dest) {
-        std::ifstream srcFile(source, std::ios::binary);
-
         // Check if the source file exists
+        std::ifstream srcFile(source, std::ios::binary);
         if (!srcFile) {
             return "Cannot open source file";
         }
@@ -101,7 +105,7 @@ namespace Incp {
         // Check if in filesystem is enough space
         int srcClusterRequired = 1 + (fileSize / desc.cluster_size);
 
-        // Init FAT
+        // Initialize the FAT
         FAT fat;
         fat.readFromFile(filename);
 

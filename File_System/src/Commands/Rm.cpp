@@ -10,6 +10,11 @@ extern std::string currentPath;
 extern std::string filename;
 
 namespace Rm {
+    /**
+     * @brief Remove a file from the filesystem
+     * @param path - path to the file
+     * @return - message if the file was removed
+     */
     std::string removeFile(std::string& path) {
         // Open the filesystem
         std::fstream fs(filename, std::ios::in | std::ios::out | std::ios::binary);
@@ -30,12 +35,13 @@ namespace Rm {
         std::string filePath = path.substr(0, path.find_last_of('/'));
         std::string exportName = path.substr(path.find_last_of('/') + 1);
 
+        // If the source file is in the current directory, set the path to the current path
         if (filePath == exportName) {
             filePath = currentPath;
         }
 
         std::pair<std::string, int32_t> result = Utils::splitPath(filePath);
-        if (result.second == -1 && result.first == "") {
+        if (result.second == -1 && result.first.empty()) {
             fs.close();
             return "Cannot find source file";
         }

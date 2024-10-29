@@ -10,7 +10,13 @@ extern std::string currentPath;
 extern std::string filename;
 
 namespace Ls {
+    /**
+     * @brief List all items in the current directory
+     * @param path - path to the directory
+     * @return - list of items in the directory
+     */
     std::string listDirectory(std::string& path) {
+        // Open the filesystem
         std::fstream fs(filename, std::ios::in | std::ios::binary);
         if (!fs) {
             return "Cannot open filesystem";
@@ -25,8 +31,8 @@ namespace Ls {
             return "Can't read filesystem description";
         }
 
-        int32_t clusterToRead = currentCluster;
         // Check if the path is not empty
+        int32_t clusterToRead = currentCluster;
         if (!path.empty()) {
             auto result = Utils::splitPath(path);
             if (result.first.empty() && result.second == -1) {

@@ -12,6 +12,12 @@ extern std::string currentPath;
 extern std::string filename;
 
 namespace Outcp {
+    /**
+     * @brief Copy a file from the filesystem to the outside of filesystem
+     * @param source - path to the source file in the filesystem
+     * @param dest - path to the destination outside filesystem
+     * @return - message if the file was copied
+     */
     std::string copyFileOutput(std::string& source, std::string& dest) {
         // Open the filesystem
         std::fstream fs(filename, std::ios::in | std::ios::out | std::ios::binary);
@@ -32,6 +38,7 @@ namespace Outcp {
         std::string path = source.substr(0, source.find_last_of('/'));
         std::string exportName = source.substr(source.find_last_of('/') + 1);
 
+        // If the source file is in the current directory, set the path to the current path
         if (path == exportName) {
             path = currentPath;
         }
