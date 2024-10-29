@@ -51,6 +51,11 @@ namespace Load {
             }
             std::cout << "LOAD: " << COMAND_PREFIX1 << currentPath << COMAND_PREFIX2  << printedCommand << std::endl;
 
+            // Empty command
+            if (command.empty()) {
+                continue;
+            }
+
             // Check if the filesystem is loaded
             if (!isFilesystemLoaded && command != "format" && command != "exit" && command != "help" && command != "load" && command != "check") {
                 std::cout << "Filesystem not loaded. Only 'format', 'help', 'exit' or 'load' command is available." << std::endl;
@@ -63,14 +68,13 @@ namespace Load {
             }
 
             // Check if the command is valid
-            if (!command.empty()) {
-                auto cmd = CommandMap::commandMap.find(command);
-                if (cmd != CommandMap::commandMap.end()) {
-                    cmd->second(arg1, arg2);
-                } else {
-                    return "Command: " + command + " not recognized";
-                }
+            auto cmd = CommandMap::commandMap.find(command);
+            if (cmd != CommandMap::commandMap.end()) {
+                cmd->second(arg1, arg2);
+            } else {
+                return "Command: " + command + " not recognized";
             }
+
             command.clear();
             arg1.clear();
             arg2.clear();

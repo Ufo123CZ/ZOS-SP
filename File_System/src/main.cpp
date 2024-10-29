@@ -70,20 +70,23 @@ int main(int argc, char* argv[]) {
         std::istringstream iss(input);
         iss >> command >> arg1 >> arg2;
 
+        // Empty command
+        if (command.empty()) {
+            continue;
+        }
+
         // Check if the command is valid
         if (!isFilesystemLoaded && command != "format" && command != "exit" && command != "help" && command != "load" && command != "check") {
             std::cout << "Filesystem not loaded. Only 'format', 'help', 'exit' or 'load' command is available." << std::endl;
         } else if (isFilesystemDamaged && command != "format" && command != "exit" && command != "help" && command != "load" && command != "check") {
             std::cout << "Filesystem damaged. Only 'format', 'help', 'exit' or 'load' command is available." << std::endl;
         } else {
-            if (!command.empty()) {
-                auto cmd = CommandMap::commandMap.find(command);
-                if (cmd != CommandMap::commandMap.end()) {
-                    cmd->second(arg1, arg2);
-                } else {
-                    std::cout << "Invalid command" << std::endl
-                              << "Type 'help' for a list of commands" << std::endl;
-                }
+            auto cmd = CommandMap::commandMap.find(command);
+            if (cmd != CommandMap::commandMap.end()) {
+                cmd->second(arg1, arg2);
+            } else {
+                std::cout << "Invalid command" << std::endl
+                          << "Type 'help' for a list of commands" << std::endl;
             }
         }
 
