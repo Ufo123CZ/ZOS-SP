@@ -7,6 +7,7 @@
 
 extern std::string currentPath;
 extern bool isFilesystemLoaded;
+extern bool isFilesystemDamaged;
 
 namespace Load {
     std::string loadCommands(std::string& commandFile) {
@@ -42,8 +43,10 @@ namespace Load {
             }
             std::cout << "LOAD: " << COMAND_PREFIX1 << currentPath << COMAND_PREFIX2  << printedCommand << std::endl;
 
-            if (!isFilesystemLoaded && command != "format" && command != "exit" && command != "help" && command != "load") {
+            if (!isFilesystemLoaded && command != "format" && command != "exit" && command != "help" && command != "load" && command != "check") {
                 std::cout << "Filesystem not loaded. Only 'format', 'help', 'exit' or 'load' command is available." << std::endl;
+            } else if (isFilesystemDamaged && command != "format" && command != "exit" && command != "help" && command != "load" && command != "check") {
+                std::cout << "Filesystem damaged. Only 'format', 'help', 'exit' or 'load' command is available." << std::endl;
             } else {
                 auto cmd = CommandMap::commandMap.find(command);
                 if (cmd != CommandMap::commandMap.end()) {

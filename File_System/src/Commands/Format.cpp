@@ -8,6 +8,8 @@
 extern int32_t currentCluster;
 extern std::string currentPath;
 extern std::string filename;
+extern bool isFilesystemLoaded;
+extern bool isFilesystemDamaged;
 
 namespace Format {
     std::string formatFile(std::string& size) {
@@ -87,6 +89,10 @@ namespace Format {
         // Set the current cluster and path
         currentCluster = 0;
         currentPath = "/";
+
+        // Set Flags
+        isFilesystemLoaded = true;
+        isFilesystemDamaged = false;
 
         return "File formatted successfully";
     }

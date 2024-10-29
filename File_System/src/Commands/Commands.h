@@ -62,8 +62,18 @@ namespace Format {
     std::string formatFile(std::string& size);
 }
 
+// Additional commands
 namespace Help {
     void writeHelpInConsole();
+}
+
+// Additional required commands
+namespace BugCheck {
+    void checkForBugs();
+}
+
+namespace BugCreator {
+    std::string createBug(std::string& path);
 }
 
 #endif //COMMANDS_H

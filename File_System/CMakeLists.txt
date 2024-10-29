@@ -25,7 +25,13 @@ add_executable(File_System
         src/Commands/Outcp.cpp
         src/Commands/Load.cpp
         src/Commands/Format.cpp
+
+        # Additional Commands
         src/Commands/Help.cpp
+
+        # Additional Required Commands
+        src/Commands/Bug.cpp
+        src/Commands/Check.cpp
 
         # Headers
         src/Utils/Utils.h

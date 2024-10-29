@@ -129,6 +129,30 @@ File_System/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/build
 .PHONY : File_System/fast
 
+src/Commands/Bug.o: src/Commands/Bug.cpp.o
+.PHONY : src/Commands/Bug.o
+
+# target to build an object file
+src/Commands/Bug.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/Bug.cpp.o
+.PHONY : src/Commands/Bug.cpp.o
+
+src/Commands/Bug.i: src/Commands/Bug.cpp.i
+.PHONY : src/Commands/Bug.i
+
+# target to preprocess a source file
+src/Commands/Bug.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/Bug.cpp.i
+.PHONY : src/Commands/Bug.cpp.i
+
+src/Commands/Bug.s: src/Commands/Bug.cpp.s
+.PHONY : src/Commands/Bug.s
+
+# target to generate assembly for a file
+src/Commands/Bug.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/Bug.cpp.s
+.PHONY : src/Commands/Bug.cpp.s
+
 src/Commands/Cat.o: src/Commands/Cat.cpp.o
 .PHONY : src/Commands/Cat.o
 
@@ -176,6 +200,30 @@ src/Commands/Cd.s: src/Commands/Cd.cpp.s
 src/Commands/Cd.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/Cd.cpp.s
 .PHONY : src/Commands/Cd.cpp.s
+
+src/Commands/Check.o: src/Commands/Check.cpp.o
+.PHONY : src/Commands/Check.o
+
+# target to build an object file
+src/Commands/Check.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/Check.cpp.o
+.PHONY : src/Commands/Check.cpp.o
+
+src/Commands/Check.i: src/Commands/Check.cpp.i
+.PHONY : src/Commands/Check.i
+
+# target to preprocess a source file
+src/Commands/Check.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/Check.cpp.i
+.PHONY : src/Commands/Check.cpp.i
+
+src/Commands/Check.s: src/Commands/Check.cpp.s
+.PHONY : src/Commands/Check.s
+
+# target to generate assembly for a file
+src/Commands/Check.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/File_System.dir/build.make CMakeFiles/File_System.dir/src/Commands/Check.cpp.s
+.PHONY : src/Commands/Check.cpp.s
 
 src/Commands/Cp.o: src/Commands/Cp.cpp.o
 .PHONY : src/Commands/Cp.o
@@ -594,12 +642,18 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... File_System"
+	@echo "... src/Commands/Bug.o"
+	@echo "... src/Commands/Bug.i"
+	@echo "... src/Commands/Bug.s"
 	@echo "... src/Commands/Cat.o"
 	@echo "... src/Commands/Cat.i"
 	@echo "... src/Commands/Cat.s"
 	@echo "... src/Commands/Cd.o"
 	@echo "... src/Commands/Cd.i"
 	@echo "... src/Commands/Cd.s"
+	@echo "... src/Commands/Check.o"
+	@echo "... src/Commands/Check.i"
+	@echo "... src/Commands/Check.s"
 	@echo "... src/Commands/Cp.o"
 	@echo "... src/Commands/Cp.i"
 	@echo "... src/Commands/Cp.s"

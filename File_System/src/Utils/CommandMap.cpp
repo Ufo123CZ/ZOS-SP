@@ -58,14 +58,19 @@ void CommandMap::initCommandMap() {
             isFilesystemLoaded = true;
             std::cout << Format::formatFile(arg1) << std::endl;
         }},
+        // Additional commands
         {"exit", [](std::string&, std::string&) {
             Utils::endProgram();
         }},
         {"help", [](std::string&, std::string&) {
             Help::writeHelpInConsole();
         }},
-        {"test", [](std::string&, std::string&) {
-            std::cout << "Command: test, Current path: " << currentPath << ", Current cluster: " << currentCluster << std::endl;
+        // Additional required commands
+        {"bug", [](std::string& arg1, std::string&) {
+            BugCreator::createBug(arg1);
+        }},
+        {"check", [](std::string&, std::string&) {
+            BugCheck::checkForBugs();
         }}
     };
 }
