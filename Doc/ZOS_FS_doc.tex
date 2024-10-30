@@ -6,19 +6,12 @@
 \usepackage{enumitem}
 \usepackage{parskip}
 \usepackage{tocloft}
-\usepackage{multicol}
 \usepackage[hidelinks]{hyperref}
-\usepackage{graphicx}
-\usepackage{float}
-\usepackage{listings}
-\usepackage{xcolor}
-\usepackage{listings}
-\usepackage{fontawesome}
 
 \newcommand{\Subject}{ZOS}
 \newcommand{\TypeOfWork}{Semestrální práce}
 \newcommand{\WorkFor}{\Subject\- -- \TypeOfWork}
-\newcommand{\NameOfProject}{File System s využitím PseudoFAT systému}
+\newcommand{\NameOfProject}{Souborový Systém s využitím PseudoFAT systému}
 \newcommand{\Autor}{Martin Schön}
 \newcommand{\Id}{A22B0144P}
 \newcommand{\Date}{\today}
@@ -74,7 +67,7 @@ Program bude mít jeden parametr a tím bude název Vašeho souborového systém
 program čekat na zadání jednotlivých příkazů s minimální funkčností viz níže (všechny soubory
 mohou být zadány jak absolutní, tak relativní cestou):
 
-\begin{itemize}[itemsep=-3pt]
+\begin{itemize}[itemsep=-5pt]
     \item Zkopíruje soubor s1 do umístění s2
     \begin{itemize}
         \item[] \texttt{cp s1 s2}
@@ -206,14 +199,14 @@ Pokud je cluster přiřazen složce ukládá si informace o dalších složkách
 Pokud je cluster přiřazen souboru ukládá si informace o souboru.
 
 \section{Implementace}
-Program byl implementován v jazyce C++.
+Program byl implementován v jazyce C++ verze 23.
 Na začátku programu se zkontroluje počet argumentů a formát souboru, který reprezentuje souborový systém.
 Následně se načtou informace o souborovém systému, pokud již existoval, nebo se vytvoří nový souborový systém.
 Nový, či poškozený souborový systém bude první vyžadovat formátování na počáteční velikost.
 Pokud byl souborový systém načten, program bude čekat na zadání příkazů.
 
-Konzole při spuštění systémů vždy zobrazuje aktuální cestu kde se nachází.
-Dále se čeká na zadání příkazu, který určuje co se má provést.
+Konzole při spuštění systémů vždy zobrazuje aktuální cestu, kde se nachází.
+Dále se čeká na zadání příkazu, který určuje, co se má provést.
 Jednotlivé příkazy se rozdělují podle počtů argumentů:
 \begin{itemize}[itemsep=-4pt]
     \item command -- příkaz bez argumentů
@@ -286,7 +279,124 @@ Následně se zkontroluje cesta zdrojového souboru.
 Soubor ve zdrojovém adresáři se načte a zkontroluje se, zda zdrojový soubor existuje.
 pokud soubor existuje, smaže (jméno souboru na 0 indexu se nastaví na \textbackslash 0) se a vymaže obsah clusterů, kde byl uložen.
 
+\subsection{Příkaz mkdir}
+Implementace příkazu \texttt{mkdir} je v souboru \texttt{Mkdir.cpp}.
+Nejprve se zkontroluje, zda Souborový Systém existuje a přečte se Description.
+Následně se zkontroluje cesta nového adresáře.
+Adresář se vytvoří a uloží se do adresáře, kam vede cesta.
 
+\subsection{Příkaz rmdir}
+Implementace příkazu \texttt{rmdir} je v souboru \texttt{Rmdir.cpp}.
+Nejprve se zkontroluje, zda Souborový Systém existuje a přečte se Description.
+Následně se zkontroluje cesta zdrojového adresáře.
+Adresář se smaže pokud je prázdný.
 
+\subsection{Příkaz ls}
+Implementace příkazu \texttt{ls} je v souboru \texttt{Ls.cpp}.
+Nejprve se zkontroluje, zda Souborový Systém existuje a přečte se Description.
+Následně se zkontroluje cesta adresáře.
+Adresář nalezne všechny soubory a adresáře, které obsahuje a vypíše je.
+Je také možné vypsat obsah aktuálního adresáře.
+
+\subsection{Příkaz cat}
+Implementace příkazu \texttt{cat} je v souboru \texttt{Cat.cpp}.
+Nejprve se zkontroluje, zda Souborový Systém existuje a přečte se Description.
+Následně se zkontroluje cesta zdrojového souboru.
+Soubor se načte a vypíše se jeho obsah do konzole.
+
+\subsection{Příkaz cd}
+Implementace příkazu \texttt{cd} je v souboru \texttt{Cd.cpp}.
+Nejprve se zkontroluje, zda Souborový Systém existuje a přečte se Description.
+Následně se zkontroluje cesta nového adresáře.
+Současná cesta se změní na novou cestu.
+
+\subsection{Příkaz pwd}
+Jedná se pouze o vypsání aktuální cesty.
+
+\subsection{Příkaz info}
+Implementace příkazu \texttt{info} je v souboru \texttt{Info.cpp}.
+Nejprve se zkontroluje, zda Souborový Systém existuje a přečte se Description.
+Následně se zkontroluje cesta zdrojového souboru.
+Soubor se načte a vypíše se pozice souboru v clusterech.
+
+\subsection{Příkaz incp}
+Implementace příkazu \texttt{incp} je v souboru \texttt{Incp.cpp}.
+Zkontroluje se, zda vstupní soubor existuje.
+Nejprve se zkontroluje, zda Souborový Systém existuje a přečte se Description.
+Následně se zkontroluje cesta zdrojového souboru a cílového souboru.
+Zkontroluje se, zda cílový soubor existuje a zda je dostatek místa pro kopírování.
+Následně se zkopírují data ze zdrojového souboru a rozdělí se na fragmenty o velikosti clusteru a uloží se do clusterů.
+Ve FAT se zapíše řetězec clusterů, kde se soubor nachází.
+
+\subsection{Příkaz outcp}
+Implementace příkazu \texttt{outcp} je v souboru \texttt{Outcp.cpp}.
+Nejprve se zkontroluje, zda Souborový Systém existuje a přečte se Description.
+Následně se zkontroluje cesta zdrojového souboru a cílového souboru.
+Zkontroluje se, zda zdrojový soubor existuje a zda cesta do cílového souboru existuje.
+Následně se zkopírují data z clusterů a uloží se do cílového souboru.
+
+\subsection{Příkaz load}
+Implementace příkazu \texttt{load} je v souboru \texttt{Load.cpp}.
+Příkaz simuluje funkci uživatelské konzole.
+Přečte se soubor, který obsahuje příkazy a postupně se vykonávají.
+Nezáleží na tom, jaký je typ souboru, pokud je dodržen formát příkazů.
+\begin{itemize}
+    \item Pokud je systém nový a nezformátovaný, první provedený příkaz musí být \texttt{format <size>MB}.
+    \item Řádky, které začínají znakem \texttt{\#} jsou ignorovány.
+    \item Každý řádek může obsahovat pouze jeden příkaz.
+\end{itemize}
+
+\subsection{Příkaz format}
+Implementace příkazu \texttt{format} je v souboru \texttt{Format.cpp}.
+Format vytvoří nebo přepíše souborový systém na požadovanou velikost.
+Provedou se potřebné výpočty na velikost souborového systému, počet clusterů a a pozice FAT a Data adresy.
+Jako první se zapíše informace o souborovém systému (Description).
+Následně se vytvoří FAT tabulka začínající na fat\_start\_adress a kořenový adresář začínající na data\_start\_adress.
+Zbytek souboru se vyplní nulami. 
+
+\subsection{Příkaz check}
+Implementace příkazu \texttt{check} je v souboru \texttt{Check.cpp}.
+Příkaz kontroluje zda se nachází poškozený cluster v FAT tabulce.
+Pokud se poškozený cluster nachází, vypíše se jeho pozice clusteru a souborový systém se označí jako poškozený.
+
+\subsection{Příkaz bug}
+Implementace příkazu \texttt{bug} je v souboru \texttt{Bug.cpp}.
+Příkaz poškodí souborový systém tak, aby bylo možné ověřit funkčnost příkazu \texttt{check}.
+Nejprve se zkontroluje, zda Souborový Systém existuje a přečte se Description.
+Následně se zkontroluje cesta zdrojového souboru a cílového souboru.
+Soubor se načte a zkontroluje se, zda zdrojový soubor existuje.
+Na pozici clusteru se zapíše hodnota FAT\_BAD\_CLUSTER.
+Souborový systém se označí jako poškozený.
+
+\subsection{Příkaz help}
+Implementace příkazu \texttt{help} je v souboru \texttt{Help.cpp}.
+Příkaz vypíše všechny dostupné příkazy a jejich popis.
+
+\subsection{Příkaz exit}
+Příkaz ukončí program.
+
+\pagebreak
+
+\section{Uživatelská příručka}
+Ve složce se kromě této dokumentace nachází soubor \texttt{Makefile} pro Unixové systémy a \texttt{Makefile.win} pro Windows.
+Pro sestavení programu je nutné mít nainstalovaný \texttt{g++} a \texttt{make}.
+
+Unixové systémy:
+\begin{itemize}
+    \item \texttt{make -f Makefile} -- sestaví program a vytvoří spustitelný soubor \\\texttt{File\_System}
+    \item \texttt{make -f Makefile clean} -- smaže soubory vytvořené při sestavení
+\end{itemize}
+
+Windows:
+\begin{itemize}
+    \item \texttt{make -f Makefile.win} -- sestaví program a vytvoří spustitelný soubor \texttt{File\_System.exe}
+    \item \texttt{make -f Makefile.win clean} -- smaže soubory vytvořené při \\ sestavení
+\end{itemize}
+
+Program se spouští s jedním argumentem, kterým je soubor, který reprezentuje souborový systém s příponou \texttt{.dat}.
+Po spuštění programu se zobrazí konzole, kde je možné zadávat příkazy.
+Všechny funkční příkazy jsou popsány po zadání příkazu \texttt{help}.
+Pro ukončení programu je nutné zadat příkaz \texttt{exit}.
+\pagebreak
 
 \end{document}

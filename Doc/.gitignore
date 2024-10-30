@@ -1,9 +1,0 @@
-# Ignore everything
-*
-
-# Allow .gitignore
-!.gitignore
-
-# Allow only .tex and .pdf files
-!*.tex
-!*.pdf

@@ -1,0 +1,36 @@
+CC=g++
+CFLAGS= -std=c++23
+SRCDIR=src
+BUILDDIR=build
+TARGET=File_System
+
+SRC=$(wildcard $(SRCDIR)/*.cpp) $(wildcard $(SRCDIR)/Commands/*.cpp) $(wildcard $(SRCDIR)/Utils/*.cpp) $(wildcard $(SRCDIR)/FileCheck/*.cpp)
+OBJ=$(SRC:$(SRCDIR)/%.cpp=$(BUILDDIR)/%.o)
+
+all: $(TARGET)
+
+$(TARGET): $(OBJ)
+	@if not exist $(BUILDDIR) mkdir $(BUILDDIR)
+	$(CC) $(CFLAGS) $^ -o $@
+
+$(BUILDDIR)/%.o: $(SRCDIR)/%.cpp
+	@if not exist $(BUILDDIR) mkdir $(BUILDDIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+	
+$(BUILDDIR)/Commands/%.o: $(SRCDIR)/Commands/%.cpp
+	@if not exist $(BUILDDIR)\Commands mkdir $(BUILDDIR)\Commands
+	$(CC) $(CFLAGS) -c $< -o $@
+	
+$(BUILDDIR)/FileCheck/%.o: $(SRCDIR)/FileCheck/%.cpp
+	@if not exist $(BUILDDIR)\FileCheck mkdir $(BUILDDIR)\FileCheck
+	$(CC) $(CFLAGS) -c $< -o $@
+	
+$(BUILDDIR)/Utils/%.o: $(SRCDIR)/Utils/%.cpp
+	@if not exist $(BUILDDIR)\Utils mkdir $(BUILDDIR)\Utils
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	if exist $(BUILDDIR) rmdir /s /q $(BUILDDIR)
+	if exist $(TARGET).exe del $(TARGET).exe
+
+.PHONY: all clean
