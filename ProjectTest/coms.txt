@@ -1,0 +1,4 @@
+format 5MB
+mkdir t1
+mkdir t2
+mkdir t3
