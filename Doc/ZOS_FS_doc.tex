@@ -363,9 +363,9 @@ Pokud se poškozený cluster nachází, vypíše se jeho pozice clusteru a soubo
 Implementace příkazu \texttt{bug} je v souboru \texttt{Bug.cpp}.
 Příkaz poškodí souborový systém tak, aby bylo možné ověřit funkčnost příkazu \texttt{check}.
 Nejprve se zkontroluje, zda Souborový Systém existuje a přečte se Description.
-Následně se zkontroluje cesta zdrojového souboru a cílového souboru.
+Následně se zkontroluje cesta zdrojového souboru.
 Soubor se načte a zkontroluje se, zda zdrojový soubor existuje.
-Na pozici clusteru se zapíše hodnota FAT\_BAD\_CLUSTER.
+Na pozici clusteru ve FAT se zapíše hodnota FAT\_BAD\_CLUSTER.
 Souborový systém se označí jako poškozený.
 
 \subsection{Příkaz help}
@@ -393,8 +393,9 @@ Windows:
     \item \texttt{make -f Makefile.win clean} -- smaže soubory vytvořené při \\ sestavení
 \end{itemize}
 
-Program se spouští s jedním argumentem, kterým je soubor, který reprezentuje souborový systém s příponou \texttt{.dat}.
-Po spuštění programu se zobrazí konzole, kde je možné zadávat příkazy.
+Program se spouští s jedním argumentem, který reprezentuje souborový systém s příponou \texttt{.dat}.
+Po spuštění programu se zkontroluje stav souborového systému předaného argumentem.
+Po úspěšné kontrole je možné zadávat příkazy.
 Všechny funkční příkazy jsou popsány po zadání příkazu \texttt{help}.
 Pro ukončení programu je nutné zadat příkaz \texttt{exit}.
 \pagebreak
